@@ -10,9 +10,9 @@ responsibility: Map each configured benchmark id to an upstream harness or mark 
 completionCriteria: A machine-readable harness audit exists and classifies every selected benchmark as runnable_now, runnable_after_setup, blocked, or reported_only with concrete reasons.
 order: 2
 createdAt: 2026-06-15T17:53:27.068Z
-status: pending
+status: done
 runReadiness: needs_exploration
-runReadinessReason: Requires checking upstream benchmark repositories, install paths, evaluator commands, and local prerequisites.
+runReadinessReason: Closed by taskops close --reason manual_verified at 2026-06-15T17:59:03.516Z.
 understandingLevel: partial
 ---
 # Audit real runnable harness paths for all benchmark ids

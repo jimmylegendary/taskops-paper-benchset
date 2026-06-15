@@ -36,6 +36,7 @@ def main() -> int:
     pilot_doc = load_json(DATA / "pilot_plan.json")
     ale_subset_doc = load_json(DATA / "ale_free_easy_subset.json")
     run_matrix_doc = load_json(DATA / "run_matrix.json")
+    harness_audit_doc = load_json(DATA / "harness_audit.json")
     adapters_doc = load_json(ROOT / "config" / "adapters.json")
 
     sources = sources_doc.get("sources", [])
@@ -104,6 +105,28 @@ def main() -> int:
             matrix_benchmark_ids.add(benchmark_id)
     require(matrix_benchmark_ids, "run matrix has no benchmarks")
 
+    result_contract = run_matrix_doc.get("result_contract", {})
+    required_result_keys = set(result_contract.get("required_keys", []))
+    for key in ("score", "raw_scores", "task_count", "native_score", "taskops_metrics", "artifacts"):
+        require(key in required_result_keys, f"run matrix result_contract missing {key}")
+
+    audit_rows = harness_audit_doc.get("benchmarks", [])
+    require(isinstance(audit_rows, list) and audit_rows, "harness audit has no rows")
+    allowed_audit_statuses = set(harness_audit_doc.get("status_vocab", {}).keys())
+    require(allowed_audit_statuses, "harness audit missing status_vocab")
+    audited_ids = set()
+    for row in audit_rows:
+        benchmark_id = row.get("benchmark_id")
+        require(benchmark_id in source_id_set, f"harness audit references unknown benchmark {benchmark_id}")
+        require(row.get("status") in allowed_audit_statuses, f"harness audit {benchmark_id} has invalid status")
+        require(row.get("official_or_primary_source"), f"harness audit {benchmark_id} missing source")
+        validate_url(row.get("official_or_primary_source"), f"harness audit {benchmark_id}")
+        require(row.get("scoring_path"), f"harness audit {benchmark_id} missing scoring_path")
+        require(row.get("adapter_work"), f"harness audit {benchmark_id} missing adapter_work")
+        audited_ids.add(benchmark_id)
+    missing_audits = matrix_benchmark_ids - audited_ids
+    require(not missing_audits, f"run matrix benchmark ids missing harness audit rows: {sorted(missing_audits)}")
+
     ale_tasks = ale_subset_doc.get("tasks", [])
     require(isinstance(ale_tasks, list) and ale_tasks, "ALE subset has no tasks")
     ale_task_paths = [task.get("task_path") for task in ale_tasks]
@@ -126,6 +149,7 @@ def main() -> int:
     print(f"ok: {len(qwen_results)} Qwen3.6-27B reported result rows")
     print(f"ok: {len(ale_tasks)} ALE free/easy subset tasks")
     print(f"ok: {len(matrix_benchmark_ids)} run-matrix benchmark ids")
+    print(f"ok: {len(audited_ids)} harness audit rows")
     return 0
 
 

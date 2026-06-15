@@ -1,0 +1,178 @@
+{
+  "schema_version": "0.1.0",
+  "updated_at": "2026-06-16",
+  "purpose": "Track whether each benchmark id can produce real score JSON through the TaskOps runner. Stubs are smoke-only and do not count as benchmark results.",
+  "status_vocab": {
+    "runnable_after_setup": "Public harness/scorer exists; adapter work is needed but the benchmark can plausibly produce real scores.",
+    "blocked_until_pinned": "The benchmark is useful, but a public harness, task split, evaluator, or exact reproduction contract is not pinned enough for a real score run.",
+    "blocked_operationally": "A public harness exists, but local/cloud services, accounts, VMs, or compute requirements must be resolved before running.",
+    "reported_only": "Use only as contextual reported score until a reproducible harness is available."
+  },
+  "benchmarks": [
+    {
+      "benchmark_id": "swe_bench_verified",
+      "status": "runnable_after_setup",
+      "official_or_primary_source": "https://github.com/swe-bench/SWE-bench",
+      "scoring_path": "Generate model patches/predictions, then run SWE-bench evaluation in Docker or submit through sb-cli/cloud evaluation. Primary score is resolved_percent/pass rate.",
+      "adapter_work": [
+        "Create dataset subset selector for Verified",
+        "Invoke direct_agent or taskops_agent to produce patch predictions",
+        "Convert predictions to SWE-bench expected format",
+        "Run official evaluator or sb-cli",
+        "Parse resolved percentage into score.primary"
+      ],
+      "requirements": ["Docker", "Python", "datasets", "SWE-bench harness or sb-cli", "agent runtime adapter"],
+      "notes": "Best first coding control adapter because official evaluation path is public and well-known."
+    },
+    {
+      "benchmark_id": "swe_bench_pro",
+      "status": "runnable_after_setup",
+      "official_or_primary_source": "https://github.com/scaleapi/SWE-bench_Pro-os",
+      "scoring_path": "Run the public SWE-bench Pro harness/evaluator on selected tasks and parse resolved_percent.",
+      "adapter_work": [
+        "Pin the public task split used for the paper run",
+        "Generate patch predictions through the selected agent arm",
+        "Run Docker-based evaluator",
+        "Parse resolved percentage into score.primary"
+      ],
+      "requirements": ["Docker", "Python", "SWE-bench Pro repo", "agent runtime adapter"],
+      "notes": "Qwen reported a refined public set, so reproduction must explicitly pin the public subset used."
+    },
+    {
+      "benchmark_id": "terminal_bench_2",
+      "status": "runnable_after_setup",
+      "official_or_primary_source": "https://www.harborframework.com/docs/tutorials/running-terminal-bench",
+      "scoring_path": "Install Harbor, verify oracle solutions for Terminal-Bench 2.0, run agent on selected tasks, and parse Harbor/Terminal-Bench success results.",
+      "adapter_work": [
+        "Install Harbor and Terminal-Bench 2.x task set",
+        "Implement a Harbor-compatible agent wrapper for direct_agent/taskops_agent",
+        "Run selected tasks in Docker-backed terminal environments",
+        "Parse task success rate into score.primary"
+      ],
+      "requirements": ["Docker", "Harbor", "Terminal-Bench tasks", "agent runtime adapter"],
+      "notes": "Strong TaskOps fit because tasks are terminal-native and evidence/log heavy."
+    },
+    {
+      "benchmark_id": "skillsbench",
+      "status": "runnable_after_setup",
+      "official_or_primary_source": "https://www.skillsbench.ai/docs/getting-started",
+      "scoring_path": "Install BenchFlow/SkillsBench, run selected tasks through the BenchFlow runtime, and parse per-task success results.",
+      "adapter_work": [
+        "Install benchflow 0.6.x with uv",
+        "Clone and sync SkillsBench",
+        "Implement compatible agent invocation for the benchmark",
+        "Run selected self-contained tasks",
+        "Parse average success rate into score.primary"
+      ],
+      "requirements": ["Docker", "Python 3.12+", "uv", "benchflow", "skillsbench repo", "agent runtime adapter"],
+      "notes": "Good procedural/skill-following benchmark, but adapter must respect SkillsBench's expected agent interface."
+    },
+    {
+      "benchmark_id": "nl2repo",
+      "status": "runnable_after_setup",
+      "official_or_primary_source": "https://github.com/multimodal-art-projection/NL2RepoBench",
+      "scoring_path": "Run the NL2RepoBench task environment and pytest/evaluation checks against generated repositories; normalize benchmark-specific score.",
+      "adapter_work": [
+        "Pin the exact NL2RepoBench repo/task split",
+        "Generate repositories through direct_agent/taskops_agent",
+        "Run task-specific tests/evaluator",
+        "Parse pass/fail or continuous reward into score.primary"
+      ],
+      "requirements": ["Python", "NL2RepoBench repo", "per-task dependencies", "agent runtime adapter"],
+      "notes": "Public repo exists, but adapter must inspect actual evaluator commands before this can be marked configured."
+    },
+    {
+      "benchmark_id": "agents_last_exam_free_easy_subset",
+      "status": "blocked_operationally",
+      "official_or_primary_source": "https://github.com/rdi-berkeley/agents-last-exam",
+      "scoring_path": "Use ALE task cards and reference evaluators for the curated free/easy subset, excluding licensed/GPU-heavy tasks, then normalize task-specific scores.",
+      "adapter_work": [
+        "Clone ALE and map data/ale_free_easy_subset.json task ids to task cards",
+        "Verify which selected tasks can run on local Linux/free tools without extra licensed software",
+        "Create per-task workspace setup and artifact collection",
+        "Run ALE evaluators or reference checks",
+        "Normalize task-specific hidden-reference scores into score.primary"
+      ],
+      "requirements": ["ALE repo", "task-specific free tools", "possibly VM/container setup", "agent runtime adapter"],
+      "notes": "High-value TaskOps benchmark, but operational setup must be pinned before claiming runnable_now."
+    },
+    {
+      "benchmark_id": "hcast_public",
+      "status": "blocked_until_pinned",
+      "official_or_primary_source": "https://github.com/METR/hcast-public",
+      "scoring_path": "Use the public HCAST task source code subset and task-specific grading scripts if available; full-scale suite requires METR access.",
+      "adapter_work": [
+        "Inspect public task folders for runnable graders",
+        "Select public tasks with local reproducibility",
+        "Wrap the task standard in TaskOps/agent invocation",
+        "Parse task success vs human-calibrated horizon metadata"
+      ],
+      "requirements": ["HCAST public repo", "task-specific dependencies", "agent runtime adapter"],
+      "notes": "The public repo is useful, but large-scale/full-suite evaluation is not directly public."
+    },
+    {
+      "benchmark_id": "re_bench",
+      "status": "blocked_operationally",
+      "official_or_primary_source": "https://github.com/METR/RE-Bench",
+      "scoring_path": "Run RE-Bench task environments and benchmark-specific scoring against agent-generated research engineering artifacts.",
+      "adapter_work": [
+        "Clone RE-Bench and inspect task runtime requirements",
+        "Pin a small selected subset due to compute/time cost",
+        "Run agent attempts with explicit wall-clock budgets",
+        "Parse benchmark-specific score vs expert baseline"
+      ],
+      "requirements": ["RE-Bench repo", "ML/research task dependencies", "sufficient compute", "agent runtime adapter"],
+      "notes": "Excellent long-work benchmark but not a cheap first adapter."
+    },
+    {
+      "benchmark_id": "agents_last_exam",
+      "status": "blocked_operationally",
+      "official_or_primary_source": "https://github.com/rdi-berkeley/agents-last-exam",
+      "scoring_path": "Full ALE evaluation across broad task types and reference graders.",
+      "adapter_work": [
+        "Resolve licensed/professional/GPU/Windows task requirements",
+        "Pin task subset and environments",
+        "Run task-specific graders"
+      ],
+      "requirements": ["ALE repo", "VM/image setup", "task-specific software", "agent runtime adapter"],
+      "notes": "Keep full ALE as extension; use ALE-FreeEasy for the practical first slice."
+    },
+    {
+      "benchmark_id": "the_agent_company",
+      "status": "blocked_operationally",
+      "official_or_primary_source": "https://github.com/TheAgentCompany/TheAgentCompany",
+      "scoring_path": "Run TheAgentCompany's self-hosted workplace environment and checkpoint/execution-based evaluation.",
+      "adapter_work": [
+        "Bring up required services such as GitLab/OwnCloud/RocketChat equivalents",
+        "Implement browser/program/communication-capable agent adapter",
+        "Run selected tasks and parse checkpoint scores"
+      ],
+      "requirements": ["TheAgentCompany repo", "self-hosted services", "browser automation", "agent runtime adapter"],
+      "notes": "Good extension benchmark; too operationally heavy for the first score-producing adapter."
+    },
+    {
+      "benchmark_id": "vending_bench",
+      "status": "blocked_until_pinned",
+      "official_or_primary_source": "https://arxiv.org/html/2502.15840v1",
+      "scoring_path": "Long-horizon vending business simulation scored by business outcome, if public scenario/evaluator code is pinned.",
+      "adapter_work": [
+        "Find or obtain public evaluator/scenario code",
+        "Pin environment and scoring definition",
+        "Wrap long-horizon simulation in TaskOps"
+      ],
+      "requirements": ["Pinned public environment/evaluator", "agent runtime adapter"],
+      "notes": "Currently better as motivation/extension than core reproducible score data."
+    },
+    {
+      "benchmark_id": "swe_bench_multilingual",
+      "status": "reported_only",
+      "official_or_primary_source": "https://qwen.ai/blog?id=qwen3.6-27b",
+      "scoring_path": "No public harness/task set pinned in this repo yet.",
+      "adapter_work": [
+        "Find public benchmark definition or replace with a reproducible multilingual SWE benchmark"
+      ],
+      "requirements": ["Pinned public harness"],
+      "notes": "Keep reported-only until public reproduction path is available."
+    }
+  ]
+}

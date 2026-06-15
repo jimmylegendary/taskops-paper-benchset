@@ -68,6 +68,9 @@
       "arm",
       "benchmark_id",
       "status",
+      "score",
+      "raw_scores",
+      "task_count",
       "native_score",
       "taskops_metrics",
       "artifacts"
