@@ -120,7 +120,7 @@ def rel(path: str | Path | None) -> str | None:
 
 
 def observed_final(text: str) -> str | None:
-    match = re.search(r"FINAL\s*:\s*[^\\n\"}]+", text, flags=re.IGNORECASE)
+    match = re.search(r"FINAL\s*:\s*[^\n\"}]+", text, flags=re.IGNORECASE)
     return match.group(0).strip() if match else None
 
 
