@@ -1,0 +1,128 @@
+{
+  "schema_version": "0.1.0",
+  "suite_name": "TaskOps Paper Representative Benchmark Suite",
+  "updated_at": "2026-06-16",
+  "model_under_test": "Qwen/Qwen3.6-27B",
+  "experimental_comparison": {
+    "baseline": "direct_agent_qwen3_6_27b",
+    "treatment": "taskops_managed_agent_qwen3_6_27b",
+    "control_principle": "Use the same model and as close as possible to the same worker harness. Change only the execution-control layer."
+  },
+  "core_suite": [
+    {
+      "type_id": "simple_coding_baseline",
+      "label": "Simple coding baseline",
+      "benchmark_ids": ["swe_bench_verified"],
+      "paper_role": "Negative or low-lift control",
+      "expected_taskops_lift": "low",
+      "hypothesis": "TaskOps should not significantly improve short single-patch tasks; any large lift here may indicate harness confounding."
+    },
+    {
+      "type_id": "hard_repo_issue_repair",
+      "label": "Hard long-horizon repo issue repair",
+      "benchmark_ids": ["swe_bench_pro"],
+      "paper_role": "Primary coding-agent benchmark",
+      "expected_taskops_lift": "medium",
+      "hypothesis": "TaskOps should improve honest continuation, evidence tracking, and retry behavior on larger issue-repair tasks."
+    },
+    {
+      "type_id": "terminal_system_work",
+      "label": "Terminal and system work",
+      "benchmark_ids": ["terminal_bench_2"],
+      "paper_role": "Primary multi-step tool-use benchmark",
+      "expected_taskops_lift": "medium_to_high",
+      "hypothesis": "TaskOps should help most when build/debug/setup work spans many terminal steps and failure states."
+    },
+    {
+      "type_id": "skill_procedure_workflows",
+      "label": "Skill and procedure following",
+      "benchmark_ids": ["skillsbench"],
+      "paper_role": "Primary procedural-knowledge benchmark",
+      "expected_taskops_lift": "high",
+      "hypothesis": "TaskOps should improve workflows that require explicit procedural state, reusable skills, and step evidence."
+    },
+    {
+      "type_id": "repo_from_scratch_generation",
+      "label": "Repository from scratch",
+      "benchmark_ids": ["nl2repo"],
+      "paper_role": "Primary decomposition and artifact-closure benchmark",
+      "expected_taskops_lift": "high",
+      "hypothesis": "TaskOps should improve multi-file repo generation through explicit decomposition, verification, and closure checks."
+    },
+    {
+      "type_id": "human_calibrated_long_work",
+      "label": "Human-calibrated long work",
+      "benchmark_ids": ["hcast_public", "re_bench"],
+      "paper_role": "Primary time-horizon benchmark",
+      "expected_taskops_lift": "medium_to_high",
+      "hypothesis": "TaskOps should primarily improve completion honesty, restartability, and progress reporting on 1h to 8h+ tasks."
+    }
+  ],
+  "extension_suite": [
+    {
+      "type_id": "broad_real_work_oracle",
+      "label": "Broad real-work hidden-reference tasks",
+      "benchmark_ids": ["agents_last_exam"],
+      "paper_role": "Diverse external oracle after adapter maturity",
+      "expected_taskops_lift": "medium_to_high",
+      "hypothesis": "TaskOps should help with diverse real-world artifact tasks, but infra cost and environment variance make this an extension suite."
+    },
+    {
+      "type_id": "workplace_multi_app_tasks",
+      "label": "Workplace multi-app coordination",
+      "benchmark_ids": ["the_agent_company"],
+      "paper_role": "Multi-app coordination extension",
+      "expected_taskops_lift": "high",
+      "hypothesis": "TaskOps should provide shared durable state when work crosses apps, agents, and communication surfaces."
+    },
+    {
+      "type_id": "long_term_coherence",
+      "label": "Long-term coherence",
+      "benchmark_ids": ["vending_bench"],
+      "paper_role": "Ultra-long coherence extension",
+      "expected_taskops_lift": "medium",
+      "hypothesis": "TaskOps should reduce drift and premature closure over very long simulated horizons, though this is less code-centric."
+    }
+  ],
+  "reported_only_not_core": [
+    {
+      "benchmark_ids": ["claw_eval", "qwen_claw_bench"],
+      "reason": "Qwen3.6-27B reports strong scores, but public task definitions and harness details are not pinned enough for core paper evidence."
+    },
+    {
+      "benchmark_ids": ["swe_bench_multilingual"],
+      "reason": "Useful extension for non-Python coding tasks, but public harness/task pinning should be confirmed before core use."
+    }
+  ],
+  "taskops_metrics": [
+    {
+      "id": "external_score",
+      "description": "Benchmark-native score, pass rate, or task-specific artifact score."
+    },
+    {
+      "id": "false_completion_rate",
+      "description": "Fraction of runs marked complete despite missing required artifacts, failed benchmark scoring, or missing EoW evidence."
+    },
+    {
+      "id": "evidence_completeness",
+      "description": "Fraction of executed tasks with run node, source task reference, artifact reference, and EoW."
+    },
+    {
+      "id": "restart_recovery_rate",
+      "description": "Fraction of intentionally interrupted runs that resume without duplicated claims or lost progress."
+    },
+    {
+      "id": "queue_integrity",
+      "description": "No duplicate active claims, max concurrency obeyed, stale leases handled."
+    },
+    {
+      "id": "reporting_coverage",
+      "description": "Step-0 decomposition, wave reports, blockers, and final answer are reported to the master sink."
+    },
+    {
+      "id": "cost_time_overhead",
+      "description": "Wall time, token count, worker attempts, and retries compared with the direct-agent baseline."
+    }
+  ]
+}
+

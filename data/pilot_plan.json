@@ -1,0 +1,79 @@
+{
+  "schema_version": "0.1.0",
+  "updated_at": "2026-06-16",
+  "name": "Cost-controlled Qwen3.6-27B TaskOps pilot",
+  "purpose": "Run a small but representative first experiment before expanding to full benchmark suites.",
+  "model": "Qwen/Qwen3.6-27B",
+  "arms": ["direct_agent", "taskops_agent"],
+  "selection_rules": [
+    "Pre-register task IDs before running the benchmark.",
+    "Prefer public tasks with reproducible local or containerized evaluation.",
+    "Avoid live-web, paid-API, licensed-software, and GPU-heavy tasks in the first pilot unless they are the point of the task type.",
+    "Use the same worker model, context, sampling defaults, and tool budget across direct-agent and TaskOps-agent arms whenever possible.",
+    "Do not tune TaskOps prompts or decomposition rules against hidden test outcomes."
+  ],
+  "pilot_slices": [
+    {
+      "benchmark_id": "swe_bench_verified",
+      "target_task_count": 20,
+      "difficulty_policy": "mix easy/medium; use as low-lift control",
+      "budget_tier": "low",
+      "primary_readout": "TaskOps should not create large score changes on simple patch tasks."
+    },
+    {
+      "benchmark_id": "swe_bench_pro",
+      "target_task_count": 20,
+      "difficulty_policy": "prefer public tasks that fit local Docker or affordable remote execution",
+      "budget_tier": "medium",
+      "primary_readout": "Does TaskOps improve hard codebase repair without increasing false completion?"
+    },
+    {
+      "benchmark_id": "terminal_bench_2",
+      "target_task_count": 15,
+      "difficulty_policy": "sample terminal tasks across build/debug/security/system administration",
+      "budget_tier": "medium",
+      "primary_readout": "Does TaskOps improve multi-step terminal work and failure recovery?"
+    },
+    {
+      "benchmark_id": "skillsbench",
+      "target_task_count": 15,
+      "difficulty_policy": "use self-contained tasks that do not require paid external APIs",
+      "budget_tier": "low_to_medium",
+      "primary_readout": "Does TaskOps help skill/procedure-following and evidence closure?"
+    },
+    {
+      "benchmark_id": "nl2repo",
+      "target_task_count": 10,
+      "difficulty_policy": "sample small/medium repository-generation tasks with deterministic tests",
+      "budget_tier": "medium",
+      "primary_readout": "Does TaskOps improve decomposition and installable multi-file artifact completion?"
+    },
+    {
+      "benchmark_id": "hcast_public",
+      "target_task_count": 3,
+      "difficulty_policy": "choose public tasks spanning short, medium, and long calibrated horizons",
+      "budget_tier": "medium",
+      "primary_readout": "Does TaskOps improve time-horizon honesty and restartability?"
+    },
+    {
+      "benchmark_id": "re_bench",
+      "target_task_count": 2,
+      "difficulty_policy": "choose the most affordable 8-hour-class environments first",
+      "budget_tier": "high",
+      "primary_readout": "Does TaskOps create measurable gains on long AI R&D work or mainly reduce silent failure?"
+    }
+  ],
+  "minimum_publishable_pilot": {
+    "total_tasks_per_arm": 50,
+    "composition": {
+      "swe_bench_verified": 10,
+      "swe_bench_pro": 10,
+      "terminal_bench_2": 10,
+      "skillsbench": 10,
+      "nl2repo": 5,
+      "hcast_public_or_re_bench": 5
+    },
+    "note": "Use this if budget blocks the full pilot."
+  }
+}
+
