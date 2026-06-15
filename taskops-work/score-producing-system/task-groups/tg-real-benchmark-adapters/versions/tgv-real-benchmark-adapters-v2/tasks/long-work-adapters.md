@@ -11,10 +11,8 @@ completionCriteria: Each long-work adapter either produces real score JSON for a
 order: 3
 createdAt: 2026-06-15T18:10:45.460Z
 status: done
-runReadiness: blocked
+runReadiness: runnable
 runReadinessReason: Closed by taskops close --reason manual_verified at 2026-06-15T18:14:03.318Z.
 understandingLevel: partial
-blockedBy:
-  - benchmark-harness-audit
 ---
 # Implement ALE-FreeEasy, HCAST, and RE-Bench adapters

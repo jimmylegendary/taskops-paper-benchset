@@ -11,10 +11,8 @@ completionCriteria: Extension benchmarks are either implemented with real scorin
 order: 4
 createdAt: 2026-06-15T18:10:45.460Z
 status: done
-runReadiness: blocked
+runReadiness: runnable
 runReadinessReason: Closed by taskops close --reason manual_verified at 2026-06-15T18:14:03.345Z.
 understandingLevel: partial
-blockedBy:
-  - benchmark-harness-audit
 ---
 # Implement extension benchmark adapters
