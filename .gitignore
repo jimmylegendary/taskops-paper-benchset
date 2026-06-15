@@ -6,4 +6,6 @@ dist/
 build/
 results/
 local/
+/generated/
+taskops-work/**/.taskops/
 

@@ -35,6 +35,8 @@ def main() -> int:
     suite_doc = load_json(DATA / "taskops_paper_suite.json")
     pilot_doc = load_json(DATA / "pilot_plan.json")
     ale_subset_doc = load_json(DATA / "ale_free_easy_subset.json")
+    run_matrix_doc = load_json(DATA / "run_matrix.json")
+    adapters_doc = load_json(ROOT / "config" / "adapters.json")
 
     sources = sources_doc.get("sources", [])
     require(isinstance(sources, list) and sources, "benchmark_sources.json has no sources")
@@ -69,6 +71,18 @@ def main() -> int:
             for ref in refs:
                 require(ref in source_id_set, f"{section_name} {type_id} references unknown benchmark {ref}")
 
+    adapters = adapters_doc.get("adapters", {})
+    require(isinstance(adapters, dict) and adapters, "adapters config missing")
+    for adapter_id, adapter in adapters.items():
+        require(adapter_id in source_id_set, f"adapter references unknown benchmark {adapter_id}")
+        require("configured" in adapter, f"adapter {adapter_id} missing configured flag")
+        command_template = adapter.get("command_template")
+        require(command_template, f"adapter {adapter_id} missing command_template")
+        command_parts = command_template.split()
+        if len(command_parts) >= 2 and command_parts[0].startswith("python"):
+            script_path = ROOT / command_parts[1]
+            require(script_path.exists(), f"adapter {adapter_id} script does not exist: {command_parts[1]}")
+
     metric_ids = [metric.get("id") for metric in suite_doc.get("taskops_metrics", [])]
     require(metric_ids and len(metric_ids) == len(set(metric_ids)), "taskops metric ids missing or duplicated")
 
@@ -78,6 +92,17 @@ def main() -> int:
         benchmark_id = item.get("benchmark_id")
         require(benchmark_id in source_id_set, f"pilot references unknown benchmark {benchmark_id}")
         require(item.get("target_task_count", 0) > 0, f"pilot {benchmark_id} has invalid target count")
+
+    matrix_benchmark_ids = set()
+    for mode, mode_doc in run_matrix_doc.get("suite_modes", {}).items():
+        benches = mode_doc.get("benchmarks", [])
+        require(benches, f"run matrix mode {mode} has no benchmarks")
+        for bench in benches:
+            benchmark_id = bench.get("benchmark_id")
+            require(benchmark_id in source_id_set, f"run matrix mode {mode} references unknown benchmark {benchmark_id}")
+            require(benchmark_id in adapters, f"run matrix benchmark {benchmark_id} has no adapter")
+            matrix_benchmark_ids.add(benchmark_id)
+    require(matrix_benchmark_ids, "run matrix has no benchmarks")
 
     ale_tasks = ale_subset_doc.get("tasks", [])
     require(isinstance(ale_tasks, list) and ale_tasks, "ALE subset has no tasks")
@@ -100,6 +125,7 @@ def main() -> int:
     print(f"ok: {len(source_ids)} benchmark sources")
     print(f"ok: {len(qwen_results)} Qwen3.6-27B reported result rows")
     print(f"ok: {len(ale_tasks)} ALE free/easy subset tasks")
+    print(f"ok: {len(matrix_benchmark_ids)} run-matrix benchmark ids")
     return 0
 
 

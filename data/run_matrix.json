@@ -1,0 +1,76 @@
+{
+  "schema_version": "0.1.0",
+  "updated_at": "2026-06-16",
+  "name": "TaskOps paper benchmark run matrix",
+  "default_model": "Qwen/Qwen3.6-27B",
+  "arms": [
+    {
+      "id": "direct_agent",
+      "label": "Direct agent",
+      "description": "Qwen3.6-27B runs the benchmark task through the benchmark-native or closest available agent harness without TaskOps managing decomposition, queueing, reporting, or closure."
+    },
+    {
+      "id": "taskops_agent",
+      "label": "TaskOps-managed agent",
+      "description": "Qwen3.6-27B is invoked as the worker model while TaskOps owns task decomposition, queueing, run evidence, progress reporting, restart behavior, and closure checks."
+    }
+  ],
+  "suite_modes": {
+    "pilot": {
+      "description": "Cost-controlled first run. Intended to validate the harness and produce the first paper table.",
+      "benchmarks": [
+        {"benchmark_id": "swe_bench_verified", "task_count": 10},
+        {"benchmark_id": "swe_bench_pro", "task_count": 10},
+        {"benchmark_id": "terminal_bench_2", "task_count": 10},
+        {"benchmark_id": "skillsbench", "task_count": 10},
+        {"benchmark_id": "nl2repo", "task_count": 5},
+        {"benchmark_id": "agents_last_exam_free_easy_subset", "task_count": 5},
+        {"benchmark_id": "hcast_public", "task_count": 3},
+        {"benchmark_id": "re_bench", "task_count": 2}
+      ]
+    },
+    "core": {
+      "description": "Main paper suite without broad extension-only benchmarks.",
+      "benchmarks": [
+        {"benchmark_id": "swe_bench_verified", "task_count": 20},
+        {"benchmark_id": "swe_bench_pro", "task_count": 20},
+        {"benchmark_id": "terminal_bench_2", "task_count": 15},
+        {"benchmark_id": "skillsbench", "task_count": 15},
+        {"benchmark_id": "nl2repo", "task_count": 10},
+        {"benchmark_id": "agents_last_exam_free_easy_subset", "task_count": 12},
+        {"benchmark_id": "hcast_public", "task_count": 3},
+        {"benchmark_id": "re_bench", "task_count": 2}
+      ]
+    },
+    "full": {
+      "description": "Everything currently tracked by the paper benchmark repository. Extension entries may need more setup.",
+      "benchmarks": [
+        {"benchmark_id": "swe_bench_verified", "task_count": 20},
+        {"benchmark_id": "swe_bench_pro", "task_count": 20},
+        {"benchmark_id": "terminal_bench_2", "task_count": 15},
+        {"benchmark_id": "skillsbench", "task_count": 15},
+        {"benchmark_id": "nl2repo", "task_count": 10},
+        {"benchmark_id": "agents_last_exam_free_easy_subset", "task_count": 35},
+        {"benchmark_id": "hcast_public", "task_count": 3},
+        {"benchmark_id": "re_bench", "task_count": 2},
+        {"benchmark_id": "agents_last_exam", "task_count": "selected_by_adapter"},
+        {"benchmark_id": "the_agent_company", "task_count": "selected_by_adapter"},
+        {"benchmark_id": "vending_bench", "task_count": "selected_by_adapter"},
+        {"benchmark_id": "swe_bench_multilingual", "task_count": "selected_by_adapter"}
+      ]
+    }
+  },
+  "result_contract": {
+    "root": "results/<run_id>/",
+    "per_taskops_task": "results/<run_id>/<arm>/<benchmark_id>/result.json",
+    "required_keys": [
+      "run_id",
+      "arm",
+      "benchmark_id",
+      "status",
+      "native_score",
+      "taskops_metrics",
+      "artifacts"
+    ]
+  }
+}

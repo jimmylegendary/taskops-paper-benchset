@@ -1,0 +1,7 @@
+{
+  "run_id": "core-qwen3_6_27b-001",
+  "mode": "core",
+  "arms": "both",
+  "created_at": "2026-06-15T17:03:39.076552+00:00",
+  "source_repo": "https://github.com/jimmylegendary/taskops-paper-benchset"
+}

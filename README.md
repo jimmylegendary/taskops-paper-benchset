@@ -49,10 +49,14 @@ whether the work was managed honestly and recoverably.
 - `data/benchmark_sources.json` - source registry and reproducibility notes.
 - `data/qwen3_6_27b_reported_results.json` - reported Qwen3.6-27B benchmark scores.
 - `data/taskops_paper_suite.json` - selected paper suite, hypotheses, and metrics.
+- `data/run_matrix.json` - runnable benchmark matrix for pilot/core/full modes.
 - `data/pilot_plan.json` - cost-controlled first experiment plan.
 - `data/ale_free_easy_subset.json` - curated Agents' Last Exam subset metadata.
+- `config/adapters.json` - explicit adapter contract for each benchmark.
 - `docs/experimental-design.md` - paper-facing experiment plan.
 - `docs/research-notes.md` - source notes and caveats.
+- `docs/runbook.md` - clone-to-TaskOps-run instructions.
+- `scripts/taskops_bench.py` - TaskOps work graph and command-plan generator.
 - `scripts/validate.py` - manifest validation.
 
 ## Initial Paper Position
@@ -79,3 +83,24 @@ multi-artifact, and procedure-heavy tasks.
 ```bash
 python3 scripts/validate.py
 ```
+
+## TaskOps Run Structure
+
+Generate a TaskOps work graph for the core suite:
+
+```bash
+python3 scripts/taskops_bench.py init-work \
+  --work-dir taskops-work/core \
+  --mode core \
+  --arms both \
+  --run-id core-qwen3_6_27b-001 \
+  --force
+```
+
+Smoke the queue/runner path without external benchmark cost:
+
+```bash
+python3 scripts/taskops_bench.py smoke --mode pilot --arms both --steps 2
+```
+
+See `docs/runbook.md` for the full workflow.
