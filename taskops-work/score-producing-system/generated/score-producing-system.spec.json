@@ -1,0 +1,73 @@
+{
+  "versionId": "tgv-root-v2",
+  "version": "v2",
+  "summary": "Score-producing TaskOps benchmark execution system",
+  "selected": true,
+  "logSeedLine": "Corrected objective: produce real benchmark score data for selected or full benchmark matrices; stubs are smoke-only.",
+  "tasks": [
+    {
+      "id": "score-contract-and-stub-policy",
+      "title": "Define score-producing result contract and stub policy",
+      "objective": "Make the runner and docs require actual score data for real benchmark runs, while allowing stubs only through an explicit smoke-test opt-in.",
+      "responsibility": "Own result schema, adapter validation rules, scores.json aggregation, and the policy that not_configured results cannot count as completed benchmark scores.",
+      "completionCriteria": "Default run fails for unconfigured adapters; --allow-stubs-for-smoke is required for stub adapters; completed results require numeric score.primary; docs describe score JSON outputs and smoke-only stubs.",
+      "status": "pending",
+      "runReadiness": "runnable",
+      "runReadinessReason": "The repo already has a TaskOps queue runner and stub adapters; this task is a concrete code/doc correction.",
+      "understandingLevel": "known",
+      "order": 1
+    },
+    {
+      "id": "benchmark-harness-audit",
+      "title": "Audit real runnable harness paths for all benchmark ids",
+      "objective": "For every benchmark in pilot/core/full, determine the exact install, execution, evaluator, scoring metric, cost/runtime, and blockers needed to produce real score JSON.",
+      "responsibility": "Map each configured benchmark id to an upstream harness or mark it blocked with evidence; no benchmark may remain a vague adapter placeholder.",
+      "completionCriteria": "A machine-readable harness audit exists and classifies every selected benchmark as runnable_now, runnable_after_setup, blocked, or reported_only with concrete reasons.",
+      "status": "pending",
+      "runReadiness": "needs_exploration",
+      "runReadinessReason": "Requires checking upstream benchmark repositories, install paths, evaluator commands, and local prerequisites.",
+      "understandingLevel": "partial",
+      "order": 2
+    },
+    {
+      "id": "agent-runtime-adapter-contract",
+      "title": "Implement agent runtime adapter contract",
+      "objective": "Define and implement the common interface used by benchmark adapters to invoke OpenClaw first and other agent CLIs later.",
+      "responsibility": "Separate benchmark harness execution from agent invocation; support direct_agent and taskops_agent arms without hardcoding one app into the benchmark runner.",
+      "completionCriteria": "The repo has a documented runtime adapter contract and at least one runnable OpenClaw/Qwen3.6-27B adapter path that benchmark adapters can call.",
+      "status": "pending",
+      "runReadiness": "needs_decomposition",
+      "runReadinessReason": "This requires choosing process/http/session invocation boundaries and likely decomposes into OpenClaw adapter plus generic command adapter.",
+      "understandingLevel": "partial",
+      "order": 3
+    },
+    {
+      "id": "real-benchmark-adapters",
+      "title": "Replace benchmark stubs with real score-producing adapters",
+      "objective": "Implement real adapters for all selected benchmark ids so each adapter installs/verifies its harness, runs benchmark tasks, calls official scoring, and writes normalized result JSON.",
+      "responsibility": "Own benchmark-specific setup and scorer integration for SWE-bench, Terminal-Bench, SkillsBench, NL2Repo, ALE-FreeEasy/ALE, HCAST, RE-Bench, and extension benchmarks as selected.",
+      "completionCriteria": "Every selected benchmark adapter either produces completed score JSON or records an explicit blocked/failed result before the aggregate run is reported.",
+      "status": "pending",
+      "runReadiness": "needs_decomposition",
+      "runReadinessReason": "This is a multi-benchmark implementation branch and should split per benchmark family after the harness audit.",
+      "understandingLevel": "partial",
+      "order": 4
+    },
+    {
+      "id": "score-runner-validation",
+      "title": "Validate selected and full score-producing runs",
+      "objective": "Run selected and full benchmark matrices through TaskOps and verify they produce score JSON, aggregate scores, artifacts, logs, queue state, and TaskOps node-state reports.",
+      "responsibility": "Own end-to-end validation, failure/resume behavior, and final reporting that distinguishes completed scores from blocked or failed benchmarks.",
+      "completionCriteria": "A selected real benchmark run and the requested full or core run produce results/<run_id>/scores.json, summary.json, taskops-node-state.json, and per-benchmark result.json files with no stub scores counted.",
+      "status": "pending",
+      "runReadiness": "blocked",
+      "runReadinessReason": "Blocked until at least one real benchmark adapter and runtime adapter are configured; full run blocked until all selected adapters are implemented or explicitly classified.",
+      "blockedBy": [
+        "agent-runtime-adapter-contract",
+        "real-benchmark-adapters"
+      ],
+      "understandingLevel": "known",
+      "order": 5
+    }
+  ]
+}

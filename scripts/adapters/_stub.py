@@ -31,6 +31,16 @@ def main() -> int:
         "benchmark_id": args.benchmark_id,
         "subset": args.subset,
         "status": "not_configured",
+        "score": {
+            "primary": null_score(),
+            "metric_name": null_score(),
+            "higher_is_better": True,
+            "available": False
+        },
+        "raw_scores": {},
+        "task_count": 0,
+        "passed": null_score(),
+        "failed": null_score(),
         "native_score": null_score(),
         "taskops_metrics": {
             "false_completion_rate": null_score(),

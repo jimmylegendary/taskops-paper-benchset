@@ -1,7 +1,8 @@
 # Runbook
 
-This repository is structured so a clone can generate a TaskOps work graph for
-the full benchmark suite.
+This repository is structured so a clone can run selected or full benchmark
+matrices through TaskOps and write score JSON. A real scoring run fails if any
+selected benchmark adapter is still a stub.
 
 ## Prerequisites
 
@@ -112,15 +113,15 @@ To make a benchmark actually runnable:
 4. Re-run `python3 scripts/validate.py`.
 5. Generate a fresh TaskOps work graph and run it.
 
-The adapter files already exist as stubs under `scripts/adapters/`. A stub writes
-`status: not_configured` using the normal result contract, which lets the
-orchestration path be tested before expensive benchmark harness work begins.
+The adapter files already exist as stubs under `scripts/adapters/`. Stubs are
+only valid for explicit orchestration smoke tests. They must not count as
+benchmark scores.
 
 ## Run Through TaskOps
 
 `run` is the end-to-end harness command. It creates or reuses a TaskOps work
 graph, syncs the SQLite queue projection, claims queue items, executes each
-benchmark adapter, validates the normalized result JSON, closes the TaskOps task
+benchmark adapter, validates the normalized score JSON, closes the TaskOps task
 with an EoW node, releases the lease, and writes aggregate reports.
 
 Run a small selected set:
@@ -150,28 +151,29 @@ Outputs:
 
 ```text
 results/<run_id>/summary.json
+results/<run_id>/scores.json
 results/<run_id>/taskops-node-state.json
 results/<run_id>/<arm>/<benchmark_id>/result.json
 ```
 
-By default, unconfigured adapters still run their stubs and write
-`status: not_configured` with `native_score: null`. This is intentional: it lets
-the TaskOps queue, JSON result storage, and node closure path be tested before
-benchmark-native harnesses and paid model endpoints are connected.
+By default, unconfigured adapters fail. This is intentional: the final artifact
+of a benchmark run is score data, not a queue smoke result.
 
-For a real scoring run, require configured adapters:
+For an orchestration-only smoke test, opt into stubs explicitly:
 
 ```bash
 python3 scripts/taskops_bench.py run \
   --init --force \
-  --work-dir local/strict-core \
-  --mode core \
+  --work-dir local/smoke-core \
+  --mode pilot \
   --arms both \
-  --run-id core-qwen3_6_27b-001 \
-  --strict-config
+  --benchmarks swe_bench_verified \
+  --run-id smoke-pilot-001 \
+  --allow-stubs-for-smoke
 ```
 
-`--strict-config` exits non-zero if any selected adapter is still a stub.
+Smoke results write `status: not_configured` and `score.available: false`. They
+are useful for checking TaskOps queue/closure behavior, not for paper scores.
 
 ## Result Contract
 
@@ -189,11 +191,24 @@ with at least:
   "arm": "taskops_agent",
   "benchmark_id": "agents_last_exam_free_easy_subset",
   "status": "completed",
-  "native_score": null,
+  "score": {
+    "primary": 0.75,
+    "metric_name": "pass_rate",
+    "higher_is_better": true,
+    "available": true
+  },
+  "raw_scores": {},
+  "task_count": 20,
+  "passed": 15,
+  "failed": 5,
+  "native_score": 0.75,
   "taskops_metrics": {},
   "artifacts": []
 }
 ```
+
+Completed results must include a numeric `score.primary`. `status:
+not_configured` is rejected unless `--allow-stubs-for-smoke` is passed.
 
 External benchmark metrics and TaskOps orchestration metrics should stay
 separate. TaskOps lift is not only a pass-rate delta; it also includes false

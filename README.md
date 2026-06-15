@@ -1,7 +1,7 @@
 # TaskOps Paper Benchmark Set
 
-This repository defines a representative benchmark set for evaluating TaskOps as a
-long-running agent execution control plane.
+This repository defines and runs a representative benchmark set for evaluating
+TaskOps as a long-running agent execution control plane.
 
 The intended first model under test is `Qwen/Qwen3.6-27B`. The benchmark design is
 not a model leaderboard. It is meant to show where TaskOps changes outcomes when
@@ -56,7 +56,7 @@ whether the work was managed honestly and recoverably.
 - `docs/experimental-design.md` - paper-facing experiment plan.
 - `docs/research-notes.md` - source notes and caveats.
 - `docs/runbook.md` - clone-to-TaskOps-run instructions.
-- `scripts/taskops_bench.py` - TaskOps work graph, queue runner, and command-plan generator.
+- `scripts/taskops_bench.py` - TaskOps work graph, queue runner, score collector, and command-plan generator.
 - `scripts/validate.py` - manifest validation.
 
 ## Initial Paper Position
@@ -86,7 +86,8 @@ python3 scripts/validate.py
 
 ## TaskOps Run Structure
 
-Run a selected benchmark set end to end through TaskOps:
+Run a selected benchmark set end to end through TaskOps. This is a real scoring
+path: selected adapters must be configured, and stubs fail by default.
 
 ```bash
 python3 scripts/taskops_bench.py run \
@@ -113,13 +114,14 @@ The runner writes:
 
 ```text
 results/<run_id>/summary.json
+results/<run_id>/scores.json
 results/<run_id>/taskops-node-state.json
 results/<run_id>/<arm>/<benchmark_id>/result.json
 ```
 
-Unconfigured benchmark adapters deliberately write `status: not_configured` and
-`native_score: null`. This lets the TaskOps queue, result JSON, and node closure
-path be tested before benchmark-native harnesses and model endpoints are wired.
+Unconfigured benchmark adapters are rejected by default. For an
+orchestration-only smoke test, pass `--allow-stubs-for-smoke`; those results are
+recorded as `status: not_configured` and must not be used as paper scores.
 
 Generate only the TaskOps work graph for the core suite:
 

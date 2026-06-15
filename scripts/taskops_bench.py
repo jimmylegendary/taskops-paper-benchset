@@ -300,11 +300,22 @@ def render_adapter_command(item: dict, run_id: str, result_path: str) -> list[st
     return shlex.split(command)
 
 
-def validate_result_contract(path: Path, *, run_id: str, arm: str, benchmark_id: str) -> dict:
+def validate_result_contract(path: Path, *, run_id: str, arm: str, benchmark_id: str, allow_not_configured: bool = False) -> dict:
     if not path.exists():
         raise RuntimeError(f"adapter did not write result JSON: {path}")
     result = load_json(path)
-    required = ["run_id", "arm", "benchmark_id", "status", "native_score", "taskops_metrics", "artifacts"]
+    required = [
+        "run_id",
+        "arm",
+        "benchmark_id",
+        "status",
+        "score",
+        "raw_scores",
+        "task_count",
+        "native_score",
+        "taskops_metrics",
+        "artifacts",
+    ]
     missing = [key for key in required if key not in result]
     if missing:
         raise RuntimeError(f"{path} is missing required result keys: {', '.join(missing)}")
@@ -321,6 +332,25 @@ def validate_result_contract(path: Path, *, run_id: str, arm: str, benchmark_id:
         raise RuntimeError(f"{path} taskops_metrics must be an object")
     if not isinstance(result["artifacts"], list):
         raise RuntimeError(f"{path} artifacts must be a list")
+    if not isinstance(result["score"], dict):
+        raise RuntimeError(f"{path} score must be an object")
+    if not isinstance(result["raw_scores"], dict):
+        raise RuntimeError(f"{path} raw_scores must be an object")
+
+    status = result.get("status")
+    if status == "not_configured":
+        if allow_not_configured:
+            return result
+        raise RuntimeError(f"{path} is not a real benchmark score: status=not_configured")
+    if status != "completed":
+        raise RuntimeError(f"{path} did not complete successfully: status={status!r}")
+
+    score = result["score"]
+    primary = score.get("primary")
+    if not isinstance(primary, (int, float)):
+        raise RuntimeError(f"{path} completed result must include numeric score.primary")
+    if not score.get("metric_name"):
+        raise RuntimeError(f"{path} completed result must include score.metric_name")
     return result
 
 
@@ -401,11 +431,13 @@ def run_benchmarks(args: argparse.Namespace) -> None:
     lookup = item_lookup(mode, arms, benchmarks=metadata_benchmarks)
     results_dir = ROOT / "results" / run_id
     runner_id = args.runner_id or f"taskops-bench-{run_id}"
+    allow_stubs = bool(getattr(args, "allow_stubs_for_smoke", False))
     summary = {
         "run_id": run_id,
         "mode": mode,
         "arms": arms,
         "work_dir": str(work_dir),
+        "allow_stubs_for_smoke": allow_stubs,
         "started_at": datetime.now(timezone.utc).isoformat(),
         "finished_at": None,
         "status": "running",
@@ -446,8 +478,11 @@ def run_benchmarks(args: argparse.Namespace) -> None:
             step["result_path"] = str(result_path)
             command = render_adapter_command(item, run_id, str(result_path))
             step["command"] = command
-            if args.strict_config and not item["adapter"].get("configured"):
-                raise RuntimeError(f"adapter not configured for {item['benchmark_id']}")
+            if not item["adapter"].get("configured") and not allow_stubs:
+                raise RuntimeError(
+                    f"adapter not configured for {item['benchmark_id']}; "
+                    "real scoring runs refuse stubs. Use --allow-stubs-for-smoke only for orchestration smoke tests."
+                )
             completed = subprocess.run(
                 command,
                 cwd=str(ROOT),
@@ -462,10 +497,12 @@ def run_benchmarks(args: argparse.Namespace) -> None:
                 ROOT / result_path,
                 run_id=run_id,
                 arm=item["arm"],
-                benchmark_id=item["benchmark_id"]
+                benchmark_id=item["benchmark_id"],
+                allow_not_configured=allow_stubs
             )
             step["result_status"] = result.get("status")
             step["native_score"] = result.get("native_score")
+            step["score"] = result.get("score")
             close = run_cmd_json([
                 "taskops", "close", str(work_dir), task_id,
                 "--reason", "manual_verified",
@@ -503,6 +540,8 @@ def run_benchmarks(args: argparse.Namespace) -> None:
     summary["closure"] = node_state["closure"]
     summary["result_count"] = len([step for step in summary["steps"] if step.get("result_path")])
     summary["completed_node_count"] = len([task for task in node_state["tasks"] if task.get("has_eow")])
+    scores = build_scores(summary)
+    write_json(results_dir / "scores.json", scores)
     write_json(results_dir / "summary.json", summary)
     ok = summary["status"] not in {"failed"}
     print(json.dumps({
@@ -511,12 +550,41 @@ def run_benchmarks(args: argparse.Namespace) -> None:
         "run_id": run_id,
         "work_dir": str(work_dir),
         "summary": str(results_dir / "summary.json"),
+        "scores": str(results_dir / "scores.json"),
         "node_state": str(results_dir / "taskops-node-state.json"),
         "steps": len(summary["steps"]),
         "closure": summary["closure"]
     }, indent=2))
     if not ok:
         raise SystemExit(1)
+
+
+def build_scores(summary: dict) -> dict:
+    results = []
+    for step in summary.get("steps", []):
+        score = step.get("score") or {}
+        results.append({
+            "task_id": step.get("task_id"),
+            "status": step.get("result_status") or ("failed" if step.get("error") else None),
+            "score": score,
+            "native_score": step.get("native_score"),
+            "result_path": step.get("result_path"),
+            "error": step.get("error")
+        })
+    completed = [item for item in results if item["status"] == "completed"]
+    score_values = [item["score"].get("primary") for item in completed if isinstance(item.get("score"), dict) and isinstance(item["score"].get("primary"), (int, float))]
+    return {
+        "run_id": summary.get("run_id"),
+        "mode": summary.get("mode"),
+        "arms": summary.get("arms"),
+        "status": summary.get("status"),
+        "allow_stubs_for_smoke": summary.get("allow_stubs_for_smoke"),
+        "result_count": len(results),
+        "completed_score_count": len(score_values),
+        "missing_score_count": len(results) - len(score_values),
+        "mean_primary_score": (sum(score_values) / len(score_values)) if score_values else None,
+        "results": results
+    }
 
 
 def emit_commands(args: argparse.Namespace) -> None:
@@ -593,7 +661,7 @@ def main() -> int:
     p.add_argument("--run-id")
     p.add_argument("--init", action="store_true", help="Initialize the work graph before running")
     p.add_argument("--force", action="store_true", help="Replace the work graph when used with --init")
-    p.add_argument("--strict-config", action="store_true", help="Fail instead of running stub adapters whose configured flag is false")
+    p.add_argument("--allow-stubs-for-smoke", action="store_true", help="Allow unconfigured stub adapters; only for orchestration smoke tests")
     p.add_argument("--continue-on-error", action="store_true")
     p.add_argument("--max-steps", type=int)
     p.add_argument("--ttl-seconds", type=int, default=3600)
