@@ -56,7 +56,7 @@ whether the work was managed honestly and recoverably.
 - `docs/experimental-design.md` - paper-facing experiment plan.
 - `docs/research-notes.md` - source notes and caveats.
 - `docs/runbook.md` - clone-to-TaskOps-run instructions.
-- `scripts/taskops_bench.py` - TaskOps work graph and command-plan generator.
+- `scripts/taskops_bench.py` - TaskOps work graph, queue runner, and command-plan generator.
 - `scripts/validate.py` - manifest validation.
 
 ## Initial Paper Position
@@ -86,7 +86,42 @@ python3 scripts/validate.py
 
 ## TaskOps Run Structure
 
-Generate a TaskOps work graph for the core suite:
+Run a selected benchmark set end to end through TaskOps:
+
+```bash
+python3 scripts/taskops_bench.py run \
+  --init --force \
+  --work-dir local/pilot-swe \
+  --mode pilot \
+  --arms both \
+  --benchmarks swe_bench_verified \
+  --run-id pilot-swe-001
+```
+
+Run the full matrix:
+
+```bash
+python3 scripts/taskops_bench.py run \
+  --init --force \
+  --work-dir local/full-run \
+  --mode full \
+  --arms both \
+  --run-id full-qwen3_6_27b-001
+```
+
+The runner writes:
+
+```text
+results/<run_id>/summary.json
+results/<run_id>/taskops-node-state.json
+results/<run_id>/<arm>/<benchmark_id>/result.json
+```
+
+Unconfigured benchmark adapters deliberately write `status: not_configured` and
+`native_score: null`. This lets the TaskOps queue, result JSON, and node closure
+path be tested before benchmark-native harnesses and model endpoints are wired.
+
+Generate only the TaskOps work graph for the core suite:
 
 ```bash
 python3 scripts/taskops_bench.py init-work \

@@ -116,6 +116,63 @@ The adapter files already exist as stubs under `scripts/adapters/`. A stub write
 `status: not_configured` using the normal result contract, which lets the
 orchestration path be tested before expensive benchmark harness work begins.
 
+## Run Through TaskOps
+
+`run` is the end-to-end harness command. It creates or reuses a TaskOps work
+graph, syncs the SQLite queue projection, claims queue items, executes each
+benchmark adapter, validates the normalized result JSON, closes the TaskOps task
+with an EoW node, releases the lease, and writes aggregate reports.
+
+Run a small selected set:
+
+```bash
+python3 scripts/taskops_bench.py run \
+  --init --force \
+  --work-dir local/pilot-swe \
+  --mode pilot \
+  --arms both \
+  --benchmarks swe_bench_verified \
+  --run-id pilot-swe-001
+```
+
+Run the full matrix:
+
+```bash
+python3 scripts/taskops_bench.py run \
+  --init --force \
+  --work-dir local/full-run \
+  --mode full \
+  --arms both \
+  --run-id full-qwen3_6_27b-001
+```
+
+Outputs:
+
+```text
+results/<run_id>/summary.json
+results/<run_id>/taskops-node-state.json
+results/<run_id>/<arm>/<benchmark_id>/result.json
+```
+
+By default, unconfigured adapters still run their stubs and write
+`status: not_configured` with `native_score: null`. This is intentional: it lets
+the TaskOps queue, JSON result storage, and node closure path be tested before
+benchmark-native harnesses and paid model endpoints are connected.
+
+For a real scoring run, require configured adapters:
+
+```bash
+python3 scripts/taskops_bench.py run \
+  --init --force \
+  --work-dir local/strict-core \
+  --mode core \
+  --arms both \
+  --run-id core-qwen3_6_27b-001 \
+  --strict-config
+```
+
+`--strict-config` exits non-zero if any selected adapter is still a stub.
+
 ## Result Contract
 
 Each adapter must write:
