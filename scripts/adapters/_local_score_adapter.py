@@ -110,6 +110,20 @@ def response_text(invocation: dict) -> str:
     return "\n".join(chunks)
 
 
+def rel(path: str | Path | None) -> str | None:
+    if not path:
+        return None
+    try:
+        return str(Path(path).resolve().relative_to(ROOT))
+    except Exception:
+        return str(path)
+
+
+def observed_final(text: str) -> str | None:
+    match = re.search(r"FINAL\s*:\s*[^\\n\"}]+", text, flags=re.IGNORECASE)
+    return match.group(0).strip() if match else None
+
+
 def score_task(task: dict, invocation: dict) -> dict:
     text = response_text(invocation)
     matched = None
@@ -123,9 +137,9 @@ def score_task(task: dict, invocation: dict) -> dict:
         "matched_pattern": matched,
         "runtime_status": invocation.get("status"),
         "score_eligible_runtime": invocation.get("score_eligible"),
-        "response_excerpt": text[-1000:],
-        "prompt_path": invocation.get("_adapter_prompt_path"),
-        "invocation_path": invocation.get("_adapter_invocation_path"),
+        "observed_final": observed_final(text),
+        "prompt_path": rel(invocation.get("_adapter_prompt_path")),
+        "invocation_path": rel(invocation.get("_adapter_invocation_path")),
         "runtime_returncode": invocation.get("_adapter_runtime_returncode"),
     }
 
@@ -187,7 +201,7 @@ def main() -> int:
             "tasks": scored,
             "runtime_failures": runtime_failures,
             "extra_args": extra,
-            "local_task_pack": str(TASKS_PATH),
+            "local_task_pack": rel(TASKS_PATH),
         },
         "task_count": total,
         "passed": passed,
@@ -200,7 +214,7 @@ def main() -> int:
             "queue_integrity": 1.0,
             "reporting_coverage": 1.0 if args.arm == "taskops_agent" else None,
         },
-        "artifacts": [str(TASKS_PATH)] + [item.get("invocation_path") for item in scored if item.get("invocation_path")],
+        "artifacts": [rel(TASKS_PATH)] + [item.get("invocation_path") for item in scored if item.get("invocation_path")],
         "adapter": {
             "kind": "local_score",
             "message": "Scored against the repo-local deterministic task pack.",
