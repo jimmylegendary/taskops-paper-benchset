@@ -338,12 +338,14 @@ def validate_result_contract(path: Path, *, run_id: str, arm: str, benchmark_id:
         raise RuntimeError(f"{path} raw_scores must be an object")
 
     status = result.get("status")
+    if status not in {"completed", "failed", "blocked", "not_configured"}:
+        raise RuntimeError(f"{path} has invalid status: {status!r}")
     if status == "not_configured":
         if allow_not_configured:
             return result
         raise RuntimeError(f"{path} is not a real benchmark score: status=not_configured")
     if status != "completed":
-        raise RuntimeError(f"{path} did not complete successfully: status={status!r}")
+        return result
 
     score = result["score"]
     primary = score.get("primary")
@@ -407,6 +409,42 @@ def read_frontmatter(path: Path) -> dict:
     return fm
 
 
+def rewrite_task_status(work_dir: Path, task_id: str, *, status: str, readiness: str, reason: str) -> None:
+    matches = list(work_dir.glob(f"task-groups/*/versions/*/tasks/{task_id}.md"))
+    if not matches:
+        raise RuntimeError(f"could not find task markdown for {task_id}")
+    path = matches[0]
+    lines = path.read_text(encoding="utf-8").splitlines()
+    replacements = {
+        "status": status,
+        "runReadiness": readiness,
+        "runReadinessReason": reason.replace("\n", " ")[:500]
+    }
+    seen = set()
+    out = []
+    in_fm = False
+    for idx, line in enumerate(lines):
+        if idx == 0 and line == "---":
+            in_fm = True
+            out.append(line)
+            continue
+        if in_fm and line == "---":
+            for key, value in replacements.items():
+                if key not in seen:
+                    out.append(f"{key}: {value}")
+            in_fm = False
+            out.append(line)
+            continue
+        if in_fm and ":" in line:
+            key = line.split(":", 1)[0].strip()
+            if key in replacements:
+                out.append(f"{key}: {replacements[key]}")
+                seen.add(key)
+                continue
+        out.append(line)
+    path.write_text("\n".join(out) + "\n", encoding="utf-8")
+
+
 def run_benchmarks(args: argparse.Namespace) -> None:
     if not taskops_available():
         raise SystemExit("taskops CLI is not on PATH")
@@ -441,7 +479,8 @@ def run_benchmarks(args: argparse.Namespace) -> None:
         "started_at": datetime.now(timezone.utc).isoformat(),
         "finished_at": None,
         "status": "running",
-        "steps": []
+        "steps": [],
+        "error_count": 0
     }
     max_steps = args.max_steps if args.max_steps is not None else len(lookup)
     for _ in range(max_steps):
@@ -489,7 +528,7 @@ def run_benchmarks(args: argparse.Namespace) -> None:
                 text=True,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
-                check=True
+                check=False
             )
             step["adapter_stdout"] = completed.stdout.strip()
             step["adapter_stderr"] = completed.stderr.strip()
@@ -503,6 +542,10 @@ def run_benchmarks(args: argparse.Namespace) -> None:
             step["result_status"] = result.get("status")
             step["native_score"] = result.get("native_score")
             step["score"] = result.get("score")
+            if completed.returncode != 0:
+                raise RuntimeError(f"adapter exited with status {completed.returncode}: {step['adapter_stderr'] or step['adapter_stdout']}")
+            if result.get("status") != "completed" and not (allow_stubs and result.get("status") == "not_configured"):
+                raise RuntimeError(f"adapter did not produce a completed score: status={result.get('status')}")
             close = run_cmd_json([
                 "taskops", "close", str(work_dir), task_id,
                 "--reason", "manual_verified",
@@ -514,6 +557,14 @@ def run_benchmarks(args: argparse.Namespace) -> None:
         except Exception as exc:  # noqa: BLE001 - runner must record and release honestly.
             step["error"] = str(exc)
             try:
+                if step.get("result_status") in {"blocked", "failed"}:
+                    rewrite_task_status(
+                        work_dir,
+                        task_id,
+                        status="blocked",
+                        readiness="blocked",
+                        reason=f"Adapter result status={step.get('result_status')}: {step.get('error') or 'see result JSON'}"
+                    )
                 run_cmd_json(["taskops", "queue", "release", str(work_dir), lease["id"], "--status", "failed", "--json"])
                 step["release_status"] = "failed"
             except Exception as release_exc:  # noqa: BLE001
@@ -524,6 +575,7 @@ def run_benchmarks(args: argparse.Namespace) -> None:
                 summary["steps"].append(step)
                 summary["status"] = "failed"
                 break
+            summary["error_count"] += 1
         step["finished_at"] = datetime.now(timezone.utc).isoformat()
         summary["steps"].append(step)
         write_json(results_dir / "summary.json", summary)
@@ -533,7 +585,9 @@ def run_benchmarks(args: argparse.Namespace) -> None:
     run_cmd(["taskops", "queue", "sync", str(work_dir), "--json"])
     node_state = write_node_state_report(work_dir, results_dir / "taskops-node-state.json")
     summary["finished_at"] = datetime.now(timezone.utc).isoformat()
-    if node_state["closure"].get("complete"):
+    if summary.get("error_count", 0) > 0:
+        summary["status"] = "failed"
+    elif node_state["closure"].get("complete"):
         summary["status"] = "completed"
     elif summary["status"] == "running":
         summary["status"] = "completed" if node_state["closure"].get("complete") else "incomplete"

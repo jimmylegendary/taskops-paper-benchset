@@ -76,9 +76,9 @@ Environment overrides:
 - `TASKOPS_BENCH_MODEL`
 - `TASKOPS_BENCH_OPENCLAW_SESSION_PREFIX`
 
-The default model is recorded as `Qwen/Qwen3.6-27B`, matching the paper plan.
-Whether that model is actually routable depends on the local OpenClaw/Gateway
-configuration.
+Set `TASKOPS_BENCH_MODEL=Qwen/Qwen3.6-27B` when that model is actually routable
+for the target OpenClaw agent. The runtime does not force a model override by
+default, because local Gateway policy may reject unapproved models.
 
 ## Adapter Rule
 

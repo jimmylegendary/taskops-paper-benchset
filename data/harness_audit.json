@@ -4,6 +4,7 @@
   "purpose": "Track whether each benchmark id can produce real score JSON through the TaskOps runner. Stubs are smoke-only and do not count as benchmark results.",
   "status_vocab": {
     "runnable_after_setup": "Public harness/scorer exists; adapter work is needed but the benchmark can plausibly produce real scores.",
+    "configured_needs_inputs": "Adapter is implemented, but a real run still needs external inputs such as predictions, API keys, task environments, or credentials.",
     "blocked_until_pinned": "The benchmark is useful, but a public harness, task split, evaluator, or exact reproduction contract is not pinned enough for a real score run.",
     "blocked_operationally": "A public harness exists, but local/cloud services, accounts, VMs, or compute requirements must be resolved before running.",
     "reported_only": "Use only as contextual reported score until a reproducible harness is available."
@@ -11,7 +12,7 @@
   "benchmarks": [
     {
       "benchmark_id": "swe_bench_verified",
-      "status": "runnable_after_setup",
+      "status": "configured_needs_inputs",
       "official_or_primary_source": "https://github.com/swe-bench/SWE-bench",
       "scoring_path": "Generate model patches/predictions, then run SWE-bench evaluation in Docker or submit through sb-cli/cloud evaluation. Primary score is resolved_percent/pass rate.",
       "adapter_work": [
@@ -22,7 +23,7 @@
         "Parse resolved percentage into score.primary"
       ],
       "requirements": ["Docker", "Python", "datasets", "SWE-bench harness or sb-cli", "agent runtime adapter"],
-      "notes": "Best first coding control adapter because official evaluation path is public and well-known."
+      "notes": "Implemented as scripts/adapters/swe_bench.py via sb-cli. It writes blocked evidence when predictions/API key are missing."
     },
     {
       "benchmark_id": "swe_bench_pro",

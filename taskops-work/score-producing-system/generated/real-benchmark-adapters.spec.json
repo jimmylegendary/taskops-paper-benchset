@@ -1,0 +1,63 @@
+{
+  "versionId": "tgv-real-benchmark-adapters-v2",
+  "version": "v2",
+  "summary": "Real score-producing benchmark adapters",
+  "selected": true,
+  "logSeedLine": "Refactor placeholder into benchmark-family adapter implementation tasks.",
+  "tasks": [
+    {
+      "id": "swebench-verified-cloud-adapter",
+      "title": "Implement SWE-bench Verified cloud scoring adapter",
+      "objective": "Replace the SWE-bench Verified stub with a real sb-cli based score-producing path that submits prediction files and parses resolved_percent.",
+      "responsibility": "Own scripts/adapters/swe_bench.py, the shared SWE-bench cloud adapter, and failure evidence when predictions/API key are missing.",
+      "completionCriteria": "swe_bench_verified adapter is configured true, writes completed score JSON when predictions/API key are supplied, and writes blocked/failed evidence otherwise without fabricating scores.",
+      "status": "pending",
+      "runReadiness": "runnable",
+      "runReadinessReason": "The sb-cli path is known and can be implemented locally.",
+      "understandingLevel": "known",
+      "order": 1
+    },
+    {
+      "id": "terminal-skills-nl2repo-adapters",
+      "title": "Implement Terminal-Bench, SkillsBench, and NL2Repo adapters",
+      "objective": "Implement the remaining runnable_after_setup adapters that can produce real scores after public harness setup.",
+      "responsibility": "Own adapter setup for Terminal-Bench 2.0, SkillsBench, and NL2Repo with official scoring paths.",
+      "completionCriteria": "Each adapter can run selected tasks through its public harness and write normalized completed score JSON, or record explicit failed/blocked evidence.",
+      "status": "pending",
+      "runReadiness": "needs_decomposition",
+      "runReadinessReason": "Each benchmark has a different harness and should split into its own implementation task.",
+      "understandingLevel": "partial",
+      "order": 2
+    },
+    {
+      "id": "long-work-adapters",
+      "title": "Implement ALE-FreeEasy, HCAST, and RE-Bench adapters",
+      "objective": "Implement the long-work benchmark adapters after environment setup, task selection, and scoring paths are pinned.",
+      "responsibility": "Own ALE-FreeEasy, HCAST public, and RE-Bench adapter setup, including operational blockers and compute/runtime limits.",
+      "completionCriteria": "Each long-work adapter either produces real score JSON for a pinned selected subset or records exact operational blockers.",
+      "status": "pending",
+      "runReadiness": "blocked",
+      "runReadinessReason": "Blocked by operational setup: ALE task environments, HCAST public runnable graders, and RE-Bench compute/runtime constraints must be pinned.",
+      "blockedBy": [
+        "benchmark-harness-audit"
+      ],
+      "understandingLevel": "partial",
+      "order": 3
+    },
+    {
+      "id": "extension-adapters",
+      "title": "Implement extension benchmark adapters",
+      "objective": "Implement full ALE, TheAgentCompany, Vending-Bench, and SWE-bench Multilingual only after public reproducibility and operational requirements are pinned.",
+      "responsibility": "Prevent extension benchmarks from appearing score-producing until real public harness paths exist.",
+      "completionCriteria": "Extension benchmarks are either implemented with real scoring or explicitly kept blocked/reported_only in harness audit and adapter config.",
+      "status": "pending",
+      "runReadiness": "blocked",
+      "runReadinessReason": "Blocked until reproducible harness paths and/or heavy self-hosted environments are pinned.",
+      "blockedBy": [
+        "benchmark-harness-audit"
+      ],
+      "understandingLevel": "partial",
+      "order": 4
+    }
+  ]
+}

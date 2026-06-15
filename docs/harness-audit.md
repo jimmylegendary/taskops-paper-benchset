@@ -10,7 +10,7 @@ Machine-readable status lives in `data/harness_audit.json`.
 
 | Benchmark | Status | Real score path |
 | --- | --- | --- |
-| SWE-bench Verified | `runnable_after_setup` | Official SWE-bench Docker/cloud evaluation, resolved percent. |
+| SWE-bench Verified | `configured_needs_inputs` | `sb-cli` cloud evaluation, requiring prediction file and `SWEBENCH_API_KEY`. |
 | SWE-bench Pro | `runnable_after_setup` | Public SWE-bench Pro harness, with exact public subset pinned. |
 | Terminal-Bench 2.0 | `runnable_after_setup` | Harbor official harness for Terminal-Bench 2.x, task success rate. |
 | SkillsBench | `runnable_after_setup` | BenchFlow runtime, selected self-contained tasks, average success. |
@@ -68,4 +68,3 @@ Machine-readable status lives in `data/harness_audit.json`.
 2. Terminal-Bench 2.0: best terminal/evidence-heavy TaskOps adapter.
 3. SkillsBench: best procedure/skill-following adapter.
 4. ALE-FreeEasy: best TaskOps-paper fit after environment setup is pinned.
-

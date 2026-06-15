@@ -11,5 +11,7 @@ selectedVersions:
     versionId: tgv-root-v2
   - taskGroupId: tg-agent-runtime-adapter-contract
     versionId: tgv-agent-runtime-adapter-contract-v2
+  - taskGroupId: tg-real-benchmark-adapters
+    versionId: tgv-real-benchmark-adapters-v2
 ---
 # Snapshot root v1

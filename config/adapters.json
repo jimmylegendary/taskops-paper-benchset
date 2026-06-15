@@ -1,78 +1,78 @@
 {
   "schema_version": "0.1.0",
   "updated_at": "2026-06-16",
-  "note": "Adapters are intentionally explicit. A benchmark is runnable only after its adapter command is set up and `configured` is true.",
+  "note": "Adapters are explicit. Configured=true means the adapter command writes real score JSON or explicit blocked/failed result JSON; it does not mean the benchmark is currently score-completable.",
   "adapters": {
     "swe_bench_verified": {
-      "configured": false,
-      "kind": "external_harness",
+      "configured": true,
+      "kind": "swebench_cloud",
       "expected_repo": "https://github.com/SWE-bench/SWE-bench",
       "command_template": "python3 scripts/adapters/swe_bench.py --subset verified --arm {arm} --run-id {run_id} --out {result_path}"
     },
     "swe_bench_pro": {
-      "configured": false,
-      "kind": "external_harness",
+      "configured": true,
+      "kind": "blocked_adapter",
       "expected_repo": "https://github.com/scaleapi/SWE-bench_Pro-os",
       "command_template": "python3 scripts/adapters/swe_bench_pro.py --arm {arm} --run-id {run_id} --out {result_path}"
     },
     "terminal_bench_2": {
-      "configured": false,
-      "kind": "external_harness",
+      "configured": true,
+      "kind": "blocked_adapter",
       "expected_repo": "https://www.tbench.ai/",
       "command_template": "python3 scripts/adapters/terminal_bench.py --arm {arm} --run-id {run_id} --out {result_path}"
     },
     "skillsbench": {
-      "configured": false,
-      "kind": "external_harness",
+      "configured": true,
+      "kind": "blocked_adapter",
       "expected_repo": "https://github.com/benchflow-ai/skillsbench",
       "command_template": "python3 scripts/adapters/skillsbench.py --arm {arm} --run-id {run_id} --out {result_path}"
     },
     "nl2repo": {
-      "configured": false,
-      "kind": "external_harness",
+      "configured": true,
+      "kind": "blocked_adapter",
       "expected_repo": "https://github.com/multimodal-art-projection/NL2RepoBench",
       "command_template": "python3 scripts/adapters/nl2repo.py --arm {arm} --run-id {run_id} --out {result_path}"
     },
     "agents_last_exam_free_easy_subset": {
-      "configured": false,
-      "kind": "taskops_curated_subset",
+      "configured": true,
+      "kind": "blocked_adapter",
       "expected_repo": "https://github.com/rdi-berkeley/agents-last-exam",
       "manifest": "data/ale_free_easy_subset.json",
       "command_template": "python3 scripts/adapters/ale.py --subset free_easy --arm {arm} --run-id {run_id} --out {result_path}"
     },
     "hcast_public": {
-      "configured": false,
-      "kind": "external_harness",
+      "configured": true,
+      "kind": "blocked_adapter",
       "expected_repo": "https://github.com/METR/hcast-public",
       "command_template": "python3 scripts/adapters/hcast.py --arm {arm} --run-id {run_id} --out {result_path}"
     },
     "re_bench": {
-      "configured": false,
-      "kind": "external_harness",
+      "configured": true,
+      "kind": "blocked_adapter",
       "expected_repo": "https://github.com/METR/RE-Bench",
       "command_template": "python3 scripts/adapters/re_bench.py --arm {arm} --run-id {run_id} --out {result_path}"
     },
     "agents_last_exam": {
-      "configured": false,
-      "kind": "extension_harness",
+      "configured": true,
+      "kind": "blocked_adapter",
       "expected_repo": "https://github.com/rdi-berkeley/agents-last-exam",
       "command_template": "python3 scripts/adapters/ale.py --subset full --arm {arm} --run-id {run_id} --out {result_path}"
     },
     "the_agent_company": {
-      "configured": false,
-      "kind": "extension_harness",
+      "configured": true,
+      "kind": "blocked_adapter",
       "expected_repo": "https://github.com/TheAgentCompany/TheAgentCompany",
       "command_template": "python3 scripts/adapters/the_agent_company.py --arm {arm} --run-id {run_id} --out {result_path}"
     },
     "vending_bench": {
-      "configured": false,
-      "kind": "extension_harness",
+      "configured": true,
+      "kind": "blocked_adapter",
       "expected_repo": "https://arxiv.org/html/2502.15840v1",
       "command_template": "python3 scripts/adapters/vending_bench.py --arm {arm} --run-id {run_id} --out {result_path}"
     },
     "swe_bench_multilingual": {
-      "configured": false,
-      "kind": "extension_harness",
+      "configured": true,
+      "kind": "blocked_adapter",
       "expected_repo": "https://qwen.ai/blog?id=qwen3.6-27b",
       "command_template": "python3 scripts/adapters/swe_bench_multilingual.py --arm {arm} --run-id {run_id} --out {result_path}"
     }

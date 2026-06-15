@@ -194,6 +194,30 @@ python3 scripts/agent_runtime.py invoke \
 
 See `docs/agent-runtime-adapters.md`.
 
+## SWE-bench Verified Adapter
+
+`swe_bench_verified` uses the SWE-bench cloud CLI path through `sb-cli`. It is
+configured as a real adapter, but it needs a predictions file and API key before
+it can produce a score.
+
+```bash
+export SWEBENCH_API_KEY=...
+export TASKOPS_BENCH_SWEBENCH_PREDICTIONS=/path/to/predictions.jsonl
+
+python3 scripts/taskops_bench.py run \
+  --init --force \
+  --work-dir local/swebench-verified \
+  --mode pilot \
+  --arms direct_agent \
+  --benchmarks swe_bench_verified \
+  --run-id swebench-verified-001
+```
+
+If the predictions file or API key is missing, the adapter writes
+`status: blocked` with `score.available: false` and the TaskOps runner exits
+non-zero. That is expected; it is evidence that the benchmark was not scored,
+not a score.
+
 ## Result Contract
 
 Each adapter must write:
