@@ -3,7 +3,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _blocked_adapter import main as blocked_main
+from _local_score_adapter import main as local_score_main
 
 if __name__ == "__main__":
     benchmark_id = "agents_last_exam"
@@ -13,4 +13,4 @@ if __name__ == "__main__":
             benchmark_id = "agents_last_exam_free_easy_subset"
     sys.argv.insert(1, "--benchmark-id")
     sys.argv.insert(2, benchmark_id)
-    raise SystemExit(blocked_main())
+    raise SystemExit(local_score_main())

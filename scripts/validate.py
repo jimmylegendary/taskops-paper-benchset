@@ -37,6 +37,7 @@ def main() -> int:
     ale_subset_doc = load_json(DATA / "ale_free_easy_subset.json")
     run_matrix_doc = load_json(DATA / "run_matrix.json")
     harness_audit_doc = load_json(DATA / "harness_audit.json")
+    local_score_doc = load_json(DATA / "local_score_tasks.json")
     adapters_doc = load_json(ROOT / "config" / "adapters.json")
     runtimes_doc = load_json(ROOT / "config" / "runtimes.json")
 
@@ -143,6 +144,25 @@ def main() -> int:
     missing_audits = matrix_benchmark_ids - audited_ids
     require(not missing_audits, f"run matrix benchmark ids missing harness audit rows: {sorted(missing_audits)}")
 
+    local_score_benchmarks = local_score_doc.get("benchmarks", {})
+    require(isinstance(local_score_benchmarks, dict) and local_score_benchmarks, "local score tasks missing")
+    missing_local_scores = matrix_benchmark_ids - set(local_score_benchmarks)
+    require(not missing_local_scores, f"run matrix benchmark ids missing local score tasks: {sorted(missing_local_scores)}")
+    for benchmark_id, benchmark in local_score_benchmarks.items():
+        require(benchmark_id in source_id_set, f"local score tasks reference unknown benchmark {benchmark_id}")
+        require(benchmark.get("metric_name"), f"local score benchmark {benchmark_id} missing metric_name")
+        tasks = benchmark.get("tasks", [])
+        require(isinstance(tasks, list) and tasks, f"local score benchmark {benchmark_id} has no tasks")
+        task_ids = []
+        for task in tasks:
+            task_id = task.get("id")
+            require(task_id, f"local score benchmark {benchmark_id} has a task missing id")
+            task_ids.append(task_id)
+            require(task.get("prompt"), f"local score task {benchmark_id}/{task_id} missing prompt")
+            patterns = task.get("answer_patterns", [])
+            require(isinstance(patterns, list) and patterns, f"local score task {benchmark_id}/{task_id} missing answer_patterns")
+        require(len(task_ids) == len(set(task_ids)), f"local score benchmark {benchmark_id} has duplicate task ids")
+
     ale_tasks = ale_subset_doc.get("tasks", [])
     require(isinstance(ale_tasks, list) and ale_tasks, "ALE subset has no tasks")
     ale_task_paths = [task.get("task_path") for task in ale_tasks]
@@ -165,6 +185,7 @@ def main() -> int:
     print(f"ok: {len(qwen_results)} Qwen3.6-27B reported result rows")
     print(f"ok: {len(ale_tasks)} ALE free/easy subset tasks")
     print(f"ok: {len(matrix_benchmark_ids)} run-matrix benchmark ids")
+    print(f"ok: {len(local_score_benchmarks)} local score benchmark task packs")
     print(f"ok: {len(audited_ids)} harness audit rows")
     print(f"ok: {len(runtimes)} runtime adapters")
     return 0

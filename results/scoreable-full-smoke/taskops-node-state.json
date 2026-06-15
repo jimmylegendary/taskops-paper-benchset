@@ -1,0 +1,526 @@
+{
+  "created_at": "2026-06-15T18:39:25.030331+00:00",
+  "work_dir": "local/scoreable-full-smoke",
+  "closure": {
+    "terminalTaskCount": 24,
+    "terminalTaskEowCount": 24,
+    "openTerminalTaskCount": 0,
+    "runTerminalNodeCount": 0,
+    "runTerminalEowCount": 0,
+    "openRunTerminalNodeCount": 0,
+    "waitingDelegationCount": 0,
+    "openBlockerCount": 0,
+    "complete": true
+  },
+  "errors": [],
+  "warnings": [],
+  "queue_rows": [
+    {
+      "id": "tgv-root-v2:bench-direct-agent-agents-last-exam",
+      "work_root": "local/scoreable-full-smoke",
+      "task_id": "bench-direct-agent-agents-last-exam",
+      "run_id": null,
+      "readiness": "runnable",
+      "status": "done",
+      "priority": 0,
+      "blocked_reason": null,
+      "md_fingerprint": "6de51bd06a165007279a0357c28a91045b9a36cc35aae7bec7275d337ee643de",
+      "created_at": "2026-06-15T18:36:27.461Z",
+      "updated_at": "2026-06-15T18:39:24.797Z"
+    },
+    {
+      "id": "tgv-root-v2:bench-direct-agent-agents-last-exam-free-easy-subset",
+      "work_root": "local/scoreable-full-smoke",
+      "task_id": "bench-direct-agent-agents-last-exam-free-easy-subset",
+      "run_id": null,
+      "readiness": "runnable",
+      "status": "done",
+      "priority": 0,
+      "blocked_reason": null,
+      "md_fingerprint": "c70d0f906e96cbd7324db453e51609c78de619f12fe8d5ea42d344199889ab83",
+      "created_at": "2026-06-15T18:36:27.461Z",
+      "updated_at": "2026-06-15T18:39:24.797Z"
+    },
+    {
+      "id": "tgv-root-v2:bench-direct-agent-hcast-public",
+      "work_root": "local/scoreable-full-smoke",
+      "task_id": "bench-direct-agent-hcast-public",
+      "run_id": null,
+      "readiness": "runnable",
+      "status": "done",
+      "priority": 0,
+      "blocked_reason": null,
+      "md_fingerprint": "7809184a2f50fbd9a57e2716100cc794ffa05cf3b8e0afd3581805f637be8434",
+      "created_at": "2026-06-15T18:36:27.461Z",
+      "updated_at": "2026-06-15T18:39:24.797Z"
+    },
+    {
+      "id": "tgv-root-v2:bench-direct-agent-nl2repo",
+      "work_root": "local/scoreable-full-smoke",
+      "task_id": "bench-direct-agent-nl2repo",
+      "run_id": null,
+      "readiness": "runnable",
+      "status": "done",
+      "priority": 0,
+      "blocked_reason": null,
+      "md_fingerprint": "9ab1715d93efaf44ef7ab9f226373e14fc00da876e235553acfd4073a3fa64e1",
+      "created_at": "2026-06-15T18:36:27.461Z",
+      "updated_at": "2026-06-15T18:39:24.797Z"
+    },
+    {
+      "id": "tgv-root-v2:bench-direct-agent-re-bench",
+      "work_root": "local/scoreable-full-smoke",
+      "task_id": "bench-direct-agent-re-bench",
+      "run_id": null,
+      "readiness": "runnable",
+      "status": "done",
+      "priority": 0,
+      "blocked_reason": null,
+      "md_fingerprint": "c23584f007b2bbfa3e6e1af56f171d0127b133818e86cedb091c7d0f496e8b70",
+      "created_at": "2026-06-15T18:36:27.461Z",
+      "updated_at": "2026-06-15T18:39:24.797Z"
+    },
+    {
+      "id": "tgv-root-v2:bench-direct-agent-skillsbench",
+      "work_root": "local/scoreable-full-smoke",
+      "task_id": "bench-direct-agent-skillsbench",
+      "run_id": null,
+      "readiness": "runnable",
+      "status": "done",
+      "priority": 0,
+      "blocked_reason": null,
+      "md_fingerprint": "4fbdcd9450b4c646c369b4a20a66375ae7b6ea6fb7b5cd0fc71e144d585deb4f",
+      "created_at": "2026-06-15T18:36:27.461Z",
+      "updated_at": "2026-06-15T18:39:24.797Z"
+    },
+    {
+      "id": "tgv-root-v2:bench-direct-agent-swe-bench-multilingual",
+      "work_root": "local/scoreable-full-smoke",
+      "task_id": "bench-direct-agent-swe-bench-multilingual",
+      "run_id": null,
+      "readiness": "runnable",
+      "status": "done",
+      "priority": 0,
+      "blocked_reason": null,
+      "md_fingerprint": "b4a803c6b5084d860727a1ccb20dab3fae1947908e08c4301c11c043158dafd4",
+      "created_at": "2026-06-15T18:36:27.461Z",
+      "updated_at": "2026-06-15T18:39:24.797Z"
+    },
+    {
+      "id": "tgv-root-v2:bench-direct-agent-swe-bench-pro",
+      "work_root": "local/scoreable-full-smoke",
+      "task_id": "bench-direct-agent-swe-bench-pro",
+      "run_id": null,
+      "readiness": "runnable",
+      "status": "done",
+      "priority": 0,
+      "blocked_reason": null,
+      "md_fingerprint": "9b9dde945561a21668bb5e1c5ea47e2ebd7abe48a9469a00743c3a7f6b36e1f0",
+      "created_at": "2026-06-15T18:36:27.461Z",
+      "updated_at": "2026-06-15T18:39:24.797Z"
+    },
+    {
+      "id": "tgv-root-v2:bench-direct-agent-swe-bench-verified",
+      "work_root": "local/scoreable-full-smoke",
+      "task_id": "bench-direct-agent-swe-bench-verified",
+      "run_id": null,
+      "readiness": "runnable",
+      "status": "done",
+      "priority": 0,
+      "blocked_reason": null,
+      "md_fingerprint": "40c6137caa9aada3067e180ff265bbdd4af757629d33ccdbd46409cb013e6f4a",
+      "created_at": "2026-06-15T18:36:27.461Z",
+      "updated_at": "2026-06-15T18:39:24.797Z"
+    },
+    {
+      "id": "tgv-root-v2:bench-direct-agent-terminal-bench-2",
+      "work_root": "local/scoreable-full-smoke",
+      "task_id": "bench-direct-agent-terminal-bench-2",
+      "run_id": null,
+      "readiness": "runnable",
+      "status": "done",
+      "priority": 0,
+      "blocked_reason": null,
+      "md_fingerprint": "49d3120e451a3b53ba0f9645c845b65b6ee832d50484c27f8c691690187ad461",
+      "created_at": "2026-06-15T18:36:27.461Z",
+      "updated_at": "2026-06-15T18:39:24.797Z"
+    },
+    {
+      "id": "tgv-root-v2:bench-direct-agent-the-agent-company",
+      "work_root": "local/scoreable-full-smoke",
+      "task_id": "bench-direct-agent-the-agent-company",
+      "run_id": null,
+      "readiness": "runnable",
+      "status": "done",
+      "priority": 0,
+      "blocked_reason": null,
+      "md_fingerprint": "8e657c209fb756941b9d3e61f934926afbd000a289d11a66c3d056458b5ad7e8",
+      "created_at": "2026-06-15T18:36:27.461Z",
+      "updated_at": "2026-06-15T18:39:24.797Z"
+    },
+    {
+      "id": "tgv-root-v2:bench-direct-agent-vending-bench",
+      "work_root": "local/scoreable-full-smoke",
+      "task_id": "bench-direct-agent-vending-bench",
+      "run_id": null,
+      "readiness": "runnable",
+      "status": "done",
+      "priority": 0,
+      "blocked_reason": null,
+      "md_fingerprint": "46376818a344bbf50363095e8c387ddaee40a17399a774feff87bcdb4f2b3505",
+      "created_at": "2026-06-15T18:36:27.461Z",
+      "updated_at": "2026-06-15T18:39:24.797Z"
+    },
+    {
+      "id": "tgv-root-v2:bench-taskops-agent-agents-last-exam",
+      "work_root": "local/scoreable-full-smoke",
+      "task_id": "bench-taskops-agent-agents-last-exam",
+      "run_id": null,
+      "readiness": "runnable",
+      "status": "done",
+      "priority": 0,
+      "blocked_reason": null,
+      "md_fingerprint": "b4c21f17c641de7a6901ce867dda415e9472c58db2806cc2df918e232ff78376",
+      "created_at": "2026-06-15T18:36:27.461Z",
+      "updated_at": "2026-06-15T18:39:24.797Z"
+    },
+    {
+      "id": "tgv-root-v2:bench-taskops-agent-agents-last-exam-free-easy-subset",
+      "work_root": "local/scoreable-full-smoke",
+      "task_id": "bench-taskops-agent-agents-last-exam-free-easy-subset",
+      "run_id": null,
+      "readiness": "runnable",
+      "status": "done",
+      "priority": 0,
+      "blocked_reason": null,
+      "md_fingerprint": "e04ecf9f121cfd6a374ad8c4d09dc975154c18aa0cb039bacca206000dd7bcb9",
+      "created_at": "2026-06-15T18:36:27.461Z",
+      "updated_at": "2026-06-15T18:39:24.797Z"
+    },
+    {
+      "id": "tgv-root-v2:bench-taskops-agent-hcast-public",
+      "work_root": "local/scoreable-full-smoke",
+      "task_id": "bench-taskops-agent-hcast-public",
+      "run_id": null,
+      "readiness": "runnable",
+      "status": "done",
+      "priority": 0,
+      "blocked_reason": null,
+      "md_fingerprint": "8b573086c90b4aeda5fcea7621f383aee950ca2ac1c40320c81098e1f11b047c",
+      "created_at": "2026-06-15T18:36:27.461Z",
+      "updated_at": "2026-06-15T18:39:24.797Z"
+    },
+    {
+      "id": "tgv-root-v2:bench-taskops-agent-nl2repo",
+      "work_root": "local/scoreable-full-smoke",
+      "task_id": "bench-taskops-agent-nl2repo",
+      "run_id": null,
+      "readiness": "runnable",
+      "status": "done",
+      "priority": 0,
+      "blocked_reason": null,
+      "md_fingerprint": "0833f70922dec1b9b63300009ca0d0bcbb48582a95f9a6a956c60d871007c7e1",
+      "created_at": "2026-06-15T18:36:27.461Z",
+      "updated_at": "2026-06-15T18:39:24.797Z"
+    },
+    {
+      "id": "tgv-root-v2:bench-taskops-agent-re-bench",
+      "work_root": "local/scoreable-full-smoke",
+      "task_id": "bench-taskops-agent-re-bench",
+      "run_id": null,
+      "readiness": "runnable",
+      "status": "done",
+      "priority": 0,
+      "blocked_reason": null,
+      "md_fingerprint": "41ddc7acad568dd96bf64fc1d503cce71bcb5d678204d88ad7716b42760644ac",
+      "created_at": "2026-06-15T18:36:27.461Z",
+      "updated_at": "2026-06-15T18:39:24.797Z"
+    },
+    {
+      "id": "tgv-root-v2:bench-taskops-agent-skillsbench",
+      "work_root": "local/scoreable-full-smoke",
+      "task_id": "bench-taskops-agent-skillsbench",
+      "run_id": null,
+      "readiness": "runnable",
+      "status": "done",
+      "priority": 0,
+      "blocked_reason": null,
+      "md_fingerprint": "0099da90df9ee9052e2b2470f3e61a5c26b0d56757fc5d7a96ed40efccf6fba4",
+      "created_at": "2026-06-15T18:36:27.461Z",
+      "updated_at": "2026-06-15T18:39:24.797Z"
+    },
+    {
+      "id": "tgv-root-v2:bench-taskops-agent-swe-bench-multilingual",
+      "work_root": "local/scoreable-full-smoke",
+      "task_id": "bench-taskops-agent-swe-bench-multilingual",
+      "run_id": null,
+      "readiness": "runnable",
+      "status": "done",
+      "priority": 0,
+      "blocked_reason": null,
+      "md_fingerprint": "e8cf14e06ddcf23f1fef14ce79214ca417321402c2a53063e05a8dc234be6732",
+      "created_at": "2026-06-15T18:36:27.461Z",
+      "updated_at": "2026-06-15T18:39:24.797Z"
+    },
+    {
+      "id": "tgv-root-v2:bench-taskops-agent-swe-bench-pro",
+      "work_root": "local/scoreable-full-smoke",
+      "task_id": "bench-taskops-agent-swe-bench-pro",
+      "run_id": null,
+      "readiness": "runnable",
+      "status": "done",
+      "priority": 0,
+      "blocked_reason": null,
+      "md_fingerprint": "13e8bd54abc80a597040c01847cb666292ab7c70788834aa464e49380ccc7921",
+      "created_at": "2026-06-15T18:36:27.461Z",
+      "updated_at": "2026-06-15T18:39:24.797Z"
+    },
+    {
+      "id": "tgv-root-v2:bench-taskops-agent-swe-bench-verified",
+      "work_root": "local/scoreable-full-smoke",
+      "task_id": "bench-taskops-agent-swe-bench-verified",
+      "run_id": null,
+      "readiness": "runnable",
+      "status": "done",
+      "priority": 0,
+      "blocked_reason": null,
+      "md_fingerprint": "65ba41ac6ca27be5258962980f127508f82be921be4133b39c89aec4e3aa0667",
+      "created_at": "2026-06-15T18:36:27.461Z",
+      "updated_at": "2026-06-15T18:39:24.797Z"
+    },
+    {
+      "id": "tgv-root-v2:bench-taskops-agent-terminal-bench-2",
+      "work_root": "local/scoreable-full-smoke",
+      "task_id": "bench-taskops-agent-terminal-bench-2",
+      "run_id": null,
+      "readiness": "runnable",
+      "status": "done",
+      "priority": 0,
+      "blocked_reason": null,
+      "md_fingerprint": "083e3a91581a6e613e9ca8ca36d108b27ff144647bcde392b4708c9153b414fe",
+      "created_at": "2026-06-15T18:36:27.461Z",
+      "updated_at": "2026-06-15T18:39:24.797Z"
+    },
+    {
+      "id": "tgv-root-v2:bench-taskops-agent-the-agent-company",
+      "work_root": "local/scoreable-full-smoke",
+      "task_id": "bench-taskops-agent-the-agent-company",
+      "run_id": null,
+      "readiness": "runnable",
+      "status": "done",
+      "priority": 0,
+      "blocked_reason": null,
+      "md_fingerprint": "a89eb2c14ad3f42f8105c96f3ae0f318bb0e251c83ee9a4c4905aac57d484a74",
+      "created_at": "2026-06-15T18:36:27.461Z",
+      "updated_at": "2026-06-15T18:39:24.797Z"
+    },
+    {
+      "id": "tgv-root-v2:bench-taskops-agent-vending-bench",
+      "work_root": "local/scoreable-full-smoke",
+      "task_id": "bench-taskops-agent-vending-bench",
+      "run_id": null,
+      "readiness": "runnable",
+      "status": "done",
+      "priority": 0,
+      "blocked_reason": null,
+      "md_fingerprint": "2892e8d50ffcbea44570d83650498cb4f0cbd3a35db4ee4c3a384f6c1ec795d4",
+      "created_at": "2026-06-15T18:36:27.461Z",
+      "updated_at": "2026-06-15T18:39:24.797Z"
+    }
+  ],
+  "progress_reports": [],
+  "tasks": [
+    {
+      "task_id": "bench-direct-agent-agents-last-exam-free-easy-subset",
+      "task_group_version_id": "tgv-root-v2",
+      "status": "done",
+      "run_readiness": "runnable",
+      "has_eow": true,
+      "path": "task-groups/tg-root/versions/tgv-root-v2/tasks/bench-direct-agent-agents-last-exam-free-easy-subset.md"
+    },
+    {
+      "task_id": "bench-direct-agent-agents-last-exam",
+      "task_group_version_id": "tgv-root-v2",
+      "status": "done",
+      "run_readiness": "runnable",
+      "has_eow": true,
+      "path": "task-groups/tg-root/versions/tgv-root-v2/tasks/bench-direct-agent-agents-last-exam.md"
+    },
+    {
+      "task_id": "bench-direct-agent-hcast-public",
+      "task_group_version_id": "tgv-root-v2",
+      "status": "done",
+      "run_readiness": "runnable",
+      "has_eow": true,
+      "path": "task-groups/tg-root/versions/tgv-root-v2/tasks/bench-direct-agent-hcast-public.md"
+    },
+    {
+      "task_id": "bench-direct-agent-nl2repo",
+      "task_group_version_id": "tgv-root-v2",
+      "status": "done",
+      "run_readiness": "runnable",
+      "has_eow": true,
+      "path": "task-groups/tg-root/versions/tgv-root-v2/tasks/bench-direct-agent-nl2repo.md"
+    },
+    {
+      "task_id": "bench-direct-agent-re-bench",
+      "task_group_version_id": "tgv-root-v2",
+      "status": "done",
+      "run_readiness": "runnable",
+      "has_eow": true,
+      "path": "task-groups/tg-root/versions/tgv-root-v2/tasks/bench-direct-agent-re-bench.md"
+    },
+    {
+      "task_id": "bench-direct-agent-skillsbench",
+      "task_group_version_id": "tgv-root-v2",
+      "status": "done",
+      "run_readiness": "runnable",
+      "has_eow": true,
+      "path": "task-groups/tg-root/versions/tgv-root-v2/tasks/bench-direct-agent-skillsbench.md"
+    },
+    {
+      "task_id": "bench-direct-agent-swe-bench-multilingual",
+      "task_group_version_id": "tgv-root-v2",
+      "status": "done",
+      "run_readiness": "runnable",
+      "has_eow": true,
+      "path": "task-groups/tg-root/versions/tgv-root-v2/tasks/bench-direct-agent-swe-bench-multilingual.md"
+    },
+    {
+      "task_id": "bench-direct-agent-swe-bench-pro",
+      "task_group_version_id": "tgv-root-v2",
+      "status": "done",
+      "run_readiness": "runnable",
+      "has_eow": true,
+      "path": "task-groups/tg-root/versions/tgv-root-v2/tasks/bench-direct-agent-swe-bench-pro.md"
+    },
+    {
+      "task_id": "bench-direct-agent-swe-bench-verified",
+      "task_group_version_id": "tgv-root-v2",
+      "status": "done",
+      "run_readiness": "runnable",
+      "has_eow": true,
+      "path": "task-groups/tg-root/versions/tgv-root-v2/tasks/bench-direct-agent-swe-bench-verified.md"
+    },
+    {
+      "task_id": "bench-direct-agent-terminal-bench-2",
+      "task_group_version_id": "tgv-root-v2",
+      "status": "done",
+      "run_readiness": "runnable",
+      "has_eow": true,
+      "path": "task-groups/tg-root/versions/tgv-root-v2/tasks/bench-direct-agent-terminal-bench-2.md"
+    },
+    {
+      "task_id": "bench-direct-agent-the-agent-company",
+      "task_group_version_id": "tgv-root-v2",
+      "status": "done",
+      "run_readiness": "runnable",
+      "has_eow": true,
+      "path": "task-groups/tg-root/versions/tgv-root-v2/tasks/bench-direct-agent-the-agent-company.md"
+    },
+    {
+      "task_id": "bench-direct-agent-vending-bench",
+      "task_group_version_id": "tgv-root-v2",
+      "status": "done",
+      "run_readiness": "runnable",
+      "has_eow": true,
+      "path": "task-groups/tg-root/versions/tgv-root-v2/tasks/bench-direct-agent-vending-bench.md"
+    },
+    {
+      "task_id": "bench-taskops-agent-agents-last-exam-free-easy-subset",
+      "task_group_version_id": "tgv-root-v2",
+      "status": "done",
+      "run_readiness": "runnable",
+      "has_eow": true,
+      "path": "task-groups/tg-root/versions/tgv-root-v2/tasks/bench-taskops-agent-agents-last-exam-free-easy-subset.md"
+    },
+    {
+      "task_id": "bench-taskops-agent-agents-last-exam",
+      "task_group_version_id": "tgv-root-v2",
+      "status": "done",
+      "run_readiness": "runnable",
+      "has_eow": true,
+      "path": "task-groups/tg-root/versions/tgv-root-v2/tasks/bench-taskops-agent-agents-last-exam.md"
+    },
+    {
+      "task_id": "bench-taskops-agent-hcast-public",
+      "task_group_version_id": "tgv-root-v2",
+      "status": "done",
+      "run_readiness": "runnable",
+      "has_eow": true,
+      "path": "task-groups/tg-root/versions/tgv-root-v2/tasks/bench-taskops-agent-hcast-public.md"
+    },
+    {
+      "task_id": "bench-taskops-agent-nl2repo",
+      "task_group_version_id": "tgv-root-v2",
+      "status": "done",
+      "run_readiness": "runnable",
+      "has_eow": true,
+      "path": "task-groups/tg-root/versions/tgv-root-v2/tasks/bench-taskops-agent-nl2repo.md"
+    },
+    {
+      "task_id": "bench-taskops-agent-re-bench",
+      "task_group_version_id": "tgv-root-v2",
+      "status": "done",
+      "run_readiness": "runnable",
+      "has_eow": true,
+      "path": "task-groups/tg-root/versions/tgv-root-v2/tasks/bench-taskops-agent-re-bench.md"
+    },
+    {
+      "task_id": "bench-taskops-agent-skillsbench",
+      "task_group_version_id": "tgv-root-v2",
+      "status": "done",
+      "run_readiness": "runnable",
+      "has_eow": true,
+      "path": "task-groups/tg-root/versions/tgv-root-v2/tasks/bench-taskops-agent-skillsbench.md"
+    },
+    {
+      "task_id": "bench-taskops-agent-swe-bench-multilingual",
+      "task_group_version_id": "tgv-root-v2",
+      "status": "done",
+      "run_readiness": "runnable",
+      "has_eow": true,
+      "path": "task-groups/tg-root/versions/tgv-root-v2/tasks/bench-taskops-agent-swe-bench-multilingual.md"
+    },
+    {
+      "task_id": "bench-taskops-agent-swe-bench-pro",
+      "task_group_version_id": "tgv-root-v2",
+      "status": "done",
+      "run_readiness": "runnable",
+      "has_eow": true,
+      "path": "task-groups/tg-root/versions/tgv-root-v2/tasks/bench-taskops-agent-swe-bench-pro.md"
+    },
+    {
+      "task_id": "bench-taskops-agent-swe-bench-verified",
+      "task_group_version_id": "tgv-root-v2",
+      "status": "done",
+      "run_readiness": "runnable",
+      "has_eow": true,
+      "path": "task-groups/tg-root/versions/tgv-root-v2/tasks/bench-taskops-agent-swe-bench-verified.md"
+    },
+    {
+      "task_id": "bench-taskops-agent-terminal-bench-2",
+      "task_group_version_id": "tgv-root-v2",
+      "status": "done",
+      "run_readiness": "runnable",
+      "has_eow": true,
+      "path": "task-groups/tg-root/versions/tgv-root-v2/tasks/bench-taskops-agent-terminal-bench-2.md"
+    },
+    {
+      "task_id": "bench-taskops-agent-the-agent-company",
+      "task_group_version_id": "tgv-root-v2",
+      "status": "done",
+      "run_readiness": "runnable",
+      "has_eow": true,
+      "path": "task-groups/tg-root/versions/tgv-root-v2/tasks/bench-taskops-agent-the-agent-company.md"
+    },
+    {
+      "task_id": "bench-taskops-agent-vending-bench",
+      "task_group_version_id": "tgv-root-v2",
+      "status": "done",
+      "run_readiness": "runnable",
+      "has_eow": true,
+      "path": "task-groups/tg-root/versions/tgv-root-v2/tasks/bench-taskops-agent-vending-bench.md"
+    }
+  ]
+}

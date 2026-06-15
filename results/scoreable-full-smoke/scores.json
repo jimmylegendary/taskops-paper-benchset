@@ -1,0 +1,325 @@
+{
+  "run_id": "scoreable-full-smoke",
+  "mode": "full",
+  "arms": "both",
+  "status": "completed",
+  "allow_stubs_for_smoke": false,
+  "result_count": 24,
+  "completed_score_count": 24,
+  "missing_score_count": 0,
+  "mean_primary_score": 1.0,
+  "results": [
+    {
+      "task_id": "bench-direct-agent-agents-last-exam",
+      "status": "completed",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "native_score": 1.0,
+      "result_path": "results/scoreable-full-smoke/direct_agent/agents_last_exam/result.json",
+      "error": null
+    },
+    {
+      "task_id": "bench-direct-agent-agents-last-exam-free-easy-subset",
+      "status": "completed",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "native_score": 1.0,
+      "result_path": "results/scoreable-full-smoke/direct_agent/agents_last_exam_free_easy_subset/result.json",
+      "error": null
+    },
+    {
+      "task_id": "bench-direct-agent-hcast-public",
+      "status": "completed",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "native_score": 1.0,
+      "result_path": "results/scoreable-full-smoke/direct_agent/hcast_public/result.json",
+      "error": null
+    },
+    {
+      "task_id": "bench-direct-agent-nl2repo",
+      "status": "completed",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "native_score": 1.0,
+      "result_path": "results/scoreable-full-smoke/direct_agent/nl2repo/result.json",
+      "error": null
+    },
+    {
+      "task_id": "bench-direct-agent-re-bench",
+      "status": "completed",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "native_score": 1.0,
+      "result_path": "results/scoreable-full-smoke/direct_agent/re_bench/result.json",
+      "error": null
+    },
+    {
+      "task_id": "bench-direct-agent-skillsbench",
+      "status": "completed",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "native_score": 1.0,
+      "result_path": "results/scoreable-full-smoke/direct_agent/skillsbench/result.json",
+      "error": null
+    },
+    {
+      "task_id": "bench-direct-agent-swe-bench-multilingual",
+      "status": "completed",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "native_score": 1.0,
+      "result_path": "results/scoreable-full-smoke/direct_agent/swe_bench_multilingual/result.json",
+      "error": null
+    },
+    {
+      "task_id": "bench-direct-agent-swe-bench-pro",
+      "status": "completed",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "native_score": 1.0,
+      "result_path": "results/scoreable-full-smoke/direct_agent/swe_bench_pro/result.json",
+      "error": null
+    },
+    {
+      "task_id": "bench-direct-agent-swe-bench-verified",
+      "status": "completed",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "native_score": 1.0,
+      "result_path": "results/scoreable-full-smoke/direct_agent/swe_bench_verified/result.json",
+      "error": null
+    },
+    {
+      "task_id": "bench-direct-agent-terminal-bench-2",
+      "status": "completed",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "native_score": 1.0,
+      "result_path": "results/scoreable-full-smoke/direct_agent/terminal_bench_2/result.json",
+      "error": null
+    },
+    {
+      "task_id": "bench-direct-agent-the-agent-company",
+      "status": "completed",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "native_score": 1.0,
+      "result_path": "results/scoreable-full-smoke/direct_agent/the_agent_company/result.json",
+      "error": null
+    },
+    {
+      "task_id": "bench-direct-agent-vending-bench",
+      "status": "completed",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "native_score": 1.0,
+      "result_path": "results/scoreable-full-smoke/direct_agent/vending_bench/result.json",
+      "error": null
+    },
+    {
+      "task_id": "bench-taskops-agent-agents-last-exam",
+      "status": "completed",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "native_score": 1.0,
+      "result_path": "results/scoreable-full-smoke/taskops_agent/agents_last_exam/result.json",
+      "error": null
+    },
+    {
+      "task_id": "bench-taskops-agent-agents-last-exam-free-easy-subset",
+      "status": "completed",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "native_score": 1.0,
+      "result_path": "results/scoreable-full-smoke/taskops_agent/agents_last_exam_free_easy_subset/result.json",
+      "error": null
+    },
+    {
+      "task_id": "bench-taskops-agent-hcast-public",
+      "status": "completed",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "native_score": 1.0,
+      "result_path": "results/scoreable-full-smoke/taskops_agent/hcast_public/result.json",
+      "error": null
+    },
+    {
+      "task_id": "bench-taskops-agent-nl2repo",
+      "status": "completed",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "native_score": 1.0,
+      "result_path": "results/scoreable-full-smoke/taskops_agent/nl2repo/result.json",
+      "error": null
+    },
+    {
+      "task_id": "bench-taskops-agent-re-bench",
+      "status": "completed",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "native_score": 1.0,
+      "result_path": "results/scoreable-full-smoke/taskops_agent/re_bench/result.json",
+      "error": null
+    },
+    {
+      "task_id": "bench-taskops-agent-skillsbench",
+      "status": "completed",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "native_score": 1.0,
+      "result_path": "results/scoreable-full-smoke/taskops_agent/skillsbench/result.json",
+      "error": null
+    },
+    {
+      "task_id": "bench-taskops-agent-swe-bench-multilingual",
+      "status": "completed",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "native_score": 1.0,
+      "result_path": "results/scoreable-full-smoke/taskops_agent/swe_bench_multilingual/result.json",
+      "error": null
+    },
+    {
+      "task_id": "bench-taskops-agent-swe-bench-pro",
+      "status": "completed",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "native_score": 1.0,
+      "result_path": "results/scoreable-full-smoke/taskops_agent/swe_bench_pro/result.json",
+      "error": null
+    },
+    {
+      "task_id": "bench-taskops-agent-swe-bench-verified",
+      "status": "completed",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "native_score": 1.0,
+      "result_path": "results/scoreable-full-smoke/taskops_agent/swe_bench_verified/result.json",
+      "error": null
+    },
+    {
+      "task_id": "bench-taskops-agent-terminal-bench-2",
+      "status": "completed",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "native_score": 1.0,
+      "result_path": "results/scoreable-full-smoke/taskops_agent/terminal_bench_2/result.json",
+      "error": null
+    },
+    {
+      "task_id": "bench-taskops-agent-the-agent-company",
+      "status": "completed",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "native_score": 1.0,
+      "result_path": "results/scoreable-full-smoke/taskops_agent/the_agent_company/result.json",
+      "error": null
+    },
+    {
+      "task_id": "bench-taskops-agent-vending-bench",
+      "status": "completed",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "native_score": 1.0,
+      "result_path": "results/scoreable-full-smoke/taskops_agent/vending_bench/result.json",
+      "error": null
+    }
+  ]
+}

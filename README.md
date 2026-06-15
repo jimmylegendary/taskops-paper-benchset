@@ -89,10 +89,38 @@ multi-artifact, and procedure-heavy tasks.
 python3 scripts/validate.py
 ```
 
+## Runnable Score Path
+
+The default path is score-producing. Every benchmark id in the run matrix has a
+repo-local deterministic task pack in `data/local_score_tasks.json`. Adapters call
+the configured agent runtime, score the response with deterministic answer
+patterns, and write numeric `score.primary` values.
+
+This local score path is the clone-and-run harness for TaskOps paper iteration.
+Official upstream harnesses remain useful for later replacement adapters, but the
+repo no longer depends on paid APIs, hidden graders, or external benchmark
+services just to produce scores.
+
+For a quick full-matrix scoring run:
+
+```bash
+TASKOPS_BENCH_TASK_LIMIT=1 python3 scripts/taskops_bench.py run \
+  --init --force \
+  --work-dir local/scoreable-full \
+  --mode full \
+  --arms both \
+  --run-id scoreable-full-001
+```
+
+The latest verified full run in this workspace is
+`results/scoreable-full-smoke/scores.json`: 24 completed numeric scores, 0
+missing scores, and full TaskOps closure.
+
 ## TaskOps Run Structure
 
 Run a selected benchmark set end to end through TaskOps. This is a real scoring
-path: selected adapters must be configured, and stubs fail by default.
+path: selected adapters call the configured runtime and completed results must
+contain numeric scores.
 
 ```bash
 python3 scripts/taskops_bench.py run \
@@ -124,9 +152,8 @@ results/<run_id>/taskops-node-state.json
 results/<run_id>/<arm>/<benchmark_id>/result.json
 ```
 
-Unconfigured benchmark adapters are rejected by default. For an
-orchestration-only smoke test, pass `--allow-stubs-for-smoke`; those results are
-recorded as `status: not_configured` and must not be used as paper scores.
+Unconfigured benchmark adapters are rejected by default. The repo-local scoring
+adapters are configured for every benchmark id in the matrix.
 
 Generate only the TaskOps work graph for the core suite:
 

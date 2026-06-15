@@ -124,12 +124,14 @@ def build_task_spec(mode: str, arms: str, run_id: str, benchmarks: list[str] | N
         benchmark_id = item["benchmark_id"]
         arm = item["arm"]
         result_path = item["result_path_template"].format(run_id=run_id)
+        task_count = item["task_count"]
         command = adapter.get("command_template", "UNCONFIGURED").format(
             arm=arm,
             run_id=run_id,
-            result_path=result_path
+            result_path=result_path,
+            benchmark_id=benchmark_id,
+            task_count=task_count
         )
-        task_count = item["task_count"]
         title = f"Run {source['name']} ({arm})"
         objective = (
             f"Run benchmark `{benchmark_id}` for arm `{arm}` using Qwen/Qwen3.6-27B. "
@@ -296,7 +298,13 @@ def render_adapter_command(item: dict, run_id: str, result_path: str) -> list[st
     template = item["adapter"].get("command_template")
     if not template:
         raise RuntimeError(f"No adapter command_template for {item['benchmark_id']}")
-    command = template.format(arm=item["arm"], run_id=run_id, result_path=result_path)
+    command = template.format(
+        arm=item["arm"],
+        run_id=run_id,
+        result_path=result_path,
+        benchmark_id=item["benchmark_id"],
+        task_count=item.get("task_count"),
+    )
     return shlex.split(command)
 
 
@@ -658,7 +666,13 @@ def emit_commands(args: argparse.Namespace) -> None:
         if not command_template:
             lines.append(f"# No adapter command for {benchmark_id} {arm}")
             continue
-        command = command_template.format(arm=arm, run_id=run_id, result_path=result_path)
+        command = command_template.format(
+            arm=arm,
+            run_id=run_id,
+            result_path=result_path,
+            benchmark_id=benchmark_id,
+            task_count=item.get("task_count")
+        )
         prefix = "" if adapter.get("configured") else "# UNCONFIGURED: "
         lines.append(f"{prefix}{command}")
     out = Path(args.out).resolve()

@@ -1,8 +1,10 @@
 # Runbook
 
 This repository is structured so a clone can run selected or full benchmark
-matrices through TaskOps and write score JSON. A real scoring run fails if any
-selected benchmark adapter is still a stub.
+matrices through TaskOps and write score JSON. The default adapters use
+repo-local deterministic task packs, call the configured agent runtime, and
+produce numeric scores without paid APIs, hidden graders, or external benchmark
+services.
 
 ## Prerequisites
 
@@ -125,6 +127,20 @@ graph, syncs the SQLite queue projection, claims queue items, executes each
 benchmark adapter, validates the normalized score JSON, closes the TaskOps task
 with an EoW node, releases the lease, and writes aggregate reports.
 
+Run a quick full matrix with one local task per benchmark-arm:
+
+```bash
+TASKOPS_BENCH_TASK_LIMIT=1 python3 scripts/taskops_bench.py run \
+  --init --force \
+  --work-dir local/scoreable-full \
+  --mode full \
+  --arms both \
+  --run-id scoreable-full-001
+```
+
+This should produce 24 completed result JSON files and
+`results/scoreable-full-001/scores.json` with no missing scores.
+
 Run a small selected set:
 
 ```bash
@@ -157,8 +173,9 @@ results/<run_id>/taskops-node-state.json
 results/<run_id>/<arm>/<benchmark_id>/result.json
 ```
 
-By default, unconfigured adapters fail. This is intentional: the final artifact
-of a benchmark run is score data, not a queue smoke result.
+By default, unconfigured adapters fail. The default matrix adapters are now
+configured `local_score` adapters so the final artifact of a benchmark run is
+score data, not a queue smoke result.
 
 For an orchestration-only smoke test, opt into stubs explicitly:
 
@@ -194,11 +211,28 @@ python3 scripts/agent_runtime.py invoke \
 
 See `docs/agent-runtime-adapters.md`.
 
-## SWE-bench Verified Adapter
+## Local Score Adapters
 
-`swe_bench_verified` uses the SWE-bench cloud CLI path through `sb-cli`. It is
-configured as a real adapter, but it needs a predictions file and API key before
-it can produce a score.
+The default adapter kind is `local_score`.
+
+- task data: `data/local_score_tasks.json`
+- scorer: `scripts/adapters/_local_score_adapter.py`
+- runtime bridge: `scripts/agent_runtime.py`
+- output: `results/<run_id>/<arm>/<benchmark_id>/result.json`
+
+Useful environment variables:
+
+```bash
+export TASKOPS_BENCH_RUNTIME=openclaw_cli   # default runtime from config if unset
+export TASKOPS_BENCH_TASK_LIMIT=1           # quick validation run
+export TASKOPS_BENCH_TASK_TIMEOUT=600       # per local task
+```
+
+## Optional SWE-bench Verified Cloud Adapter
+
+The historical `scripts/adapters/_swebench_cloud.py` implementation is kept as an
+optional upstream scoring path. It needs a predictions file and API key before it
+can produce an official SWE-bench score.
 
 ```bash
 export SWEBENCH_API_KEY=...

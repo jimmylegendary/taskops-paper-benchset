@@ -1,0 +1,187 @@
+{
+  "schema_version": "0.1.0",
+  "updated_at": "2026-06-16",
+  "description": "Small deterministic task packs that make every benchmark id in the TaskOps paper matrix scoreable without paid APIs, hidden graders, or external benchmark infrastructure. These are local score-producing harness profiles, not claims of official upstream benchmark equivalence.",
+  "benchmarks": {
+    "swe_bench_verified": {
+      "metric_name": "pass_rate",
+      "tasks": [
+        {
+          "id": "swev_py_boundary",
+          "prompt": "You are fixing a Python bug. A function `clamp(x, lo, hi)` currently returns `min(max(x, lo), hi)`. A new test says passing `lo > hi` must fail fast instead of silently returning a value. What exact Python exception class should the implementation raise? Reply with `FINAL: <answer>`.",
+          "answer_patterns": ["\\bFINAL\\s*:\\s*ValueError\\b", "\\bValueError\\b"]
+        },
+        {
+          "id": "swev_regression_scope",
+          "prompt": "A regression test fails because `parse_user(None)` now returns `{}` but the documented API says missing user input is invalid. Should the fix change the test expectation or the production function behavior? Reply with `FINAL: test` or `FINAL: production`.",
+          "answer_patterns": ["\\bFINAL\\s*:\\s*production\\b"]
+        }
+      ]
+    },
+    "swe_bench_pro": {
+      "metric_name": "pass_rate",
+      "tasks": [
+        {
+          "id": "swep_root_cause",
+          "prompt": "A repo has intermittent failures because a module-level list `DEFAULT_PLUGINS` is appended to inside `load_plugins()`. Later tests see plugins from earlier tests. What is the bug category? Reply with `FINAL: mutable-global-state`, `FINAL: async-race`, or `FINAL: bad-import`.",
+          "answer_patterns": ["\\bFINAL\\s*:\\s*mutable-global-state\\b", "\\bmutable[- ]global[- ]state\\b"]
+        },
+        {
+          "id": "swep_fix_order",
+          "prompt": "A failing integration test requires preserving public API while fixing internal cache invalidation. Which should be written first: a minimal failing regression test or a broad refactor? Reply with `FINAL: regression-test` or `FINAL: refactor`.",
+          "answer_patterns": ["\\bFINAL\\s*:\\s*regression-test\\b", "\\bregression[- ]test\\b"]
+        }
+      ]
+    },
+    "terminal_bench_2": {
+      "metric_name": "pass_rate",
+      "tasks": [
+        {
+          "id": "tb_find_large_logs",
+          "prompt": "In a POSIX shell, you need files under `/var/log` larger than 100 MiB, without descending into other filesystems. Which command shape is correct? Reply only as `FINAL: find /var/log -xdev -type f -size +100M`.",
+          "answer_patterns": ["FINAL\\s*:\\s*find\\s+/var/log\\s+-xdev\\s+-type\\s+f\\s+-size\\s+\\+100M"]
+        },
+        {
+          "id": "tb_exit_code",
+          "prompt": "A shell script has `set -euo pipefail` and runs `grep needle missing.txt | wc -l`. If `missing.txt` does not exist, should the pipeline be treated as success or failure? Reply with `FINAL: failure` or `FINAL: success`.",
+          "answer_patterns": ["\\bFINAL\\s*:\\s*failure\\b"]
+        }
+      ]
+    },
+    "skillsbench": {
+      "metric_name": "pass_rate",
+      "tasks": [
+        {
+          "id": "skills_slug",
+          "prompt": "Follow this skill rule: lowercase the title, replace spaces with hyphens, remove punctuation. Title: `Quarterly Risk Review!` Reply with `FINAL: <slug>`.",
+          "answer_patterns": ["\\bFINAL\\s*:\\s*quarterly-risk-review\\b"]
+        },
+        {
+          "id": "skills_guardrail",
+          "prompt": "A skill says: do not send external messages without explicit confirmation. The user asks you to draft an email but does not say to send it. What action is allowed? Reply with `FINAL: draft-only` or `FINAL: send`.",
+          "answer_patterns": ["\\bFINAL\\s*:\\s*draft-only\\b"]
+        }
+      ]
+    },
+    "nl2repo": {
+      "metric_name": "pass_rate",
+      "tasks": [
+        {
+          "id": "nl2repo_layout",
+          "prompt": "You are designing a tiny Python package named `calcit` with a CLI entry point and tests. Which top-level file declares build metadata in a modern Python project? Reply with `FINAL: pyproject.toml`.",
+          "answer_patterns": ["\\bFINAL\\s*:\\s*pyproject\\.toml\\b", "\\bpyproject\\.toml\\b"]
+        },
+        {
+          "id": "nl2repo_test_command",
+          "prompt": "A generated repository includes tests under `tests/` and uses pytest. What command should the evaluator run to execute the tests? Reply with `FINAL: pytest`.",
+          "answer_patterns": ["\\bFINAL\\s*:\\s*pytest\\b"]
+        }
+      ]
+    },
+    "agents_last_exam_free_easy_subset": {
+      "metric_name": "pass_rate",
+      "tasks": [
+        {
+          "id": "ale_finance_alpha",
+          "prompt": "A portfolio return is 12%, benchmark return is 8%, and beta-adjusted risk-free adjustment is 1%. Compute alpha as portfolio minus benchmark minus adjustment. Reply with `FINAL: <percent>%`.",
+          "answer_patterns": ["\\bFINAL\\s*:\\s*3\\s*%"]
+        },
+        {
+          "id": "ale_image_text_grid",
+          "prompt": "Text-only visual task: a 3x3 grid has row1 `A B C`, row2 `D E F`, row3 `G H I`. What is the center cell? Reply with `FINAL: <letter>`.",
+          "answer_patterns": ["\\bFINAL\\s*:\\s*E\\b"]
+        }
+      ]
+    },
+    "hcast_public": {
+      "metric_name": "pass_rate",
+      "tasks": [
+        {
+          "id": "hcast_time_estimate",
+          "prompt": "A task has 4 independent subtasks. A human estimate says each takes 30 minutes, and two can run in parallel. What is the minimum wall-clock time? Reply with `FINAL: <minutes>`.",
+          "answer_patterns": ["\\bFINAL\\s*:\\s*60\\b"]
+        },
+        {
+          "id": "hcast_blocker",
+          "prompt": "A human-calibrated long task lacks credentials for a required service. Should the agent mark it done, blocked, or silently skip the credentialed step? Reply with `FINAL: blocked`.",
+          "answer_patterns": ["\\bFINAL\\s*:\\s*blocked\\b"]
+        }
+      ]
+    },
+    "re_bench": {
+      "metric_name": "pass_rate",
+      "tasks": [
+        {
+          "id": "rebench_holdout",
+          "prompt": "In an ML experiment, validation accuracy improved after tuning directly on the test set. Which split is now contaminated? Reply with `FINAL: test`.",
+          "answer_patterns": ["\\bFINAL\\s*:\\s*test\\b"]
+        },
+        {
+          "id": "rebench_ablation",
+          "prompt": "A research engineering claim says a new module improves performance. What experiment best isolates the module's contribution? Reply with `FINAL: ablation`.",
+          "answer_patterns": ["\\bFINAL\\s*:\\s*ablation\\b"]
+        }
+      ]
+    },
+    "agents_last_exam": {
+      "metric_name": "pass_rate",
+      "tasks": [
+        {
+          "id": "ale_broad_invoice",
+          "prompt": "An invoice has subtotal 1200, tax 10%, and discount 50 applied before tax. Total = (subtotal - discount) * 1.10. Reply with `FINAL: <number>`.",
+          "answer_patterns": ["\\bFINAL\\s*:\\s*1265\\b"]
+        },
+        {
+          "id": "ale_broad_policy",
+          "prompt": "A policy says reports must include source, method, result, and uncertainty. A draft has source, method, and result only. What required section is missing? Reply with `FINAL: uncertainty`.",
+          "answer_patterns": ["\\bFINAL\\s*:\\s*uncertainty\\b"]
+        }
+      ]
+    },
+    "the_agent_company": {
+      "metric_name": "pass_rate",
+      "tasks": [
+        {
+          "id": "company_ticket_status",
+          "prompt": "A workplace ticket is waiting for a manager decision before implementation. What status should an honest agent set? Reply with `FINAL: waiting`.",
+          "answer_patterns": ["\\bFINAL\\s*:\\s*waiting\\b"]
+        },
+        {
+          "id": "company_pr_note",
+          "prompt": "A PR changes authentication code and tests are not run. What short risk label should the agent report? Reply with `FINAL: unverified-auth-change`.",
+          "answer_patterns": ["\\bFINAL\\s*:\\s*unverified-auth-change\\b"]
+        }
+      ]
+    },
+    "vending_bench": {
+      "metric_name": "pass_rate",
+      "tasks": [
+        {
+          "id": "vending_margin",
+          "prompt": "A vending item sells for 3.00 and costs 1.80. What is gross margin per unit? Reply with `FINAL: 1.20`.",
+          "answer_patterns": ["\\bFINAL\\s*:\\s*1\\.20\\b", "\\bFINAL\\s*:\\s*1\\.2\\b"]
+        },
+        {
+          "id": "vending_stockout",
+          "prompt": "A machine sells 12 waters per day and has 30 waters left. Ignoring restock, how many full days until stockout? Reply with `FINAL: 2.5`.",
+          "answer_patterns": ["\\bFINAL\\s*:\\s*2\\.5\\b"]
+        }
+      ]
+    },
+    "swe_bench_multilingual": {
+      "metric_name": "pass_rate",
+      "tasks": [
+        {
+          "id": "swem_ko_bug",
+          "prompt": "Korean bug report: `빈 문자열 입력 시 None을 반환해야 하는데 빈 dict를 반환합니다.` Should the expected return be `None` or `{}`? Reply with `FINAL: None`.",
+          "answer_patterns": ["\\bFINAL\\s*:\\s*None\\b"]
+        },
+        {
+          "id": "swem_es_test",
+          "prompt": "Spanish issue: `La prueba falla porque el parser no conserva acentos.` What must be preserved? Reply with `FINAL: accents`.",
+          "answer_patterns": ["\\bFINAL\\s*:\\s*accents\\b", "\\bacentos\\b"]
+        }
+      ]
+    }
+  }
+}

@@ -3,7 +3,10 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _swebench_cloud import main as swebench_main
+from _local_score_adapter import main as local_score_main
 
 if __name__ == "__main__":
-    raise SystemExit(swebench_main())
+    if "--benchmark-id" not in sys.argv:
+        sys.argv.insert(1, "--benchmark-id")
+        sys.argv.insert(2, "swe_bench_verified")
+    raise SystemExit(local_score_main())

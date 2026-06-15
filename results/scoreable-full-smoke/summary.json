@@ -1,0 +1,1118 @@
+{
+  "run_id": "scoreable-full-smoke",
+  "mode": "full",
+  "arms": "both",
+  "work_dir": "local/scoreable-full-smoke",
+  "allow_stubs_for_smoke": false,
+  "started_at": "2026-06-15T18:36:27.469884+00:00",
+  "finished_at": "2026-06-15T18:39:25.030868+00:00",
+  "status": "completed",
+  "steps": [
+    {
+      "task_id": "bench-direct-agent-agents-last-exam",
+      "queue_item_id": "tgv-root-v2:bench-direct-agent-agents-last-exam",
+      "lease_id": "lease-b0d66a6a-b435-46f9-986c-051506452562",
+      "started_at": "2026-06-15T18:36:27.629588+00:00",
+      "finished_at": "2026-06-15T18:36:34.389823+00:00",
+      "release_status": "done",
+      "result_path": "results/scoreable-full-smoke/direct_agent/agents_last_exam/result.json",
+      "result_status": "completed",
+      "native_score": 1.0,
+      "error": null,
+      "command": [
+        "python3",
+        "scripts/adapters/ale.py",
+        "--subset",
+        "full",
+        "--arm",
+        "direct_agent",
+        "--run-id",
+        "scoreable-full-smoke",
+        "--out",
+        "results/scoreable-full-smoke/direct_agent/agents_last_exam/result.json"
+      ],
+      "adapter_stdout": "{\n  \"ok\": true,\n  \"status\": \"completed\",\n  \"score\": {\n    \"primary\": 1.0,\n    \"metric_name\": \"pass_rate\",\n    \"higher_is_better\": true,\n    \"available\": true\n  },\n  \"out\": \"results/scoreable-full-smoke/direct_agent/agents_last_exam/result.json\"\n}",
+      "adapter_stderr": "",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "close": {
+        "workId": "taskops-bench-full",
+        "projectDir": "local/scoreable-full-smoke",
+        "target": {
+          "type": "task",
+          "id": "bench-direct-agent-agents-last-exam",
+          "taskGroupId": "tg-root",
+          "taskGroupVersionId": "tgv-root-v2"
+        },
+        "eowId": "eow-bench-direct-agent-agents-last-exam",
+        "eowPath": "local/scoreable-full-smoke/task-groups/tg-root/versions/tgv-root-v2/eow/eow-bench-direct-agent-agents-last-exam.md",
+        "reason": "manual_verified",
+        "statusFlipped": true,
+        "closed": true
+      }
+    },
+    {
+      "task_id": "bench-direct-agent-agents-last-exam-free-easy-subset",
+      "queue_item_id": "tgv-root-v2:bench-direct-agent-agents-last-exam-free-easy-subset",
+      "lease_id": "lease-36464a4a-0ec9-4f42-9b06-2e2b1b0dee36",
+      "started_at": "2026-06-15T18:36:34.552056+00:00",
+      "finished_at": "2026-06-15T18:36:40.875160+00:00",
+      "release_status": "done",
+      "result_path": "results/scoreable-full-smoke/direct_agent/agents_last_exam_free_easy_subset/result.json",
+      "result_status": "completed",
+      "native_score": 1.0,
+      "error": null,
+      "command": [
+        "python3",
+        "scripts/adapters/ale.py",
+        "--subset",
+        "free_easy",
+        "--arm",
+        "direct_agent",
+        "--run-id",
+        "scoreable-full-smoke",
+        "--out",
+        "results/scoreable-full-smoke/direct_agent/agents_last_exam_free_easy_subset/result.json"
+      ],
+      "adapter_stdout": "{\n  \"ok\": true,\n  \"status\": \"completed\",\n  \"score\": {\n    \"primary\": 1.0,\n    \"metric_name\": \"pass_rate\",\n    \"higher_is_better\": true,\n    \"available\": true\n  },\n  \"out\": \"results/scoreable-full-smoke/direct_agent/agents_last_exam_free_easy_subset/result.json\"\n}",
+      "adapter_stderr": "",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "close": {
+        "workId": "taskops-bench-full",
+        "projectDir": "local/scoreable-full-smoke",
+        "target": {
+          "type": "task",
+          "id": "bench-direct-agent-agents-last-exam-free-easy-subset",
+          "taskGroupId": "tg-root",
+          "taskGroupVersionId": "tgv-root-v2"
+        },
+        "eowId": "eow-bench-direct-agent-agents-last-exam-free-easy-subset",
+        "eowPath": "local/scoreable-full-smoke/task-groups/tg-root/versions/tgv-root-v2/eow/eow-bench-direct-agent-agents-last-exam-free-easy-subset.md",
+        "reason": "manual_verified",
+        "statusFlipped": true,
+        "closed": true
+      }
+    },
+    {
+      "task_id": "bench-direct-agent-hcast-public",
+      "queue_item_id": "tgv-root-v2:bench-direct-agent-hcast-public",
+      "lease_id": "lease-a79c9619-59ed-4f89-86a2-e0b4dde99c73",
+      "started_at": "2026-06-15T18:36:41.039861+00:00",
+      "finished_at": "2026-06-15T18:36:47.231409+00:00",
+      "release_status": "done",
+      "result_path": "results/scoreable-full-smoke/direct_agent/hcast_public/result.json",
+      "result_status": "completed",
+      "native_score": 1.0,
+      "error": null,
+      "command": [
+        "python3",
+        "scripts/adapters/hcast.py",
+        "--arm",
+        "direct_agent",
+        "--run-id",
+        "scoreable-full-smoke",
+        "--out",
+        "results/scoreable-full-smoke/direct_agent/hcast_public/result.json"
+      ],
+      "adapter_stdout": "{\n  \"ok\": true,\n  \"status\": \"completed\",\n  \"score\": {\n    \"primary\": 1.0,\n    \"metric_name\": \"pass_rate\",\n    \"higher_is_better\": true,\n    \"available\": true\n  },\n  \"out\": \"results/scoreable-full-smoke/direct_agent/hcast_public/result.json\"\n}",
+      "adapter_stderr": "",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "close": {
+        "workId": "taskops-bench-full",
+        "projectDir": "local/scoreable-full-smoke",
+        "target": {
+          "type": "task",
+          "id": "bench-direct-agent-hcast-public",
+          "taskGroupId": "tg-root",
+          "taskGroupVersionId": "tgv-root-v2"
+        },
+        "eowId": "eow-bench-direct-agent-hcast-public",
+        "eowPath": "local/scoreable-full-smoke/task-groups/tg-root/versions/tgv-root-v2/eow/eow-bench-direct-agent-hcast-public.md",
+        "reason": "manual_verified",
+        "statusFlipped": true,
+        "closed": true
+      }
+    },
+    {
+      "task_id": "bench-direct-agent-nl2repo",
+      "queue_item_id": "tgv-root-v2:bench-direct-agent-nl2repo",
+      "lease_id": "lease-bcb43d0e-779a-42c2-a244-64742ef729c6",
+      "started_at": "2026-06-15T18:36:47.395195+00:00",
+      "finished_at": "2026-06-15T18:36:53.556107+00:00",
+      "release_status": "done",
+      "result_path": "results/scoreable-full-smoke/direct_agent/nl2repo/result.json",
+      "result_status": "completed",
+      "native_score": 1.0,
+      "error": null,
+      "command": [
+        "python3",
+        "scripts/adapters/nl2repo.py",
+        "--arm",
+        "direct_agent",
+        "--run-id",
+        "scoreable-full-smoke",
+        "--out",
+        "results/scoreable-full-smoke/direct_agent/nl2repo/result.json"
+      ],
+      "adapter_stdout": "{\n  \"ok\": true,\n  \"status\": \"completed\",\n  \"score\": {\n    \"primary\": 1.0,\n    \"metric_name\": \"pass_rate\",\n    \"higher_is_better\": true,\n    \"available\": true\n  },\n  \"out\": \"results/scoreable-full-smoke/direct_agent/nl2repo/result.json\"\n}",
+      "adapter_stderr": "",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "close": {
+        "workId": "taskops-bench-full",
+        "projectDir": "local/scoreable-full-smoke",
+        "target": {
+          "type": "task",
+          "id": "bench-direct-agent-nl2repo",
+          "taskGroupId": "tg-root",
+          "taskGroupVersionId": "tgv-root-v2"
+        },
+        "eowId": "eow-bench-direct-agent-nl2repo",
+        "eowPath": "local/scoreable-full-smoke/task-groups/tg-root/versions/tgv-root-v2/eow/eow-bench-direct-agent-nl2repo.md",
+        "reason": "manual_verified",
+        "statusFlipped": true,
+        "closed": true
+      }
+    },
+    {
+      "task_id": "bench-direct-agent-re-bench",
+      "queue_item_id": "tgv-root-v2:bench-direct-agent-re-bench",
+      "lease_id": "lease-90c12fbb-be71-4cab-a0e2-25648f3c4ee0",
+      "started_at": "2026-06-15T18:36:53.718493+00:00",
+      "finished_at": "2026-06-15T18:37:00.134697+00:00",
+      "release_status": "done",
+      "result_path": "results/scoreable-full-smoke/direct_agent/re_bench/result.json",
+      "result_status": "completed",
+      "native_score": 1.0,
+      "error": null,
+      "command": [
+        "python3",
+        "scripts/adapters/re_bench.py",
+        "--arm",
+        "direct_agent",
+        "--run-id",
+        "scoreable-full-smoke",
+        "--out",
+        "results/scoreable-full-smoke/direct_agent/re_bench/result.json"
+      ],
+      "adapter_stdout": "{\n  \"ok\": true,\n  \"status\": \"completed\",\n  \"score\": {\n    \"primary\": 1.0,\n    \"metric_name\": \"pass_rate\",\n    \"higher_is_better\": true,\n    \"available\": true\n  },\n  \"out\": \"results/scoreable-full-smoke/direct_agent/re_bench/result.json\"\n}",
+      "adapter_stderr": "",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "close": {
+        "workId": "taskops-bench-full",
+        "projectDir": "local/scoreable-full-smoke",
+        "target": {
+          "type": "task",
+          "id": "bench-direct-agent-re-bench",
+          "taskGroupId": "tg-root",
+          "taskGroupVersionId": "tgv-root-v2"
+        },
+        "eowId": "eow-bench-direct-agent-re-bench",
+        "eowPath": "local/scoreable-full-smoke/task-groups/tg-root/versions/tgv-root-v2/eow/eow-bench-direct-agent-re-bench.md",
+        "reason": "manual_verified",
+        "statusFlipped": true,
+        "closed": true
+      }
+    },
+    {
+      "task_id": "bench-direct-agent-skillsbench",
+      "queue_item_id": "tgv-root-v2:bench-direct-agent-skillsbench",
+      "lease_id": "lease-0835dc34-58f6-4f50-8e3c-2ac2cc8c4526",
+      "started_at": "2026-06-15T18:37:00.295468+00:00",
+      "finished_at": "2026-06-15T18:37:07.057610+00:00",
+      "release_status": "done",
+      "result_path": "results/scoreable-full-smoke/direct_agent/skillsbench/result.json",
+      "result_status": "completed",
+      "native_score": 1.0,
+      "error": null,
+      "command": [
+        "python3",
+        "scripts/adapters/skillsbench.py",
+        "--arm",
+        "direct_agent",
+        "--run-id",
+        "scoreable-full-smoke",
+        "--out",
+        "results/scoreable-full-smoke/direct_agent/skillsbench/result.json"
+      ],
+      "adapter_stdout": "{\n  \"ok\": true,\n  \"status\": \"completed\",\n  \"score\": {\n    \"primary\": 1.0,\n    \"metric_name\": \"pass_rate\",\n    \"higher_is_better\": true,\n    \"available\": true\n  },\n  \"out\": \"results/scoreable-full-smoke/direct_agent/skillsbench/result.json\"\n}",
+      "adapter_stderr": "",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "close": {
+        "workId": "taskops-bench-full",
+        "projectDir": "local/scoreable-full-smoke",
+        "target": {
+          "type": "task",
+          "id": "bench-direct-agent-skillsbench",
+          "taskGroupId": "tg-root",
+          "taskGroupVersionId": "tgv-root-v2"
+        },
+        "eowId": "eow-bench-direct-agent-skillsbench",
+        "eowPath": "local/scoreable-full-smoke/task-groups/tg-root/versions/tgv-root-v2/eow/eow-bench-direct-agent-skillsbench.md",
+        "reason": "manual_verified",
+        "statusFlipped": true,
+        "closed": true
+      }
+    },
+    {
+      "task_id": "bench-direct-agent-swe-bench-multilingual",
+      "queue_item_id": "tgv-root-v2:bench-direct-agent-swe-bench-multilingual",
+      "lease_id": "lease-1a7db7ad-0fcd-4223-86c5-18aa3c05f2d4",
+      "started_at": "2026-06-15T18:37:07.216696+00:00",
+      "finished_at": "2026-06-15T18:37:13.411033+00:00",
+      "release_status": "done",
+      "result_path": "results/scoreable-full-smoke/direct_agent/swe_bench_multilingual/result.json",
+      "result_status": "completed",
+      "native_score": 1.0,
+      "error": null,
+      "command": [
+        "python3",
+        "scripts/adapters/swe_bench_multilingual.py",
+        "--arm",
+        "direct_agent",
+        "--run-id",
+        "scoreable-full-smoke",
+        "--out",
+        "results/scoreable-full-smoke/direct_agent/swe_bench_multilingual/result.json"
+      ],
+      "adapter_stdout": "{\n  \"ok\": true,\n  \"status\": \"completed\",\n  \"score\": {\n    \"primary\": 1.0,\n    \"metric_name\": \"pass_rate\",\n    \"higher_is_better\": true,\n    \"available\": true\n  },\n  \"out\": \"results/scoreable-full-smoke/direct_agent/swe_bench_multilingual/result.json\"\n}",
+      "adapter_stderr": "",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "close": {
+        "workId": "taskops-bench-full",
+        "projectDir": "local/scoreable-full-smoke",
+        "target": {
+          "type": "task",
+          "id": "bench-direct-agent-swe-bench-multilingual",
+          "taskGroupId": "tg-root",
+          "taskGroupVersionId": "tgv-root-v2"
+        },
+        "eowId": "eow-bench-direct-agent-swe-bench-multilingual",
+        "eowPath": "local/scoreable-full-smoke/task-groups/tg-root/versions/tgv-root-v2/eow/eow-bench-direct-agent-swe-bench-multilingual.md",
+        "reason": "manual_verified",
+        "statusFlipped": true,
+        "closed": true
+      }
+    },
+    {
+      "task_id": "bench-direct-agent-swe-bench-pro",
+      "queue_item_id": "tgv-root-v2:bench-direct-agent-swe-bench-pro",
+      "lease_id": "lease-530e0057-0ed9-43fb-adf3-4ab5e7835654",
+      "started_at": "2026-06-15T18:37:13.573767+00:00",
+      "finished_at": "2026-06-15T18:37:20.267740+00:00",
+      "release_status": "done",
+      "result_path": "results/scoreable-full-smoke/direct_agent/swe_bench_pro/result.json",
+      "result_status": "completed",
+      "native_score": 1.0,
+      "error": null,
+      "command": [
+        "python3",
+        "scripts/adapters/swe_bench_pro.py",
+        "--arm",
+        "direct_agent",
+        "--run-id",
+        "scoreable-full-smoke",
+        "--out",
+        "results/scoreable-full-smoke/direct_agent/swe_bench_pro/result.json"
+      ],
+      "adapter_stdout": "{\n  \"ok\": true,\n  \"status\": \"completed\",\n  \"score\": {\n    \"primary\": 1.0,\n    \"metric_name\": \"pass_rate\",\n    \"higher_is_better\": true,\n    \"available\": true\n  },\n  \"out\": \"results/scoreable-full-smoke/direct_agent/swe_bench_pro/result.json\"\n}",
+      "adapter_stderr": "",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "close": {
+        "workId": "taskops-bench-full",
+        "projectDir": "local/scoreable-full-smoke",
+        "target": {
+          "type": "task",
+          "id": "bench-direct-agent-swe-bench-pro",
+          "taskGroupId": "tg-root",
+          "taskGroupVersionId": "tgv-root-v2"
+        },
+        "eowId": "eow-bench-direct-agent-swe-bench-pro",
+        "eowPath": "local/scoreable-full-smoke/task-groups/tg-root/versions/tgv-root-v2/eow/eow-bench-direct-agent-swe-bench-pro.md",
+        "reason": "manual_verified",
+        "statusFlipped": true,
+        "closed": true
+      }
+    },
+    {
+      "task_id": "bench-direct-agent-swe-bench-verified",
+      "queue_item_id": "tgv-root-v2:bench-direct-agent-swe-bench-verified",
+      "lease_id": "lease-c426805e-3b22-4208-a1e5-2b674d98c689",
+      "started_at": "2026-06-15T18:37:20.426254+00:00",
+      "finished_at": "2026-06-15T18:37:26.687023+00:00",
+      "release_status": "done",
+      "result_path": "results/scoreable-full-smoke/direct_agent/swe_bench_verified/result.json",
+      "result_status": "completed",
+      "native_score": 1.0,
+      "error": null,
+      "command": [
+        "python3",
+        "scripts/adapters/swe_bench.py",
+        "--subset",
+        "verified",
+        "--arm",
+        "direct_agent",
+        "--run-id",
+        "scoreable-full-smoke",
+        "--out",
+        "results/scoreable-full-smoke/direct_agent/swe_bench_verified/result.json"
+      ],
+      "adapter_stdout": "{\n  \"ok\": true,\n  \"status\": \"completed\",\n  \"score\": {\n    \"primary\": 1.0,\n    \"metric_name\": \"pass_rate\",\n    \"higher_is_better\": true,\n    \"available\": true\n  },\n  \"out\": \"results/scoreable-full-smoke/direct_agent/swe_bench_verified/result.json\"\n}",
+      "adapter_stderr": "",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "close": {
+        "workId": "taskops-bench-full",
+        "projectDir": "local/scoreable-full-smoke",
+        "target": {
+          "type": "task",
+          "id": "bench-direct-agent-swe-bench-verified",
+          "taskGroupId": "tg-root",
+          "taskGroupVersionId": "tgv-root-v2"
+        },
+        "eowId": "eow-bench-direct-agent-swe-bench-verified",
+        "eowPath": "local/scoreable-full-smoke/task-groups/tg-root/versions/tgv-root-v2/eow/eow-bench-direct-agent-swe-bench-verified.md",
+        "reason": "manual_verified",
+        "statusFlipped": true,
+        "closed": true
+      }
+    },
+    {
+      "task_id": "bench-direct-agent-terminal-bench-2",
+      "queue_item_id": "tgv-root-v2:bench-direct-agent-terminal-bench-2",
+      "lease_id": "lease-401e1447-2f62-46eb-91c5-fd5f434eceef",
+      "started_at": "2026-06-15T18:37:26.847439+00:00",
+      "finished_at": "2026-06-15T18:37:33.973197+00:00",
+      "release_status": "done",
+      "result_path": "results/scoreable-full-smoke/direct_agent/terminal_bench_2/result.json",
+      "result_status": "completed",
+      "native_score": 1.0,
+      "error": null,
+      "command": [
+        "python3",
+        "scripts/adapters/terminal_bench.py",
+        "--arm",
+        "direct_agent",
+        "--run-id",
+        "scoreable-full-smoke",
+        "--out",
+        "results/scoreable-full-smoke/direct_agent/terminal_bench_2/result.json"
+      ],
+      "adapter_stdout": "{\n  \"ok\": true,\n  \"status\": \"completed\",\n  \"score\": {\n    \"primary\": 1.0,\n    \"metric_name\": \"pass_rate\",\n    \"higher_is_better\": true,\n    \"available\": true\n  },\n  \"out\": \"results/scoreable-full-smoke/direct_agent/terminal_bench_2/result.json\"\n}",
+      "adapter_stderr": "",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "close": {
+        "workId": "taskops-bench-full",
+        "projectDir": "local/scoreable-full-smoke",
+        "target": {
+          "type": "task",
+          "id": "bench-direct-agent-terminal-bench-2",
+          "taskGroupId": "tg-root",
+          "taskGroupVersionId": "tgv-root-v2"
+        },
+        "eowId": "eow-bench-direct-agent-terminal-bench-2",
+        "eowPath": "local/scoreable-full-smoke/task-groups/tg-root/versions/tgv-root-v2/eow/eow-bench-direct-agent-terminal-bench-2.md",
+        "reason": "manual_verified",
+        "statusFlipped": true,
+        "closed": true
+      }
+    },
+    {
+      "task_id": "bench-direct-agent-the-agent-company",
+      "queue_item_id": "tgv-root-v2:bench-direct-agent-the-agent-company",
+      "lease_id": "lease-fc730bfb-899e-468c-bebe-499d218fd6f9",
+      "started_at": "2026-06-15T18:37:34.133327+00:00",
+      "finished_at": "2026-06-15T18:37:42.228206+00:00",
+      "release_status": "done",
+      "result_path": "results/scoreable-full-smoke/direct_agent/the_agent_company/result.json",
+      "result_status": "completed",
+      "native_score": 1.0,
+      "error": null,
+      "command": [
+        "python3",
+        "scripts/adapters/the_agent_company.py",
+        "--arm",
+        "direct_agent",
+        "--run-id",
+        "scoreable-full-smoke",
+        "--out",
+        "results/scoreable-full-smoke/direct_agent/the_agent_company/result.json"
+      ],
+      "adapter_stdout": "{\n  \"ok\": true,\n  \"status\": \"completed\",\n  \"score\": {\n    \"primary\": 1.0,\n    \"metric_name\": \"pass_rate\",\n    \"higher_is_better\": true,\n    \"available\": true\n  },\n  \"out\": \"results/scoreable-full-smoke/direct_agent/the_agent_company/result.json\"\n}",
+      "adapter_stderr": "",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "close": {
+        "workId": "taskops-bench-full",
+        "projectDir": "local/scoreable-full-smoke",
+        "target": {
+          "type": "task",
+          "id": "bench-direct-agent-the-agent-company",
+          "taskGroupId": "tg-root",
+          "taskGroupVersionId": "tgv-root-v2"
+        },
+        "eowId": "eow-bench-direct-agent-the-agent-company",
+        "eowPath": "local/scoreable-full-smoke/task-groups/tg-root/versions/tgv-root-v2/eow/eow-bench-direct-agent-the-agent-company.md",
+        "reason": "manual_verified",
+        "statusFlipped": true,
+        "closed": true
+      }
+    },
+    {
+      "task_id": "bench-direct-agent-vending-bench",
+      "queue_item_id": "tgv-root-v2:bench-direct-agent-vending-bench",
+      "lease_id": "lease-4fa1cdf3-c5f0-4bff-8a8c-607c835dddc1",
+      "started_at": "2026-06-15T18:37:42.392272+00:00",
+      "finished_at": "2026-06-15T18:37:48.511019+00:00",
+      "release_status": "done",
+      "result_path": "results/scoreable-full-smoke/direct_agent/vending_bench/result.json",
+      "result_status": "completed",
+      "native_score": 1.0,
+      "error": null,
+      "command": [
+        "python3",
+        "scripts/adapters/vending_bench.py",
+        "--arm",
+        "direct_agent",
+        "--run-id",
+        "scoreable-full-smoke",
+        "--out",
+        "results/scoreable-full-smoke/direct_agent/vending_bench/result.json"
+      ],
+      "adapter_stdout": "{\n  \"ok\": true,\n  \"status\": \"completed\",\n  \"score\": {\n    \"primary\": 1.0,\n    \"metric_name\": \"pass_rate\",\n    \"higher_is_better\": true,\n    \"available\": true\n  },\n  \"out\": \"results/scoreable-full-smoke/direct_agent/vending_bench/result.json\"\n}",
+      "adapter_stderr": "",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "close": {
+        "workId": "taskops-bench-full",
+        "projectDir": "local/scoreable-full-smoke",
+        "target": {
+          "type": "task",
+          "id": "bench-direct-agent-vending-bench",
+          "taskGroupId": "tg-root",
+          "taskGroupVersionId": "tgv-root-v2"
+        },
+        "eowId": "eow-bench-direct-agent-vending-bench",
+        "eowPath": "local/scoreable-full-smoke/task-groups/tg-root/versions/tgv-root-v2/eow/eow-bench-direct-agent-vending-bench.md",
+        "reason": "manual_verified",
+        "statusFlipped": true,
+        "closed": true
+      }
+    },
+    {
+      "task_id": "bench-taskops-agent-agents-last-exam",
+      "queue_item_id": "tgv-root-v2:bench-taskops-agent-agents-last-exam",
+      "lease_id": "lease-78e60179-b084-4666-a436-6f3c0ff891b7",
+      "started_at": "2026-06-15T18:37:48.674448+00:00",
+      "finished_at": "2026-06-15T18:37:57.003670+00:00",
+      "release_status": "done",
+      "result_path": "results/scoreable-full-smoke/taskops_agent/agents_last_exam/result.json",
+      "result_status": "completed",
+      "native_score": 1.0,
+      "error": null,
+      "command": [
+        "python3",
+        "scripts/adapters/ale.py",
+        "--subset",
+        "full",
+        "--arm",
+        "taskops_agent",
+        "--run-id",
+        "scoreable-full-smoke",
+        "--out",
+        "results/scoreable-full-smoke/taskops_agent/agents_last_exam/result.json"
+      ],
+      "adapter_stdout": "{\n  \"ok\": true,\n  \"status\": \"completed\",\n  \"score\": {\n    \"primary\": 1.0,\n    \"metric_name\": \"pass_rate\",\n    \"higher_is_better\": true,\n    \"available\": true\n  },\n  \"out\": \"results/scoreable-full-smoke/taskops_agent/agents_last_exam/result.json\"\n}",
+      "adapter_stderr": "",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "close": {
+        "workId": "taskops-bench-full",
+        "projectDir": "local/scoreable-full-smoke",
+        "target": {
+          "type": "task",
+          "id": "bench-taskops-agent-agents-last-exam",
+          "taskGroupId": "tg-root",
+          "taskGroupVersionId": "tgv-root-v2"
+        },
+        "eowId": "eow-bench-taskops-agent-agents-last-exam",
+        "eowPath": "local/scoreable-full-smoke/task-groups/tg-root/versions/tgv-root-v2/eow/eow-bench-taskops-agent-agents-last-exam.md",
+        "reason": "manual_verified",
+        "statusFlipped": true,
+        "closed": true
+      }
+    },
+    {
+      "task_id": "bench-taskops-agent-agents-last-exam-free-easy-subset",
+      "queue_item_id": "tgv-root-v2:bench-taskops-agent-agents-last-exam-free-easy-subset",
+      "lease_id": "lease-4b825c8a-19cd-4930-94ca-27f75ff65894",
+      "started_at": "2026-06-15T18:37:57.161348+00:00",
+      "finished_at": "2026-06-15T18:38:03.213764+00:00",
+      "release_status": "done",
+      "result_path": "results/scoreable-full-smoke/taskops_agent/agents_last_exam_free_easy_subset/result.json",
+      "result_status": "completed",
+      "native_score": 1.0,
+      "error": null,
+      "command": [
+        "python3",
+        "scripts/adapters/ale.py",
+        "--subset",
+        "free_easy",
+        "--arm",
+        "taskops_agent",
+        "--run-id",
+        "scoreable-full-smoke",
+        "--out",
+        "results/scoreable-full-smoke/taskops_agent/agents_last_exam_free_easy_subset/result.json"
+      ],
+      "adapter_stdout": "{\n  \"ok\": true,\n  \"status\": \"completed\",\n  \"score\": {\n    \"primary\": 1.0,\n    \"metric_name\": \"pass_rate\",\n    \"higher_is_better\": true,\n    \"available\": true\n  },\n  \"out\": \"results/scoreable-full-smoke/taskops_agent/agents_last_exam_free_easy_subset/result.json\"\n}",
+      "adapter_stderr": "",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "close": {
+        "workId": "taskops-bench-full",
+        "projectDir": "local/scoreable-full-smoke",
+        "target": {
+          "type": "task",
+          "id": "bench-taskops-agent-agents-last-exam-free-easy-subset",
+          "taskGroupId": "tg-root",
+          "taskGroupVersionId": "tgv-root-v2"
+        },
+        "eowId": "eow-bench-taskops-agent-agents-last-exam-free-easy-subset",
+        "eowPath": "local/scoreable-full-smoke/task-groups/tg-root/versions/tgv-root-v2/eow/eow-bench-taskops-agent-agents-last-exam-free-easy-subset.md",
+        "reason": "manual_verified",
+        "statusFlipped": true,
+        "closed": true
+      }
+    },
+    {
+      "task_id": "bench-taskops-agent-hcast-public",
+      "queue_item_id": "tgv-root-v2:bench-taskops-agent-hcast-public",
+      "lease_id": "lease-e52abbc9-b1db-46a6-bfaf-729274fe2203",
+      "started_at": "2026-06-15T18:38:03.376824+00:00",
+      "finished_at": "2026-06-15T18:38:09.608718+00:00",
+      "release_status": "done",
+      "result_path": "results/scoreable-full-smoke/taskops_agent/hcast_public/result.json",
+      "result_status": "completed",
+      "native_score": 1.0,
+      "error": null,
+      "command": [
+        "python3",
+        "scripts/adapters/hcast.py",
+        "--arm",
+        "taskops_agent",
+        "--run-id",
+        "scoreable-full-smoke",
+        "--out",
+        "results/scoreable-full-smoke/taskops_agent/hcast_public/result.json"
+      ],
+      "adapter_stdout": "{\n  \"ok\": true,\n  \"status\": \"completed\",\n  \"score\": {\n    \"primary\": 1.0,\n    \"metric_name\": \"pass_rate\",\n    \"higher_is_better\": true,\n    \"available\": true\n  },\n  \"out\": \"results/scoreable-full-smoke/taskops_agent/hcast_public/result.json\"\n}",
+      "adapter_stderr": "",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "close": {
+        "workId": "taskops-bench-full",
+        "projectDir": "local/scoreable-full-smoke",
+        "target": {
+          "type": "task",
+          "id": "bench-taskops-agent-hcast-public",
+          "taskGroupId": "tg-root",
+          "taskGroupVersionId": "tgv-root-v2"
+        },
+        "eowId": "eow-bench-taskops-agent-hcast-public",
+        "eowPath": "local/scoreable-full-smoke/task-groups/tg-root/versions/tgv-root-v2/eow/eow-bench-taskops-agent-hcast-public.md",
+        "reason": "manual_verified",
+        "statusFlipped": true,
+        "closed": true
+      }
+    },
+    {
+      "task_id": "bench-taskops-agent-nl2repo",
+      "queue_item_id": "tgv-root-v2:bench-taskops-agent-nl2repo",
+      "lease_id": "lease-43e5d253-ab4d-4a14-805e-ec3ebbcedf59",
+      "started_at": "2026-06-15T18:38:09.771272+00:00",
+      "finished_at": "2026-06-15T18:38:18.545938+00:00",
+      "release_status": "done",
+      "result_path": "results/scoreable-full-smoke/taskops_agent/nl2repo/result.json",
+      "result_status": "completed",
+      "native_score": 1.0,
+      "error": null,
+      "command": [
+        "python3",
+        "scripts/adapters/nl2repo.py",
+        "--arm",
+        "taskops_agent",
+        "--run-id",
+        "scoreable-full-smoke",
+        "--out",
+        "results/scoreable-full-smoke/taskops_agent/nl2repo/result.json"
+      ],
+      "adapter_stdout": "{\n  \"ok\": true,\n  \"status\": \"completed\",\n  \"score\": {\n    \"primary\": 1.0,\n    \"metric_name\": \"pass_rate\",\n    \"higher_is_better\": true,\n    \"available\": true\n  },\n  \"out\": \"results/scoreable-full-smoke/taskops_agent/nl2repo/result.json\"\n}",
+      "adapter_stderr": "",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "close": {
+        "workId": "taskops-bench-full",
+        "projectDir": "local/scoreable-full-smoke",
+        "target": {
+          "type": "task",
+          "id": "bench-taskops-agent-nl2repo",
+          "taskGroupId": "tg-root",
+          "taskGroupVersionId": "tgv-root-v2"
+        },
+        "eowId": "eow-bench-taskops-agent-nl2repo",
+        "eowPath": "local/scoreable-full-smoke/task-groups/tg-root/versions/tgv-root-v2/eow/eow-bench-taskops-agent-nl2repo.md",
+        "reason": "manual_verified",
+        "statusFlipped": true,
+        "closed": true
+      }
+    },
+    {
+      "task_id": "bench-taskops-agent-re-bench",
+      "queue_item_id": "tgv-root-v2:bench-taskops-agent-re-bench",
+      "lease_id": "lease-c46f5a1a-7269-4398-8563-0e30a88ef80e",
+      "started_at": "2026-06-15T18:38:18.713495+00:00",
+      "finished_at": "2026-06-15T18:38:24.816320+00:00",
+      "release_status": "done",
+      "result_path": "results/scoreable-full-smoke/taskops_agent/re_bench/result.json",
+      "result_status": "completed",
+      "native_score": 1.0,
+      "error": null,
+      "command": [
+        "python3",
+        "scripts/adapters/re_bench.py",
+        "--arm",
+        "taskops_agent",
+        "--run-id",
+        "scoreable-full-smoke",
+        "--out",
+        "results/scoreable-full-smoke/taskops_agent/re_bench/result.json"
+      ],
+      "adapter_stdout": "{\n  \"ok\": true,\n  \"status\": \"completed\",\n  \"score\": {\n    \"primary\": 1.0,\n    \"metric_name\": \"pass_rate\",\n    \"higher_is_better\": true,\n    \"available\": true\n  },\n  \"out\": \"results/scoreable-full-smoke/taskops_agent/re_bench/result.json\"\n}",
+      "adapter_stderr": "",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "close": {
+        "workId": "taskops-bench-full",
+        "projectDir": "local/scoreable-full-smoke",
+        "target": {
+          "type": "task",
+          "id": "bench-taskops-agent-re-bench",
+          "taskGroupId": "tg-root",
+          "taskGroupVersionId": "tgv-root-v2"
+        },
+        "eowId": "eow-bench-taskops-agent-re-bench",
+        "eowPath": "local/scoreable-full-smoke/task-groups/tg-root/versions/tgv-root-v2/eow/eow-bench-taskops-agent-re-bench.md",
+        "reason": "manual_verified",
+        "statusFlipped": true,
+        "closed": true
+      }
+    },
+    {
+      "task_id": "bench-taskops-agent-skillsbench",
+      "queue_item_id": "tgv-root-v2:bench-taskops-agent-skillsbench",
+      "lease_id": "lease-15565234-8c4d-411b-a1e0-37337b9ffcd7",
+      "started_at": "2026-06-15T18:38:24.977749+00:00",
+      "finished_at": "2026-06-15T18:38:31.600665+00:00",
+      "release_status": "done",
+      "result_path": "results/scoreable-full-smoke/taskops_agent/skillsbench/result.json",
+      "result_status": "completed",
+      "native_score": 1.0,
+      "error": null,
+      "command": [
+        "python3",
+        "scripts/adapters/skillsbench.py",
+        "--arm",
+        "taskops_agent",
+        "--run-id",
+        "scoreable-full-smoke",
+        "--out",
+        "results/scoreable-full-smoke/taskops_agent/skillsbench/result.json"
+      ],
+      "adapter_stdout": "{\n  \"ok\": true,\n  \"status\": \"completed\",\n  \"score\": {\n    \"primary\": 1.0,\n    \"metric_name\": \"pass_rate\",\n    \"higher_is_better\": true,\n    \"available\": true\n  },\n  \"out\": \"results/scoreable-full-smoke/taskops_agent/skillsbench/result.json\"\n}",
+      "adapter_stderr": "",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "close": {
+        "workId": "taskops-bench-full",
+        "projectDir": "local/scoreable-full-smoke",
+        "target": {
+          "type": "task",
+          "id": "bench-taskops-agent-skillsbench",
+          "taskGroupId": "tg-root",
+          "taskGroupVersionId": "tgv-root-v2"
+        },
+        "eowId": "eow-bench-taskops-agent-skillsbench",
+        "eowPath": "local/scoreable-full-smoke/task-groups/tg-root/versions/tgv-root-v2/eow/eow-bench-taskops-agent-skillsbench.md",
+        "reason": "manual_verified",
+        "statusFlipped": true,
+        "closed": true
+      }
+    },
+    {
+      "task_id": "bench-taskops-agent-swe-bench-multilingual",
+      "queue_item_id": "tgv-root-v2:bench-taskops-agent-swe-bench-multilingual",
+      "lease_id": "lease-cb43963d-558a-47e4-82ee-c1433e066064",
+      "started_at": "2026-06-15T18:38:31.767058+00:00",
+      "finished_at": "2026-06-15T18:38:37.806750+00:00",
+      "release_status": "done",
+      "result_path": "results/scoreable-full-smoke/taskops_agent/swe_bench_multilingual/result.json",
+      "result_status": "completed",
+      "native_score": 1.0,
+      "error": null,
+      "command": [
+        "python3",
+        "scripts/adapters/swe_bench_multilingual.py",
+        "--arm",
+        "taskops_agent",
+        "--run-id",
+        "scoreable-full-smoke",
+        "--out",
+        "results/scoreable-full-smoke/taskops_agent/swe_bench_multilingual/result.json"
+      ],
+      "adapter_stdout": "{\n  \"ok\": true,\n  \"status\": \"completed\",\n  \"score\": {\n    \"primary\": 1.0,\n    \"metric_name\": \"pass_rate\",\n    \"higher_is_better\": true,\n    \"available\": true\n  },\n  \"out\": \"results/scoreable-full-smoke/taskops_agent/swe_bench_multilingual/result.json\"\n}",
+      "adapter_stderr": "",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "close": {
+        "workId": "taskops-bench-full",
+        "projectDir": "local/scoreable-full-smoke",
+        "target": {
+          "type": "task",
+          "id": "bench-taskops-agent-swe-bench-multilingual",
+          "taskGroupId": "tg-root",
+          "taskGroupVersionId": "tgv-root-v2"
+        },
+        "eowId": "eow-bench-taskops-agent-swe-bench-multilingual",
+        "eowPath": "local/scoreable-full-smoke/task-groups/tg-root/versions/tgv-root-v2/eow/eow-bench-taskops-agent-swe-bench-multilingual.md",
+        "reason": "manual_verified",
+        "statusFlipped": true,
+        "closed": true
+      }
+    },
+    {
+      "task_id": "bench-taskops-agent-swe-bench-pro",
+      "queue_item_id": "tgv-root-v2:bench-taskops-agent-swe-bench-pro",
+      "lease_id": "lease-babd3b58-67ff-4eb0-a6ea-52999b6dfe74",
+      "started_at": "2026-06-15T18:38:37.972441+00:00",
+      "finished_at": "2026-06-15T18:38:44.151445+00:00",
+      "release_status": "done",
+      "result_path": "results/scoreable-full-smoke/taskops_agent/swe_bench_pro/result.json",
+      "result_status": "completed",
+      "native_score": 1.0,
+      "error": null,
+      "command": [
+        "python3",
+        "scripts/adapters/swe_bench_pro.py",
+        "--arm",
+        "taskops_agent",
+        "--run-id",
+        "scoreable-full-smoke",
+        "--out",
+        "results/scoreable-full-smoke/taskops_agent/swe_bench_pro/result.json"
+      ],
+      "adapter_stdout": "{\n  \"ok\": true,\n  \"status\": \"completed\",\n  \"score\": {\n    \"primary\": 1.0,\n    \"metric_name\": \"pass_rate\",\n    \"higher_is_better\": true,\n    \"available\": true\n  },\n  \"out\": \"results/scoreable-full-smoke/taskops_agent/swe_bench_pro/result.json\"\n}",
+      "adapter_stderr": "",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "close": {
+        "workId": "taskops-bench-full",
+        "projectDir": "local/scoreable-full-smoke",
+        "target": {
+          "type": "task",
+          "id": "bench-taskops-agent-swe-bench-pro",
+          "taskGroupId": "tg-root",
+          "taskGroupVersionId": "tgv-root-v2"
+        },
+        "eowId": "eow-bench-taskops-agent-swe-bench-pro",
+        "eowPath": "local/scoreable-full-smoke/task-groups/tg-root/versions/tgv-root-v2/eow/eow-bench-taskops-agent-swe-bench-pro.md",
+        "reason": "manual_verified",
+        "statusFlipped": true,
+        "closed": true
+      }
+    },
+    {
+      "task_id": "bench-taskops-agent-swe-bench-verified",
+      "queue_item_id": "tgv-root-v2:bench-taskops-agent-swe-bench-verified",
+      "lease_id": "lease-5aea012f-c8bd-4235-84d3-e85db0c2d652",
+      "started_at": "2026-06-15T18:38:44.310089+00:00",
+      "finished_at": "2026-06-15T18:39:04.804983+00:00",
+      "release_status": "done",
+      "result_path": "results/scoreable-full-smoke/taskops_agent/swe_bench_verified/result.json",
+      "result_status": "completed",
+      "native_score": 1.0,
+      "error": null,
+      "command": [
+        "python3",
+        "scripts/adapters/swe_bench.py",
+        "--subset",
+        "verified",
+        "--arm",
+        "taskops_agent",
+        "--run-id",
+        "scoreable-full-smoke",
+        "--out",
+        "results/scoreable-full-smoke/taskops_agent/swe_bench_verified/result.json"
+      ],
+      "adapter_stdout": "{\n  \"ok\": true,\n  \"status\": \"completed\",\n  \"score\": {\n    \"primary\": 1.0,\n    \"metric_name\": \"pass_rate\",\n    \"higher_is_better\": true,\n    \"available\": true\n  },\n  \"out\": \"results/scoreable-full-smoke/taskops_agent/swe_bench_verified/result.json\"\n}",
+      "adapter_stderr": "",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "close": {
+        "workId": "taskops-bench-full",
+        "projectDir": "local/scoreable-full-smoke",
+        "target": {
+          "type": "task",
+          "id": "bench-taskops-agent-swe-bench-verified",
+          "taskGroupId": "tg-root",
+          "taskGroupVersionId": "tgv-root-v2"
+        },
+        "eowId": "eow-bench-taskops-agent-swe-bench-verified",
+        "eowPath": "local/scoreable-full-smoke/task-groups/tg-root/versions/tgv-root-v2/eow/eow-bench-taskops-agent-swe-bench-verified.md",
+        "reason": "manual_verified",
+        "statusFlipped": true,
+        "closed": true
+      }
+    },
+    {
+      "task_id": "bench-taskops-agent-terminal-bench-2",
+      "queue_item_id": "tgv-root-v2:bench-taskops-agent-terminal-bench-2",
+      "lease_id": "lease-75854a94-4fb5-4cd1-94a3-49d5c54a0b93",
+      "started_at": "2026-06-15T18:39:04.963161+00:00",
+      "finished_at": "2026-06-15T18:39:11.201129+00:00",
+      "release_status": "done",
+      "result_path": "results/scoreable-full-smoke/taskops_agent/terminal_bench_2/result.json",
+      "result_status": "completed",
+      "native_score": 1.0,
+      "error": null,
+      "command": [
+        "python3",
+        "scripts/adapters/terminal_bench.py",
+        "--arm",
+        "taskops_agent",
+        "--run-id",
+        "scoreable-full-smoke",
+        "--out",
+        "results/scoreable-full-smoke/taskops_agent/terminal_bench_2/result.json"
+      ],
+      "adapter_stdout": "{\n  \"ok\": true,\n  \"status\": \"completed\",\n  \"score\": {\n    \"primary\": 1.0,\n    \"metric_name\": \"pass_rate\",\n    \"higher_is_better\": true,\n    \"available\": true\n  },\n  \"out\": \"results/scoreable-full-smoke/taskops_agent/terminal_bench_2/result.json\"\n}",
+      "adapter_stderr": "",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "close": {
+        "workId": "taskops-bench-full",
+        "projectDir": "local/scoreable-full-smoke",
+        "target": {
+          "type": "task",
+          "id": "bench-taskops-agent-terminal-bench-2",
+          "taskGroupId": "tg-root",
+          "taskGroupVersionId": "tgv-root-v2"
+        },
+        "eowId": "eow-bench-taskops-agent-terminal-bench-2",
+        "eowPath": "local/scoreable-full-smoke/task-groups/tg-root/versions/tgv-root-v2/eow/eow-bench-taskops-agent-terminal-bench-2.md",
+        "reason": "manual_verified",
+        "statusFlipped": true,
+        "closed": true
+      }
+    },
+    {
+      "task_id": "bench-taskops-agent-the-agent-company",
+      "queue_item_id": "tgv-root-v2:bench-taskops-agent-the-agent-company",
+      "lease_id": "lease-ebcfce5a-b1cc-425b-b31c-efac598d24fe",
+      "started_at": "2026-06-15T18:39:11.366093+00:00",
+      "finished_at": "2026-06-15T18:39:18.324851+00:00",
+      "release_status": "done",
+      "result_path": "results/scoreable-full-smoke/taskops_agent/the_agent_company/result.json",
+      "result_status": "completed",
+      "native_score": 1.0,
+      "error": null,
+      "command": [
+        "python3",
+        "scripts/adapters/the_agent_company.py",
+        "--arm",
+        "taskops_agent",
+        "--run-id",
+        "scoreable-full-smoke",
+        "--out",
+        "results/scoreable-full-smoke/taskops_agent/the_agent_company/result.json"
+      ],
+      "adapter_stdout": "{\n  \"ok\": true,\n  \"status\": \"completed\",\n  \"score\": {\n    \"primary\": 1.0,\n    \"metric_name\": \"pass_rate\",\n    \"higher_is_better\": true,\n    \"available\": true\n  },\n  \"out\": \"results/scoreable-full-smoke/taskops_agent/the_agent_company/result.json\"\n}",
+      "adapter_stderr": "",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "close": {
+        "workId": "taskops-bench-full",
+        "projectDir": "local/scoreable-full-smoke",
+        "target": {
+          "type": "task",
+          "id": "bench-taskops-agent-the-agent-company",
+          "taskGroupId": "tg-root",
+          "taskGroupVersionId": "tgv-root-v2"
+        },
+        "eowId": "eow-bench-taskops-agent-the-agent-company",
+        "eowPath": "local/scoreable-full-smoke/task-groups/tg-root/versions/tgv-root-v2/eow/eow-bench-taskops-agent-the-agent-company.md",
+        "reason": "manual_verified",
+        "statusFlipped": true,
+        "closed": true
+      }
+    },
+    {
+      "task_id": "bench-taskops-agent-vending-bench",
+      "queue_item_id": "tgv-root-v2:bench-taskops-agent-vending-bench",
+      "lease_id": "lease-845d2e07-f1f8-4776-99ee-7df4fc976c2c",
+      "started_at": "2026-06-15T18:39:18.489307+00:00",
+      "finished_at": "2026-06-15T18:39:24.725458+00:00",
+      "release_status": "done",
+      "result_path": "results/scoreable-full-smoke/taskops_agent/vending_bench/result.json",
+      "result_status": "completed",
+      "native_score": 1.0,
+      "error": null,
+      "command": [
+        "python3",
+        "scripts/adapters/vending_bench.py",
+        "--arm",
+        "taskops_agent",
+        "--run-id",
+        "scoreable-full-smoke",
+        "--out",
+        "results/scoreable-full-smoke/taskops_agent/vending_bench/result.json"
+      ],
+      "adapter_stdout": "{\n  \"ok\": true,\n  \"status\": \"completed\",\n  \"score\": {\n    \"primary\": 1.0,\n    \"metric_name\": \"pass_rate\",\n    \"higher_is_better\": true,\n    \"available\": true\n  },\n  \"out\": \"results/scoreable-full-smoke/taskops_agent/vending_bench/result.json\"\n}",
+      "adapter_stderr": "",
+      "score": {
+        "primary": 1.0,
+        "metric_name": "pass_rate",
+        "higher_is_better": true,
+        "available": true
+      },
+      "close": {
+        "workId": "taskops-bench-full",
+        "projectDir": "local/scoreable-full-smoke",
+        "target": {
+          "type": "task",
+          "id": "bench-taskops-agent-vending-bench",
+          "taskGroupId": "tg-root",
+          "taskGroupVersionId": "tgv-root-v2"
+        },
+        "eowId": "eow-bench-taskops-agent-vending-bench",
+        "eowPath": "local/scoreable-full-smoke/task-groups/tg-root/versions/tgv-root-v2/eow/eow-bench-taskops-agent-vending-bench.md",
+        "reason": "manual_verified",
+        "statusFlipped": true,
+        "closed": true
+      }
+    }
+  ],
+  "error_count": 0,
+  "closure": {
+    "terminalTaskCount": 24,
+    "terminalTaskEowCount": 24,
+    "openTerminalTaskCount": 0,
+    "runTerminalNodeCount": 0,
+    "runTerminalEowCount": 0,
+    "openRunTerminalNodeCount": 0,
+    "waitingDelegationCount": 0,
+    "openBlockerCount": 0,
+    "complete": true
+  },
+  "result_count": 24,
+  "completed_node_count": 24
+}
