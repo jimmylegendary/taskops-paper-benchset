@@ -27,6 +27,7 @@ python3 scripts/validate.py
 ```bash
 python3 scripts/taskops_bench.py list --mode core --arms both
 python3 scripts/taskops_bench.py adapter-status --mode core --arms both
+python3 scripts/agent_runtime.py list
 ```
 
 Modes:
@@ -174,6 +175,24 @@ python3 scripts/taskops_bench.py run \
 
 Smoke results write `status: not_configured` and `score.available: false`. They
 are useful for checking TaskOps queue/closure behavior, not for paper scores.
+
+## Agent Runtime Adapter
+
+Benchmark adapters call `scripts/agent_runtime.py` instead of hardcoding one
+agent application.
+
+```bash
+python3 scripts/agent_runtime.py invoke \
+  --runtime noop \
+  --run-id smoke \
+  --benchmark-id swe_bench_verified \
+  --arm direct_agent \
+  --task-id demo \
+  --prompt "Solve this benchmark task" \
+  --out results/smoke/runtime/noop.json
+```
+
+See `docs/agent-runtime-adapters.md`.
 
 ## Result Contract
 

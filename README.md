@@ -50,12 +50,17 @@ whether the work was managed honestly and recoverably.
 - `data/qwen3_6_27b_reported_results.json` - reported Qwen3.6-27B benchmark scores.
 - `data/taskops_paper_suite.json` - selected paper suite, hypotheses, and metrics.
 - `data/run_matrix.json` - runnable benchmark matrix for pilot/core/full modes.
+- `data/harness_audit.json` - score-producing harness readiness for each benchmark.
 - `data/pilot_plan.json` - cost-controlled first experiment plan.
 - `data/ale_free_easy_subset.json` - curated Agents' Last Exam subset metadata.
 - `config/adapters.json` - explicit adapter contract for each benchmark.
+- `config/runtimes.json` - explicit agent runtime adapter contract.
+- `docs/agent-runtime-adapters.md` - runtime adapter invocation contract.
 - `docs/experimental-design.md` - paper-facing experiment plan.
+- `docs/harness-audit.md` - human-readable harness readiness audit.
 - `docs/research-notes.md` - source notes and caveats.
 - `docs/runbook.md` - clone-to-TaskOps-run instructions.
+- `scripts/agent_runtime.py` - normalized invocation helper for OpenClaw and other agent CLIs.
 - `scripts/taskops_bench.py` - TaskOps work graph, queue runner, score collector, and command-plan generator.
 - `scripts/validate.py` - manifest validation.
 

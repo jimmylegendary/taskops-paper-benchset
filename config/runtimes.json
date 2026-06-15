@@ -1,0 +1,38 @@
+{
+  "schema_version": "0.1.0",
+  "updated_at": "2026-06-16",
+  "default_runtime": "openclaw_cli",
+  "runtimes": {
+    "noop": {
+      "configured": true,
+      "kind": "local_noop",
+      "description": "Local smoke runtime. It does not call a model and must not be used for benchmark scores.",
+      "score_eligible": false
+    },
+    "command": {
+      "configured": false,
+      "kind": "command_template",
+      "description": "Generic command runtime for Claude Code, Codex, OpenCode, Hermes, or other agent CLIs.",
+      "score_eligible": true,
+      "command_template_env": "TASKOPS_BENCH_AGENT_COMMAND",
+      "required_placeholders": [
+        "{prompt_file}",
+        "{output_file}",
+        "{artifact_dir}"
+      ]
+    },
+    "openclaw_cli": {
+      "configured": true,
+      "kind": "openclaw_cli",
+      "description": "Same-host OpenClaw agent invocation through `openclaw agent --json`.",
+      "score_eligible": true,
+      "binary": "openclaw",
+      "agent_id_env": "TASKOPS_BENCH_OPENCLAW_AGENT_ID",
+      "model_env": "TASKOPS_BENCH_MODEL",
+      "session_key_prefix_env": "TASKOPS_BENCH_OPENCLAW_SESSION_PREFIX",
+      "default_agent_id": "main",
+      "default_model": "Qwen/Qwen3.6-27B",
+      "timeout_seconds": 3600
+    }
+  }
+}

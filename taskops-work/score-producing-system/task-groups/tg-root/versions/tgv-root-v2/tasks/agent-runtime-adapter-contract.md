@@ -10,9 +10,14 @@ responsibility: Separate benchmark harness execution from agent invocation; supp
 completionCriteria: The repo has a documented runtime adapter contract and at least one runnable OpenClaw/Qwen3.6-27B adapter path that benchmark adapters can call.
 order: 3
 createdAt: 2026-06-15T17:53:27.068Z
-status: pending
+status: done
 runReadiness: needs_decomposition
-runReadinessReason: This requires choosing process/http/session invocation boundaries and likely decomposes into OpenClaw adapter plus generic command adapter.
+runReadinessReason: Decomposed by taskops-runner (dry-run) into tg-agent-runtime-adapter-contract/tgv-agent-runtime-adapter-contract-v1 at 2026-06-15T18:02:26.074Z.
 understandingLevel: partial
+runRefs:
+  - runId: run-main
+    runNodeId: run-node-agent-runtime-adapter-contract
+    role: primary_decomposition
+childTaskGroupId: tg-agent-runtime-adapter-contract
 ---
 # Implement agent runtime adapter contract

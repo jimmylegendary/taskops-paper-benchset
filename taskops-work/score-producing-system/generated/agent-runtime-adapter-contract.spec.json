@@ -1,0 +1,45 @@
+{
+  "versionId": "tgv-agent-runtime-adapter-contract-v2",
+  "version": "v2",
+  "summary": "Agent runtime adapter contract implementation",
+  "selected": true,
+  "logSeedLine": "Refactor dry-run placeholder into concrete runtime adapter contract tasks.",
+  "tasks": [
+    {
+      "id": "runtime-config-schema",
+      "title": "Define runtime configuration schema",
+      "objective": "Create a machine-readable runtime configuration that describes supported agent invocation backends and required fields.",
+      "responsibility": "Own config/runtimes.json and validation coverage so benchmark adapters can discover supported runtimes without hardcoding OpenClaw.",
+      "completionCriteria": "config/runtimes.json exists, includes command and openclaw_cli runtimes, and scripts/validate.py verifies required runtime fields.",
+      "status": "pending",
+      "runReadiness": "runnable",
+      "runReadinessReason": "This is a local config and validation update.",
+      "understandingLevel": "known",
+      "order": 1
+    },
+    {
+      "id": "runtime-invocation-cli",
+      "title": "Implement runtime invocation CLI",
+      "objective": "Add a CLI helper that benchmark adapters can call to invoke an agent runtime and capture response JSON.",
+      "responsibility": "Own scripts/agent_runtime.py, including noop smoke, command runtime, and OpenClaw CLI runtime.",
+      "completionCriteria": "scripts/agent_runtime.py can list runtimes and run a noop invocation that writes normalized invocation JSON; OpenClaw and command runtime paths are implemented behind config.",
+      "status": "pending",
+      "runReadiness": "runnable",
+      "runReadinessReason": "This is local Python implementation work.",
+      "understandingLevel": "known",
+      "order": 2
+    },
+    {
+      "id": "runtime-docs-and-tests",
+      "title": "Document and test runtime adapter contract",
+      "objective": "Document how benchmark adapters should use the runtime helper and verify the helper in CI-style local checks.",
+      "responsibility": "Own docs/agent-runtime-adapters.md, runbook references, and local smoke tests for runtime listing/noop invocation.",
+      "completionCriteria": "Docs explain the contract, validate/py_compile pass, and a noop runtime invocation writes artifacts with the expected fields.",
+      "status": "pending",
+      "runReadiness": "runnable",
+      "runReadinessReason": "This closes the runtime adapter contract branch after implementation is verified.",
+      "understandingLevel": "known",
+      "order": 3
+    }
+  ]
+}

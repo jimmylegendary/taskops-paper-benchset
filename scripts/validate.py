@@ -38,6 +38,7 @@ def main() -> int:
     run_matrix_doc = load_json(DATA / "run_matrix.json")
     harness_audit_doc = load_json(DATA / "harness_audit.json")
     adapters_doc = load_json(ROOT / "config" / "adapters.json")
+    runtimes_doc = load_json(ROOT / "config" / "runtimes.json")
 
     sources = sources_doc.get("sources", [])
     require(isinstance(sources, list) and sources, "benchmark_sources.json has no sources")
@@ -83,6 +84,21 @@ def main() -> int:
         if len(command_parts) >= 2 and command_parts[0].startswith("python"):
             script_path = ROOT / command_parts[1]
             require(script_path.exists(), f"adapter {adapter_id} script does not exist: {command_parts[1]}")
+
+    runtimes = runtimes_doc.get("runtimes", {})
+    require(isinstance(runtimes, dict) and runtimes, "runtimes config missing")
+    require(runtimes_doc.get("default_runtime") in runtimes, "default_runtime is not defined in runtimes")
+    for runtime_id, runtime in runtimes.items():
+        require("configured" in runtime, f"runtime {runtime_id} missing configured flag")
+        require(runtime.get("kind"), f"runtime {runtime_id} missing kind")
+        require("score_eligible" in runtime, f"runtime {runtime_id} missing score_eligible")
+        if runtime.get("kind") == "command_template":
+            require(runtime.get("command_template_env"), f"runtime {runtime_id} missing command_template_env")
+            placeholders = runtime.get("required_placeholders", [])
+            require("{prompt_file}" in placeholders, f"runtime {runtime_id} missing prompt_file placeholder")
+            require("{output_file}" in placeholders, f"runtime {runtime_id} missing output_file placeholder")
+        if runtime.get("kind") == "openclaw_cli":
+            require(runtime.get("binary"), f"runtime {runtime_id} missing binary")
 
     metric_ids = [metric.get("id") for metric in suite_doc.get("taskops_metrics", [])]
     require(metric_ids and len(metric_ids) == len(set(metric_ids)), "taskops metric ids missing or duplicated")
@@ -150,6 +166,7 @@ def main() -> int:
     print(f"ok: {len(ale_tasks)} ALE free/easy subset tasks")
     print(f"ok: {len(matrix_benchmark_ids)} run-matrix benchmark ids")
     print(f"ok: {len(audited_ids)} harness audit rows")
+    print(f"ok: {len(runtimes)} runtime adapters")
     return 0
 
 

@@ -9,5 +9,7 @@ status: active
 selectedVersions:
   - taskGroupId: tg-root
     versionId: tgv-root-v2
+  - taskGroupId: tg-agent-runtime-adapter-contract
+    versionId: tgv-agent-runtime-adapter-contract-v2
 ---
 # Snapshot root v1
