@@ -1,10 +1,15 @@
 # Runbook
 
 This repository is structured so a clone can run selected or full benchmark
-matrices through TaskOps and write score JSON. The default adapters use
-repo-local deterministic task packs, call the configured agent runtime, and
-produce numeric scores without paid APIs, hidden graders, or external benchmark
-services.
+matrices through TaskOps and write score JSON. Score source matters:
+
+- `reported_qwen` adapters materialize Qwen3.6-27B reported benchmark-native
+  scores already recorded in `data/qwen3_6_27b_reported_results.json`.
+- `local_score` adapters run repo-local deterministic smoke tasks. Those verify
+  TaskOps queue/closure/scoring plumbing, but they are not paper benchmark
+  evidence.
+- future `official_run` adapters should run upstream benchmark harnesses and
+  produce fresh direct-vs-TaskOps scores.
 
 ## Prerequisites
 
@@ -127,7 +132,21 @@ graph, syncs the SQLite queue projection, claims queue items, executes each
 benchmark adapter, validates the normalized score JSON, closes the TaskOps task
 with an EoW node, releases the lease, and writes aggregate reports.
 
-Run a quick full matrix with one local task per benchmark-arm:
+Run a reported Qwen score through the TaskOps queue path:
+
+```bash
+python3 scripts/taskops_bench.py run \
+  --init --force \
+  --work-dir local/test-reported-swepro \
+  --mode pilot \
+  --arms direct_agent \
+  --benchmarks swe_bench_pro \
+  --run-id test-reported-swepro
+```
+
+Expected score: SWE-bench Pro `53.5`.
+
+Run a quick local smoke matrix with one local task per benchmark-arm:
 
 ```bash
 TASKOPS_BENCH_TASK_LIMIT=1 python3 scripts/taskops_bench.py run \
@@ -138,8 +157,9 @@ TASKOPS_BENCH_TASK_LIMIT=1 python3 scripts/taskops_bench.py run \
   --run-id scoreable-full-001
 ```
 
-This should produce 24 completed result JSON files and
-`results/scoreable-full-001/scores.json` with no missing scores.
+This should produce completed result JSON files and
+`results/scoreable-full-001/scores.json` with no missing scores, but local smoke
+scores are not paper benchmark scores.
 
 Run a small selected set:
 

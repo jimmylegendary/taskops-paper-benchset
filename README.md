@@ -91,15 +91,17 @@ python3 scripts/validate.py
 
 ## Runnable Score Path
 
-The default path is score-producing. Every benchmark id in the run matrix has a
-repo-local deterministic task pack in `data/local_score_tasks.json`. Adapters call
-the configured agent runtime, score the response with deterministic answer
-patterns, and write numeric `score.primary` values.
+The default path is score-producing, but score sources are explicit:
 
-This local score path is the clone-and-run harness for TaskOps paper iteration.
-Official upstream harnesses remain useful for later replacement adapters, but the
-repo no longer depends on paid APIs, hidden graders, or external benchmark
-services just to produce scores.
+- Benchmarks with Qwen3.6-27B reported results materialize the benchmark-native
+  reported score, such as SWE-bench Pro `53.5` or SkillsBench `48.2`.
+- Benchmarks without a Qwen reported row still have repo-local deterministic
+  smoke tasks so the TaskOps queue/closure path can be tested, but those are
+  marked as local harness scores and are not paper benchmark evidence.
+
+Official upstream harnesses remain the path for fresh TaskOps-vs-direct
+evaluation results. Reported Qwen scores are baseline data; local smoke scores
+are harness tests.
 
 For a quick full-matrix scoring run:
 
@@ -112,9 +114,20 @@ TASKOPS_BENCH_TASK_LIMIT=1 python3 scripts/taskops_bench.py run \
   --run-id scoreable-full-001
 ```
 
-The latest verified full run in this workspace is
-`results/scoreable-full-smoke/scores.json`: 24 completed numeric scores, 0
-missing scores, and full TaskOps closure.
+Example reported-score runs:
+
+```bash
+python3 scripts/taskops_bench.py run \
+  --init --force \
+  --work-dir local/test-reported-swepro \
+  --mode pilot \
+  --arms direct_agent \
+  --benchmarks swe_bench_pro \
+  --run-id test-reported-swepro
+```
+
+This writes `results/test-reported-swepro/scores.json` with SWE-bench Pro
+`53.5`.
 
 ## TaskOps Run Structure
 
