@@ -91,6 +91,19 @@ Linux deterministic tasks.
 
 Source: https://github.com/rdi-berkeley/agents-last-exam
 
+On 2026-06-16, ALE added/updated official unlicensed selection files including
+`selected_tasks/unlicensed/overall.txt`. This repository now defines
+`ALE-FreeEasy-35`, a curated subset generated from that official unlicensed list:
+
+- 27 recommended core tasks
+- 8 visual/image/video extension tasks
+- 31 easy installability, 4 moderate installability
+- no licensed commercial creative/professional software
+- no GPU-license tasks
+
+Manifest: `data/ale_free_easy_subset.json`
+Generator: `scripts/build_ale_subset.py`
+
 ### TheAgentCompany
 
 Good extension benchmark for workplace and multi-app coordination. It is more
@@ -115,6 +128,7 @@ SWE-bench Pro
 Terminal-Bench 2.0
 SkillsBench
 NL2Repo
+ALE-FreeEasy-35
 HCAST public subset
 RE-Bench
 ```
@@ -122,10 +136,9 @@ RE-Bench
 Extension suite:
 
 ```text
-Agents' Last Exam
+Agents' Last Exam full set
 TheAgentCompany
 Vending-Bench
 SWE-bench Multilingual
 Claw-Eval / QwenClawBench only if definitions become public
 ```
-

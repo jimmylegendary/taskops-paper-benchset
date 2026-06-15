@@ -1,0 +1,3066 @@
+{
+  "schema_version": "0.1.0",
+  "updated_at": "2026-06-16",
+  "source": {
+    "benchmark_id": "agents_last_exam",
+    "repo_url": "https://github.com/rdi-berkeley/agents-last-exam",
+    "ale_git_sha": "1016001d9813e2aac9f6a9eff35c7a8c2063f4ce",
+    "official_selection_file": "selected_tasks/unlicensed/overall.txt",
+    "official_unlicensed_task_count_at_build": 141
+  },
+  "selection_policy": {
+    "goal": "A TaskOps-friendly ALE subset emphasizing LLM reading/reasoning and image understanding while avoiding licensed or hard-to-install commercial tools.",
+    "include": [
+      "Task appears in ALE's official unlicensed overall selection.",
+      "Tooling is free/open-source or common free desktop software.",
+      "Prefer CPU/free snapshots; no licensed GPU/proprietary creative suites.",
+      "Tasks expose structured artifacts suitable for TaskOps run graph and EoW scoring."
+    ],
+    "exclude": [
+      "Licensed commercial software such as Adobe, DaVinci Resolve, PowerMill, or Microsoft PowerPoint.",
+      "GPU-license snapshots.",
+      "Tasks whose first value is professional GUI operation rather than LLM/tool orchestration.",
+      "Very specialized heavy simulators are deferred unless they are already useful as a long-work stressor."
+    ]
+  },
+  "counts": {
+    "total": 35,
+    "recommended_core": 27,
+    "visual_free_extension": 8
+  },
+  "tasks": [
+    {
+      "task_path": "business_finance/american_option_pricing_ls",
+      "task_id": "business_finance/american_option_pricing_ls",
+      "title": "American Option Pricing via Longstaff-Schwartz",
+      "summary": "Implement a three-tier Monte Carlo option-pricing benchmark covering Black-Scholes validation, a single-asset American put solved with Longstaff-Schwartz regression, and a correlated 5-asset basket American put with pathwise Greeks.",
+      "category": "business_finance",
+      "official_ale_unlicensed": true,
+      "split": "recommended_core",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Python",
+        "NumPy",
+        "SciPy",
+        "uv"
+      ],
+      "input_extensions": [
+        "lock",
+        "md",
+        "sh",
+        "toml"
+      ],
+      "reference_extensions": [
+        "json",
+        "npy"
+      ],
+      "input_files": [
+        {
+          "name": "problem_spec.md",
+          "format": "Markdown",
+          "path": "input/problem_spec.md",
+          "description": "Full public specification for the three-tier American option pricing benchmark."
+        },
+        {
+          "name": "runtime_env/pyproject.toml",
+          "format": "TOML",
+          "path": "input/runtime_env/pyproject.toml",
+          "description": "Pinned solve-time manifest for NumPy and SciPy."
+        },
+        {
+          "name": "runtime_env/uv.lock",
+          "format": "Lockfile",
+          "path": "input/runtime_env/uv.lock",
+          "description": "Pinned uv lockfile for the staged runtime."
+        },
+        {
+          "name": "software/python.sh",
+          "format": "Shell script",
+          "path": "software/python.sh",
+          "description": "Canonical agent-facing Python entry point for the staged runtime."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "results.json",
+          "format": "JSON",
+          "path": "output/results.json",
+          "description": "Tier summaries for the Black-Scholes validation, single-asset American put, and basket American put benchmark."
+        },
+        {
+          "name": "exercise_boundary_tier2.npy",
+          "format": "NumPy array",
+          "path": "output/exercise_boundary_tier2.npy",
+          "description": "Length-100 Tier 2 early-exercise boundary used for structural validation."
+        }
+      ],
+      "agent_must_do_count": 5,
+      "llm_reasoning_level": "medium",
+      "image_understanding_level": "none",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "numerical_reasoning",
+        "python",
+        "simulation"
+      ],
+      "taskops_stress": [
+        "multi_artifact",
+        "validation_loop"
+      ]
+    },
+    {
+      "task_path": "business_finance/basel_operational_risk_bia_cn",
+      "task_id": "business_finance/basel_operational_risk_bia_cn",
+      "title": "Basel Operational Risk BIA Classification",
+      "summary": "Classify Chinese operational-risk loss events into Basel event categories and business lines, then calculate regulatory capital under the Basic Indicator Approach.",
+      "category": "business_finance",
+      "official_ale_unlicensed": true,
+      "split": "recommended_core",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "LibreOffice Calc",
+        "Python",
+        "openpyxl"
+      ],
+      "input_extensions": [
+        "md",
+        "xlsx"
+      ],
+      "reference_extensions": [
+        "csv",
+        "json",
+        "txt"
+      ],
+      "input_files": [
+        {
+          "name": "TASK_PROMPT.md",
+          "format": "md",
+          "path": "input/TASK_PROMPT.md",
+          "description": "Solve-time task instructions and output contract."
+        },
+        {
+          "name": "operational_risk_events.xlsx",
+          "format": "xlsx",
+          "path": "input/operational_risk_events.xlsx",
+          "description": "Chinese operational-risk event records to classify."
+        },
+        {
+          "name": "loss_event_categories.xlsx",
+          "format": "xlsx",
+          "path": "input/loss_event_categories.xlsx",
+          "description": "Basel loss event category definitions and indicators."
+        },
+        {
+          "name": "business_line_mapping.xlsx",
+          "format": "xlsx",
+          "path": "input/business_line_mapping.xlsx",
+          "description": "Basel business line definitions and mapping guidance."
+        },
+        {
+          "name": "capital_calculation_params.xlsx",
+          "format": "xlsx",
+          "path": "input/capital_calculation_params.xlsx",
+          "description": "BIA alpha coefficient and gross income parameters."
+        },
+        {
+          "name": "output_schemas",
+          "format": "csv/json/txt",
+          "path": "input/output_schemas",
+          "description": "Required schemas and format examples for the deliverables."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "classified_events.csv",
+          "format": "csv",
+          "path": "output/classified_events.csv",
+          "description": "One row per event with `Event_ID`, `Loss_Event_Category`, `Business_Line`, and `Loss_Amount_CNY`."
+        },
+        {
+          "name": "capital_calculation.json",
+          "format": "json",
+          "path": "output/capital_calculation.json",
+          "description": "Structured BIA calculation fields and final operational-risk regulatory capital."
+        },
+        {
+          "name": "execution_log.txt",
+          "format": "txt",
+          "path": "output/execution_log.txt",
+          "description": "Brief note describing how the analysis was performed."
+        }
+      ],
+      "agent_must_do_count": 5,
+      "llm_reasoning_level": "high",
+      "image_understanding_level": "none",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "llm_reading",
+        "classification",
+        "spreadsheet",
+        "multilingual"
+      ],
+      "taskops_stress": [
+        "rubric_following",
+        "evidence_traceability"
+      ]
+    },
+    {
+      "task_path": "business_finance/digital_marketing_ab_test_analysis_1",
+      "task_id": "business_finance/digital_marketing_ab_test_analysis_1",
+      "title": "Digital Marketing A/B Test Analysis",
+      "summary": "Design and analyze a marketing A/B test with exclusion handling, stratified assignment checks, two-proportion inference, BH correction, and a final ship/hold recommendation.",
+      "category": "business_finance",
+      "official_ale_unlicensed": true,
+      "split": "recommended_core",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Python 3.12",
+        "scipy",
+        "statsmodels",
+        "pandas",
+        "GrowthBook"
+      ],
+      "input_extensions": [],
+      "reference_extensions": [],
+      "input_files": [],
+      "reference_files": [],
+      "agent_must_do_count": 0,
+      "llm_reasoning_level": "medium",
+      "image_understanding_level": "none",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "statistics",
+        "python",
+        "business_analysis"
+      ],
+      "taskops_stress": [
+        "analysis_report",
+        "validation_loop"
+      ]
+    },
+    {
+      "task_path": "business_finance/digital_marketing_audience_segmentation_1",
+      "task_id": "business_finance/digital_marketing_audience_segmentation_1",
+      "title": "Digital Marketing Audience Segmentation",
+      "summary": "Segment customer profiles into a high-transaction email-disengaged cohort for re-engagement via SMS and push, applying governance rules and overlap analysis.",
+      "category": "business_finance",
+      "official_ale_unlicensed": true,
+      "split": "recommended_core",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Python",
+        "pandas",
+        "pyarrow"
+      ],
+      "input_extensions": [
+        "csv",
+        "md",
+        "parquet",
+        "tsv",
+        "yaml"
+      ],
+      "reference_extensions": [
+        "csv",
+        "json",
+        "tsv"
+      ],
+      "input_files": [
+        {
+          "name": "unified_profiles.parquet",
+          "format": "Parquet",
+          "path": "input/unified_profiles.parquet",
+          "description": "~10,000 customer profiles with demographics, purchase, and engagement fields."
+        },
+        {
+          "name": "segmentation_brief.md",
+          "format": "Markdown",
+          "path": "input/segmentation_brief.md",
+          "description": "Target audience definition and activation channels."
+        },
+        {
+          "name": "governance_policies.yaml",
+          "format": "YAML",
+          "path": "input/governance_policies.yaml",
+          "description": "PII restrictions, opt-out compliance, minimum audience size, suppression rules."
+        },
+        {
+          "name": "existing_audiences.csv",
+          "format": "CSV",
+          "path": "input/existing_audiences.csv",
+          "description": "Six existing audience definitions for overlap analysis."
+        },
+        {
+          "name": "data_dictionary.tsv",
+          "format": "TSV",
+          "path": "input/data_dictionary.tsv",
+          "description": "Field names, types, and permitted values for the profile data."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "segment_definition.json",
+          "format": "JSON",
+          "path": "output/segment_definition.json",
+          "description": "Canonical segment definition with filter predicates, suppression, channels, stats."
+        },
+        {
+          "name": "audience_roster.csv",
+          "format": "CSV",
+          "path": "output/audience_roster.csv",
+          "description": "Qualifying customer roster with PII removed and eligibility columns."
+        },
+        {
+          "name": "overlap_report.tsv",
+          "format": "TSV",
+          "path": "output/overlap_report.tsv",
+          "description": "Overlap counts and percentages against six existing audiences."
+        }
+      ],
+      "agent_must_do_count": 6,
+      "llm_reasoning_level": "medium",
+      "image_understanding_level": "none",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "tabular_data",
+        "python",
+        "segmentation"
+      ],
+      "taskops_stress": [
+        "data_cleaning",
+        "artifact_contract"
+      ]
+    },
+    {
+      "task_path": "business_finance/financial_stmt_reconstruction_aapl_fy2024",
+      "task_id": "business_finance/financial_stmt_reconstruction_aapl_fy2024",
+      "title": "Apple FY2024 Balance Sheet Reconstruction",
+      "summary": "Extract Apple Inc.'s FY2024 Consolidated Balance Sheet from its Form 10-K and return a structured JSON report with exact USD-million values.",
+      "category": "business_finance",
+      "official_ale_unlicensed": true,
+      "split": "recommended_core",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Python",
+        "pdftotext",
+        "grep"
+      ],
+      "input_extensions": [
+        "htm",
+        "json",
+        "pdf"
+      ],
+      "reference_extensions": [
+        "json"
+      ],
+      "input_files": [
+        {
+          "name": "aapl-2024-10k.pdf",
+          "format": "pdf",
+          "path": "input/aapl-2024-10k.pdf",
+          "description": "Cached Apple FY2024 Form 10-K PDF."
+        },
+        {
+          "name": "aapl-20240928.htm",
+          "format": "html",
+          "path": "input/aapl-20240928.htm",
+          "description": "SEC EDGAR HTML filing for the same 10-K."
+        },
+        {
+          "name": "output_schema.json",
+          "format": "json",
+          "path": "input/output_schema.json",
+          "description": "Required output keys and types."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "balance_sheet.json",
+          "format": "json",
+          "path": "output/balance_sheet.json",
+          "description": "Structured balance-sheet output produced by the agent."
+        }
+      ],
+      "agent_must_do_count": 3,
+      "llm_reasoning_level": "high",
+      "image_understanding_level": "none",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "pdf_extraction",
+        "financial_reasoning",
+        "structured_json"
+      ],
+      "taskops_stress": [
+        "source_grounding",
+        "artifact_contract"
+      ]
+    },
+    {
+      "task_path": "business_finance/sec_10k_financial_parsing",
+      "task_id": "business_finance/sec_10k_financial_parsing",
+      "title": "SEC 10-K Financial Parsing",
+      "summary": "Parse a fixed 100-filing SEC 10-K corpus into normalized financial JSON outputs, preserve the raw text evidence used for extraction, answer three cross-filing analytical questions, and rerun a fixed validation subset deterministically.",
+      "category": "business_finance",
+      "official_ale_unlicensed": true,
+      "split": "recommended_core",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Python",
+        "uv",
+        "pdfplumber",
+        "pypdf",
+        "pydantic"
+      ],
+      "input_extensions": [
+        "json",
+        "sh",
+        "txt"
+      ],
+      "reference_extensions": [
+        "json"
+      ],
+      "input_files": [
+        {
+          "name": "filings/",
+          "format": "Directory of PDFs",
+          "path": "input/filings/",
+          "description": "Fixed 100-filing SEC 10-K corpus."
+        },
+        {
+          "name": "manifest.json",
+          "format": "JSON",
+          "path": "input/filings/manifest.json",
+          "description": "Filing metadata covering ticker, company name, CIK, year, and accession information."
+        },
+        {
+          "name": "extraction_schema.json",
+          "format": "JSON Schema",
+          "path": "input/schema/extraction_schema.json",
+          "description": "Required normalized output schema for each filing."
+        },
+        {
+          "name": "normalization_rules.txt",
+          "format": "Text",
+          "path": "input/schema/normalization_rules.txt",
+          "description": "Formatting and unit rules for extracted financial values."
+        },
+        {
+          "name": "questions.json",
+          "format": "JSON",
+          "path": "input/questions.json",
+          "description": "Three analytical questions that must be answered from the extracted data."
+        },
+        {
+          "name": "validation/",
+          "format": "Directory of PDFs",
+          "path": "input/validation/",
+          "description": "Fixed 5-filing subset used for the deterministic rerun contract."
+        },
+        {
+          "name": "python_with_task_deps.sh",
+          "format": "Shell wrapper",
+          "path": "software/python_with_task_deps.sh",
+          "description": "Task-scoped Python entrypoint that installs and runs the staged runtime environment."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "extractions/",
+          "format": "Directory of JSON files",
+          "path": "output/extractions/",
+          "description": "One normalized extraction JSON per filing."
+        },
+        {
+          "name": "raw_extractions/",
+          "format": "Directory of text files",
+          "path": "output/raw_extractions/",
+          "description": "One raw text evidence file per filing."
+        },
+        {
+          "name": "qa_answers.json",
+          "format": "JSON",
+          "path": "output/qa_answers.json",
+          "description": "Answers for the three staged analytical questions."
+        },
+        {
+          "name": "run2_extractions/",
+          "format": "Directory of JSON files",
+          "path": "output/run2_extractions/",
+          "description": "Second-pass extraction JSONs for the fixed validation subset."
+        }
+      ],
+      "agent_must_do_count": 5,
+      "llm_reasoning_level": "high",
+      "image_understanding_level": "none",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "pdf_extraction",
+        "batch_processing",
+        "structured_json"
+      ],
+      "taskops_stress": [
+        "many_artifacts",
+        "deterministic_rerun",
+        "evidence_traceability"
+      ]
+    },
+    {
+      "task_path": "computing_math/cp_test_gen_1",
+      "task_id": "computing_math/cp_test_gen_1",
+      "title": "Competitive Programming Test Generator — Binary String Copying",
+      "summary": "Write gen.cpp, a C++ test case generator for the Binary String Copying problem that produces adversarial inputs to distinguish correct from incorrect solutions among 10 hidden submissions.",
+      "category": "computing_math",
+      "official_ale_unlicensed": true,
+      "split": "recommended_core",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "g++ (C++17)",
+        "bash"
+      ],
+      "input_extensions": [
+        "pdf",
+        "xlsx"
+      ],
+      "reference_extensions": [
+        "cpp"
+      ],
+      "input_files": [
+        {
+          "name": "Binary String Copying Problem Statement.pdf",
+          "format": "pdf",
+          "path": "input/Binary String Copying Problem Statement.pdf",
+          "description": "Full Codeforces problem statement with constraints."
+        },
+        {
+          "name": "Binary String Copying Inputs.xlsx",
+          "format": "xlsx",
+          "path": "input/Binary String Copying Inputs.xlsx",
+          "description": "Lists the 10 submission IDs (a through j)."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "gen.cpp",
+          "format": "cpp",
+          "path": "output/gen.cpp",
+          "description": "Agent-produced C++ test case generator."
+        }
+      ],
+      "agent_must_do_count": 5,
+      "llm_reasoning_level": "medium",
+      "image_understanding_level": "none",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "c_plus_plus",
+        "adversarial_testing",
+        "algorithmic_reasoning"
+      ],
+      "taskops_stress": [
+        "test_generation",
+        "validation_loop"
+      ]
+    },
+    {
+      "task_path": "computing_math/data_pipeline_etl_instance_1",
+      "task_id": "computing_math/data_pipeline_etl_instance_1",
+      "title": "Retail ETL Warehouse Cleanup",
+      "summary": "Build a cleaned SQLite star-schema warehouse plus two truthful JSON sidecars from messy retail CSV, JSON, and TSV source files on a Linux VM.",
+      "category": "computing_math",
+      "official_ale_unlicensed": true,
+      "split": "recommended_core",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Python 3.10",
+        "uv",
+        "pandas",
+        "SQLite"
+      ],
+      "input_extensions": [
+        "json",
+        "md",
+        "sh",
+        "tsv"
+      ],
+      "reference_extensions": [
+        "db",
+        "json"
+      ],
+      "input_files": [
+        {
+          "name": "task_prompt.md",
+          "format": "Markdown",
+          "path": "input/task_prompt.md",
+          "description": "Agent-visible task brief for the ETL workflow."
+        },
+        {
+          "name": "target_schema_spec.json",
+          "format": "JSON",
+          "path": "input/target_schema_spec.json",
+          "description": "Semantic warehouse schema contract and transformation requirements."
+        },
+        {
+          "name": "output_contract.json",
+          "format": "JSON",
+          "path": "input/output_contract.json",
+          "description": "Required deliverable filenames and JSON key structure."
+        },
+        {
+          "name": "raw_transactions",
+          "format": "CSV directory",
+          "path": "input/raw_transactions",
+          "description": "Six monthly transaction CSV files with schema drift and dirty rows."
+        },
+        {
+          "name": "customers.json",
+          "format": "JSON",
+          "path": "input/raw_customers/customers.json",
+          "description": "Retail customer records including unresolved ghost-customer rows."
+        },
+        {
+          "name": "product_catalog.tsv",
+          "format": "TSV",
+          "path": "input/raw_products/product_catalog.tsv",
+          "description": "Product catalog with supplier, category, and boolean normalization issues."
+        },
+        {
+          "name": "runtime_env",
+          "format": "uv Python environment",
+          "path": "input/runtime_env",
+          "description": "Optional locked Python environment staged for the agent."
+        },
+        {
+          "name": "python_etl_env.sh",
+          "format": "Shell wrapper",
+          "path": "software/python_etl_env.sh",
+          "description": "Optional helper wrapper that runs the staged Python environment and keeps scratch under `output/_runtime/`."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "warehouse.db",
+          "format": "SQLite database",
+          "path": "output/warehouse.db",
+          "description": "Cleaned star-schema warehouse deliverable."
+        },
+        {
+          "name": "data_quality_report.json",
+          "format": "JSON",
+          "path": "output/data_quality_report.json",
+          "description": "Structured ETL quality report with extraction, transformation, load, and quality-check sections."
+        },
+        {
+          "name": "warehouse_summary.json",
+          "format": "JSON",
+          "path": "output/warehouse_summary.json",
+          "description": "Structured warehouse summary with fact and dimension table metrics."
+        }
+      ],
+      "agent_must_do_count": 4,
+      "llm_reasoning_level": "medium",
+      "image_understanding_level": "none",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "etl",
+        "sqlite",
+        "python",
+        "tabular_data"
+      ],
+      "taskops_stress": [
+        "multi_artifact",
+        "truthful_sidecars",
+        "schema_contract"
+      ]
+    },
+    {
+      "task_path": "computing_math/k8s_migration_1",
+      "task_id": "computing_math/k8s_migration_1",
+      "title": "Docker Compose To Kubernetes Migration",
+      "summary": "Migrate a 3-tier Docker Compose web app (React, Flask, PostgreSQL) to a production-grade Helm chart on local Minikube, plus matching Terraform and a CI/CD pipeline; deliverables are scored on a weighted Helm/Terraform/CI/CD/verification rubric.",
+      "category": "computing_math",
+      "official_ale_unlicensed": true,
+      "split": "recommended_core",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Docker",
+        "Minikube",
+        "kubectl",
+        "Helm",
+        "Terraform",
+        "Trivy",
+        "Python"
+      ],
+      "input_extensions": [
+        "md",
+        "sql",
+        "txt",
+        "yml"
+      ],
+      "reference_extensions": [
+        "yml"
+      ],
+      "input_files": [
+        {
+          "name": "Architecture spec",
+          "format": "markdown",
+          "path": "input/requirements.md",
+          "description": "Detailed Kubernetes spec: replicas, resource limits, HPA, NetworkPolicy, probes, CI/CD stages."
+        },
+        {
+          "name": "Task README",
+          "format": "markdown",
+          "path": "input/README.md",
+          "description": "Public agent-facing task overview; lists deliverables and Minikube startup command without revealing hidden scoring details."
+        },
+        {
+          "name": "Docker Compose source",
+          "format": "yaml",
+          "path": "input/app/docker-compose.yml",
+          "description": "Three-service Compose definition (frontend:3000, backend:5000, db:5432) and dependency graph."
+        },
+        {
+          "name": "Frontend app",
+          "format": "directory",
+          "path": "input/app/frontend/",
+          "description": "React app with multi-stage Dockerfile (Node 18 build + Nginx serve)."
+        },
+        {
+          "name": "Backend app",
+          "format": "directory",
+          "path": "input/app/backend/",
+          "description": "Flask API source, Dockerfile, `requirements.txt`, and pytest tests."
+        },
+        {
+          "name": "Database init",
+          "format": "sql",
+          "path": "input/app/db/init.sql",
+          "description": "PostgreSQL schema plus seed rows used to validate the StatefulSet bring-up."
+        },
+        {
+          "name": "Software wrappers",
+          "format": "text",
+          "path": "software/README.txt",
+          "description": "Pinned task-local wrapper contract for `software/docker`, `software/minikube`, `software/kubectl`, `software/helm`, `software/terraform`, and `software/trivy`."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "Helm chart",
+          "format": "directory",
+          "path": "output/helm/webapp-chart/",
+          "description": "Chart with `Chart.yaml`, `values.yaml`, and templates that render the 8 required Kubernetes resources."
+        },
+        {
+          "name": "Terraform configuration",
+          "format": "directory",
+          "path": "output/terraform/",
+          "description": "Terraform files declaring providers, variables (with descriptions), outputs, and a Minikube resource using `cni=calico` and the required addons."
+        },
+        {
+          "name": "GitHub Actions pipeline",
+          "format": "yaml",
+          "path": "output/.github/workflows/deploy.yml",
+          "description": "Five-stage pipeline (build / test / security / deploy / verify)."
+        },
+        {
+          "name": "Cluster verification snapshots",
+          "format": "directory",
+          "path": "output/verification/",
+          "description": "`pods.txt`, `services.txt`, `helm-status.txt`, `health-check.txt` captured from the running Minikube cluster."
+        }
+      ],
+      "agent_must_do_count": 8,
+      "llm_reasoning_level": "high",
+      "image_understanding_level": "none",
+      "tool_installability": "moderate",
+      "capability_tags": [
+        "docker",
+        "kubernetes",
+        "terraform",
+        "ci_cd"
+      ],
+      "taskops_stress": [
+        "multi_stage_execution",
+        "external_tool_state",
+        "verification_snapshots"
+      ]
+    },
+    {
+      "task_path": "computing_math/k8s_payment_api_root_cause_analysis",
+      "task_id": "computing_math/k8s_payment_api_root_cause_analysis",
+      "title": "Kubernetes Payment API Root Cause Analysis",
+      "summary": "Analyze static Kubernetes incident artifacts for a flapping payment-api deployment and produce a grounded JSON root-cause report.",
+      "category": "computing_math",
+      "official_ale_unlicensed": true,
+      "split": "recommended_core",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Python"
+      ],
+      "input_extensions": [
+        "log",
+        "md",
+        "txt",
+        "yaml"
+      ],
+      "reference_extensions": [
+        "json"
+      ],
+      "input_files": [
+        {
+          "name": "task_prompt.md",
+          "format": "md",
+          "path": "input/task_prompt.md",
+          "description": "Sanitized task instructions."
+        },
+        {
+          "name": "cluster_state.txt",
+          "format": "txt",
+          "path": "input/cluster_state.txt",
+          "description": "Captured kubectl pod, event, top, deployment, and HPA output."
+        },
+        {
+          "name": "deployment.yaml",
+          "format": "yaml",
+          "path": "input/deployment.yaml",
+          "description": "Currently applied Deployment and HPA manifests."
+        },
+        {
+          "name": "failing_pod.log",
+          "format": "txt",
+          "path": "input/failing_pod.log",
+          "description": "Logs from a crashing payment-api pod across restart cycles."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "root_cause_analysis.json",
+          "format": "json",
+          "path": "output/root_cause_analysis.json",
+          "description": "Required root-cause analysis report."
+        }
+      ],
+      "agent_must_do_count": 4,
+      "llm_reasoning_level": "high",
+      "image_understanding_level": "none",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "incident_analysis",
+        "kubernetes",
+        "structured_json"
+      ],
+      "taskops_stress": [
+        "source_grounding",
+        "honest_diagnosis"
+      ]
+    },
+    {
+      "task_path": "computing_math/os_log_permission_guard_v1",
+      "task_id": "computing_math/os_log_permission_guard_v1",
+      "title": "OS Log Permission Guard",
+      "summary": "Safely update sandboxed Linux log-file permissions from a filesystem snapshot while preserving protected system-owner, active-writer, and non-log files.",
+      "category": "computing_math",
+      "official_ale_unlicensed": true,
+      "split": "recommended_core",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Bash",
+        "GNU coreutils",
+        "tar",
+        "Python"
+      ],
+      "input_extensions": [
+        "csv",
+        "gz",
+        "json"
+      ],
+      "reference_extensions": [
+        "json"
+      ],
+      "input_files": [
+        {
+          "name": "fs_snapshot.tar.gz",
+          "format": "tar.gz",
+          "path": "input/fs_snapshot.tar.gz",
+          "description": "Sandbox filesystem snapshot containing `/var/logs` files."
+        },
+        {
+          "name": "ownership.csv",
+          "format": "csv",
+          "path": "input/ownership.csv",
+          "description": "Owner/group metadata source of truth."
+        },
+        {
+          "name": "permissions.csv",
+          "format": "csv",
+          "path": "input/permissions.csv",
+          "description": "Initial file mode source of truth."
+        },
+        {
+          "name": "active_writers.json",
+          "format": "json",
+          "path": "input/active_writers.json",
+          "description": "Declarative list of files to treat as actively written and leave unchanged."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "final_state.json",
+          "format": "json",
+          "path": "output/final_state.json",
+          "description": "Required final metadata report."
+        },
+        {
+          "name": "sandbox_fs/",
+          "format": "directory",
+          "path": "output/sandbox_fs/",
+          "description": "Modified sandbox filesystem workspace."
+        }
+      ],
+      "agent_must_do_count": 4,
+      "llm_reasoning_level": "medium",
+      "image_understanding_level": "none",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "linux",
+        "bash",
+        "filesystem_safety"
+      ],
+      "taskops_stress": [
+        "safety_constraints",
+        "artifact_contract"
+      ]
+    },
+    {
+      "task_path": "computing_math/ranking_node_feature_parity_recovery_instance_1",
+      "task_id": "computing_math/ranking_node_feature_parity_recovery_instance_1",
+      "title": "Ranking Node Feature Parity Recovery",
+      "summary": "Recover a ranking-service node by rebuilding the feature manifest, deleting only safe rollback debris, and preserving required serving shards.",
+      "category": "computing_math",
+      "official_ale_unlicensed": true,
+      "split": "recommended_core",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Python 3",
+        "pytest"
+      ],
+      "input_extensions": [],
+      "reference_extensions": [],
+      "input_files": [],
+      "reference_files": [],
+      "agent_must_do_count": 0,
+      "llm_reasoning_level": "medium",
+      "image_understanding_level": "none",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "python",
+        "pytest",
+        "service_recovery"
+      ],
+      "taskops_stress": [
+        "debugging",
+        "safe_cleanup",
+        "regression_tests"
+      ]
+    },
+    {
+      "task_path": "computing_math/recsys_cold_start_instance_1",
+      "task_id": "computing_math/recsys_cold_start_instance_1",
+      "title": "Hybrid Recommender Cold-Start Benchmark",
+      "summary": "Build a warm-plus-cold hybrid recommender on Linux, using temporal splitting, metadata/embedding cold-start ranking, and a combined output contract.",
+      "category": "computing_math",
+      "official_ale_unlicensed": true,
+      "split": "recommended_core",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Python 3.10",
+        "uv",
+        "numpy",
+        "pandas",
+        "scikit-learn",
+        "scipy"
+      ],
+      "input_extensions": [
+        "csv",
+        "json"
+      ],
+      "reference_extensions": [
+        "csv",
+        "json"
+      ],
+      "input_files": [
+        {
+          "name": "interactions.csv",
+          "format": "csv",
+          "path": "input/interactions.csv",
+          "description": "Warm-item user interaction history with rating, watch percentage, and timestamps."
+        },
+        {
+          "name": "item_metadata.csv",
+          "format": "csv",
+          "path": "input/item_metadata.csv",
+          "description": "Item features plus the `is_cold_start` label that defines warm vs. cold membership."
+        },
+        {
+          "name": "item_embeddings.json",
+          "format": "json",
+          "path": "input/item_embeddings.json",
+          "description": "Dense item embeddings used by the cold-start model."
+        },
+        {
+          "name": "user_profiles.csv",
+          "format": "csv",
+          "path": "input/user_profiles.csv",
+          "description": "Per-user profile attributes available at solve time."
+        },
+        {
+          "name": "runtime_env",
+          "format": "directory",
+          "path": "input/runtime_env/",
+          "description": "Pinned task-local `uv` manifest and lockfile for the agent-visible Python runtime."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "predictions_warm.csv",
+          "format": "csv",
+          "path": "output/predictions_warm.csv",
+          "description": "Warm-item ranked predictions with columns `user_id,item_id,predicted_rating,rank`."
+        },
+        {
+          "name": "predictions_cold.csv",
+          "format": "csv",
+          "path": "output/predictions_cold.csv",
+          "description": "Cold-item ranked predictions with columns `user_id,item_id,predicted_score,rank`."
+        },
+        {
+          "name": "predictions_combined.csv",
+          "format": "csv",
+          "path": "output/predictions_combined.csv",
+          "description": "Combined warm-plus-cold ranking with truthful `item_type` labels."
+        },
+        {
+          "name": "evaluation_report.json",
+          "format": "json",
+          "path": "output/evaluation_report.json",
+          "description": "Reported warm, cold, and combined evaluation summary."
+        },
+        {
+          "name": "model_config.json",
+          "format": "json",
+          "path": "output/model_config.json",
+          "description": "Warm/cold model description, hybrid method, and split ratios."
+        }
+      ],
+      "agent_must_do_count": 5,
+      "llm_reasoning_level": "medium",
+      "image_understanding_level": "none",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "recommender_systems",
+        "python",
+        "machine_learning"
+      ],
+      "taskops_stress": [
+        "modeling_choices",
+        "evaluation_contract"
+      ]
+    },
+    {
+      "task_path": "computing_math/synthetic_causal_structure_inference",
+      "task_id": "computing_math/synthetic_causal_structure_inference",
+      "title": "Synthetic Causal Structure Inference",
+      "summary": "Inspect 40 synthetic tabular datasets, infer each dataset's causal scenario and graph structure, and submit one combined JSON benchmark prediction file.",
+      "category": "computing_math",
+      "official_ale_unlicensed": true,
+      "split": "recommended_core",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Python",
+        "pandas",
+        "numpy",
+        "statsmodels",
+        "scikit-learn",
+        "networkx"
+      ],
+      "input_extensions": [
+        "json",
+        "md"
+      ],
+      "reference_extensions": [
+        "json"
+      ],
+      "input_files": [
+        {
+          "name": "Task brief",
+          "format": "`.md`",
+          "path": "input/task_brief.md",
+          "description": "High-level wrapper with output path and runtime notes"
+        },
+        {
+          "name": "Benchmark prompt",
+          "format": "`.md`",
+          "path": "input/AGENT_PROMPT_FOR_SYNTHETIC_CAUSAL_TASK.md",
+          "description": "Detailed public benchmark instructions with allowed labels and schema example"
+        },
+        {
+          "name": "Sanitized manifest",
+          "format": "`.json`",
+          "path": "input/manifest.json",
+          "description": "Lists the benchmark name and every required sanitized dataset id"
+        },
+        {
+          "name": "Dataset bundle",
+          "format": "directory",
+          "path": "input/public/",
+          "description": "Forty dataset directories, each containing `synthetic.csv` and `task.json`"
+        },
+        {
+          "name": "Runtime manifest",
+          "format": "directory",
+          "path": "input/runtime_env/",
+          "description": "Optional staged Python environment manifest and lockfile"
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "Benchmark submission",
+          "format": "`.json`",
+          "path": "output/submission.json",
+          "description": "Combined predictions for all 40 datasets"
+        }
+      ],
+      "agent_must_do_count": 4,
+      "llm_reasoning_level": "high",
+      "image_understanding_level": "none",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "causal_inference",
+        "python",
+        "tabular_data"
+      ],
+      "taskops_stress": [
+        "repeated_analysis",
+        "structured_submission"
+      ]
+    },
+    {
+      "task_path": "education_info/homework_grading_numerical_pdes_instance_02",
+      "task_id": "education_info/homework_grading_numerical_pdes_instance_02",
+      "title": "Homework Grading Numerical PDEs 02",
+      "summary": "Grade five synthetic graduate numerical-PDE homework submissions from released materials, then emit scores, error tags, per-student feedback, a class summary, and a grader manifest.",
+      "category": "education_info",
+      "official_ale_unlicensed": true,
+      "split": "recommended_core",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Python"
+      ],
+      "input_extensions": [],
+      "reference_extensions": [],
+      "input_files": [
+        {
+          "name": "Released materials",
+          "format": "Markdown, PDF, JSON",
+          "path": "input/released/",
+          "description": "Problem set, rubric, solution key, protocol, and student submissions."
+        },
+        {
+          "name": "Starter scaffold",
+          "format": "Python + JSON",
+          "path": "input/starter_project/",
+          "description": "Benchmark-owned helper scaffold for output formatting and manifest writing."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "Required output bundle",
+          "format": "CSV, JSON, Markdown",
+          "path": "output/",
+          "description": "The final deliverables scored by the evaluator."
+        }
+      ],
+      "agent_must_do_count": 4,
+      "llm_reasoning_level": "high",
+      "image_understanding_level": "none",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "llm_reading",
+        "grading",
+        "numerical_methods"
+      ],
+      "taskops_stress": [
+        "rubric_following",
+        "evidence_traceability"
+      ]
+    },
+    {
+      "task_path": "education_info/moodle_gradebook_closeout_reconciliation",
+      "task_id": "education_info/moodle_gradebook_closeout_reconciliation",
+      "title": "Moodle Gradebook Closeout Reconciliation",
+      "summary": "Repair a broken offline Moodle-style course backup and rebuild the registrar plus OneRoster closeout exports from the repaired bundle.",
+      "category": "education_info",
+      "official_ale_unlicensed": true,
+      "split": "recommended_core",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Python",
+        "pandas",
+        "uv"
+      ],
+      "input_extensions": [
+        "md",
+        "py",
+        "sh"
+      ],
+      "reference_extensions": [
+        "csv",
+        "json",
+        "mbz",
+        "md",
+        "xml"
+      ],
+      "input_files": [
+        {
+          "name": "TASK_PROMPT.md",
+          "format": "Markdown",
+          "path": "input/TASK_PROMPT.md",
+          "description": "Agent-visible benchmark contract for the offline Moodle gradebook closeout workflow."
+        },
+        {
+          "name": "README.md",
+          "format": "Markdown",
+          "path": "input/README.md",
+          "description": "Top-level starter-bundle README from the normalized visible package."
+        },
+        {
+          "name": "bundle_lib.py",
+          "format": "Python",
+          "path": "input/bundle_lib.py",
+          "description": "Sanitized solve-time rebuild helper used by the bundled starter scripts."
+        },
+        {
+          "name": "starter_project",
+          "format": "Directory",
+          "path": "input/starter_project",
+          "description": "Starter bundle containing the broken Moodle-style backup, roster snapshot, policy docs, helper tools, and supporting artifacts."
+        },
+        {
+          "name": "runtime_env",
+          "format": "uv Python environment",
+          "path": "input/runtime_env",
+          "description": "Pinned agent-visible runtime metadata plus local wheelhouse; the wrapper installs from `input/runtime_env/wheels` and the staged manifest files remain for provenance."
+        },
+        {
+          "name": "python_with_task_deps.sh",
+          "format": "Shell wrapper",
+          "path": "software/python_with_task_deps.sh",
+          "description": "Agent-visible wrapper that runs the staged helper scripts with `/usr/bin/python` plus the local wheelhouse under `input/runtime_env/wheels`."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "corrected_course.mbz",
+          "format": "MBZ archive",
+          "path": "output/corrected_course.mbz",
+          "description": "Required repaired Moodle-style backup with only the editable contract files changed."
+        },
+        {
+          "name": "final_grade_export.csv",
+          "format": "CSV",
+          "path": "output/final_grade_export.csv",
+          "description": "Registrar export with exact final numeric and letter grades."
+        },
+        {
+          "name": "final_grade_export.xml",
+          "format": "XML",
+          "path": "output/final_grade_export.xml",
+          "description": "Registrar XML export rebuilt from the repaired backup."
+        },
+        {
+          "name": "audit_report.csv",
+          "format": "CSV",
+          "path": "output/audit_report.csv",
+          "description": "Audit report comparing course-closeout decisions at the student level."
+        },
+        {
+          "name": "audit_report.json",
+          "format": "JSON",
+          "path": "output/audit_report.json",
+          "description": "Required summary JSON for the rebuilt audit outputs."
+        },
+        {
+          "name": "exception_log.csv",
+          "format": "CSV",
+          "path": "output/exception_log.csv",
+          "description": "Expected manual-review exceptions produced from the repaired backup."
+        },
+        {
+          "name": "decisions.md",
+          "format": "Markdown",
+          "path": "output/decisions.md",
+          "description": "Required memo describing the repair decisions made during closeout."
+        },
+        {
+          "name": "oneroster_package",
+          "format": "Directory",
+          "path": "output/oneroster_package",
+          "description": "Required OneRoster CSV package containing manifest, users, classes, enrollments, line items, and results."
+        }
+      ],
+      "agent_must_do_count": 4,
+      "llm_reasoning_level": "medium",
+      "image_understanding_level": "none",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "data_reconciliation",
+        "python",
+        "education_records"
+      ],
+      "taskops_stress": [
+        "multi_artifact",
+        "consistency_checks"
+      ]
+    },
+    {
+      "task_path": "health_medicine/causal_ihdp_ite_estimation_6a_v1",
+      "task_id": "health_medicine/causal_ihdp_ite_estimation_6a_v1",
+      "title": "IHDP ITE Estimation",
+      "summary": "Build a reusable hidden-test inference script for the IHDP semi-synthetic benchmark that estimates individualized treatment effects and emits the required diagnostics artifacts.",
+      "category": "health_medicine",
+      "official_ale_unlicensed": true,
+      "split": "recommended_core",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Python",
+        "uv",
+        "bash",
+        "numpy",
+        "pandas",
+        "scipy",
+        "scikit-learn"
+      ],
+      "input_extensions": [
+        "csv",
+        "json",
+        "md"
+      ],
+      "reference_extensions": [
+        "csv",
+        "sh",
+        "txt"
+      ],
+      "input_files": [
+        {
+          "name": "task_brief.md",
+          "format": "Markdown",
+          "path": "input/task_brief.md",
+          "description": "Canonical agent-facing task brief with the exact `predict.sh` delivery contract."
+        },
+        {
+          "name": "task_readme.md",
+          "format": "Markdown",
+          "path": "input/task_readme.md",
+          "description": "Normalized solve-time instructions derived from the original submission materials."
+        },
+        {
+          "name": "feature_schema.json",
+          "format": "JSON",
+          "path": "input/feature_schema.json",
+          "description": "Covariate schema and feature metadata."
+        },
+        {
+          "name": "train.csv",
+          "format": "CSV",
+          "path": "input/train.csv",
+          "description": "IHDP observational training data with factual outcomes across 100 replications."
+        },
+        {
+          "name": "dummy_test/test.csv",
+          "format": "CSV",
+          "path": "input/dummy_test/test.csv",
+          "description": "Schema-and-order stand-in for the hidden official test set."
+        },
+        {
+          "name": "runtime_env/",
+          "format": "Python runtime bundle",
+          "path": "input/runtime_env/",
+          "description": "Pinned offline scientific-runtime manifest and wheelhouse exposed through `software/python_with_task_deps.sh`."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "predict.sh",
+          "format": "shell script",
+          "path": "output/predict.sh",
+          "description": "Primary solver-authored deliverable that the evaluator reruns on the hidden test."
+        },
+        {
+          "name": "output.csv",
+          "format": "CSV",
+          "path": "output/output.csv",
+          "description": "Required hidden-test prediction table with columns `replication,unit_id,mu0_hat,mu1_hat,ite_hat`."
+        },
+        {
+          "name": "model_selection.csv",
+          "format": "CSV",
+          "path": "output/artifacts/model_selection.csv",
+          "description": "Required model-selection artifact with at least two candidate rows and exactly one selected row."
+        },
+        {
+          "name": "overlap_diagnostics.csv",
+          "format": "CSV",
+          "path": "output/artifacts/overlap_diagnostics.csv",
+          "description": "Required overlap-diagnostics artifact covering all 100 replications."
+        },
+        {
+          "name": "subgroup_ite.csv",
+          "format": "CSV",
+          "path": "output/artifacts/subgroup_ite.csv",
+          "description": "Required subgroup treatment-effect summary artifact."
+        },
+        {
+          "name": "run_notes.txt",
+          "format": "text",
+          "path": "output/artifacts/run_notes.txt",
+          "description": "Required narrative artifact documenting method, validation, overlap, and subgroup analysis."
+        }
+      ],
+      "agent_must_do_count": 4,
+      "llm_reasoning_level": "medium",
+      "image_understanding_level": "none",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "causal_inference",
+        "python",
+        "machine_learning"
+      ],
+      "taskops_stress": [
+        "hidden_test_script",
+        "modeling_choices"
+      ]
+    },
+    {
+      "task_path": "health_medicine/epidemiology_forecast",
+      "task_id": "health_medicine/epidemiology_forecast",
+      "title": "Epidemiology Forecast",
+      "summary": "Reproduce the 2021-22 CDC FluSight influenza-hospitalization end-of-season scorecard and per-cell scoring table from staged forecast and truth data.",
+      "category": "health_medicine",
+      "official_ale_unlicensed": true,
+      "split": "recommended_core",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Python",
+        "uv",
+        "pandas",
+        "numpy",
+        "pyarrow"
+      ],
+      "input_extensions": [
+        "csv",
+        "parquet"
+      ],
+      "reference_extensions": [
+        "csv"
+      ],
+      "input_files": [
+        {
+          "name": "forecasts_2021-22.parquet",
+          "format": "Parquet",
+          "path": "input/forecasts_2021-22.parquet",
+          "description": "Long-format quantile forecasts for the 2021-22 FluSight hospitalization round."
+        },
+        {
+          "name": "truth_2021-22.csv",
+          "format": "CSV",
+          "path": "input/truth_2021-22.csv",
+          "description": "Observed weekly hospitalization counts aligned to the scored target_end_date values."
+        },
+        {
+          "name": "runtime_env/",
+          "format": "uv Python environment manifest",
+          "path": "input/runtime_env/",
+          "description": "Agent-installable dependency manifest for the scoring workflow."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "submission.csv",
+          "format": "CSV",
+          "path": "output/submission.csv",
+          "description": "Required model-level scorecard output."
+        },
+        {
+          "name": "per_cell_scores.csv",
+          "format": "CSV",
+          "path": "output/per_cell_scores.csv",
+          "description": "Required per-cell scoring output."
+        }
+      ],
+      "agent_must_do_count": 4,
+      "llm_reasoning_level": "medium",
+      "image_understanding_level": "none",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "forecasting",
+        "python",
+        "public_health"
+      ],
+      "taskops_stress": [
+        "reproduction",
+        "scoring_table"
+      ]
+    },
+    {
+      "task_path": "health_medicine/nhanes_confounder_sensitivity_analysis",
+      "task_id": "health_medicine/nhanes_confounder_sensitivity_analysis",
+      "title": "NHANES Confounder Sensitivity Analysis",
+      "summary": "Rebuild a clinical sensitivity-analysis cohort from staged NHANES tables and produce the required participant subset plus logistic-regression summary outputs.",
+      "category": "health_medicine",
+      "official_ale_unlicensed": true,
+      "split": "recommended_core",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Python",
+        "uv",
+        "pandas",
+        "NumPy",
+        "SciPy",
+        "statsmodels"
+      ],
+      "input_extensions": [
+        "csv",
+        "json",
+        "txt"
+      ],
+      "reference_extensions": [
+        "csv"
+      ],
+      "input_files": [
+        {
+          "name": "task_spec.txt",
+          "format": "text",
+          "path": "input/task_spec.txt",
+          "description": "Agent-visible benchmark brief describing the cohort construction and model requirements."
+        },
+        {
+          "name": "output_contract.json",
+          "format": "json",
+          "path": "input/output_contract.json",
+          "description": "Exact output schema, formulas, and metadata contract for the two required CSV files."
+        },
+        {
+          "name": "3.demographics_clean_cycle1.csv",
+          "format": "csv",
+          "path": "input/3.demographics_clean_cycle1.csv",
+          "description": "Demographics table keyed by `SEQN_new` and `SDDSRVYR`."
+        },
+        {
+          "name": "7.questionnaire_clean_cycle1.csv",
+          "format": "csv",
+          "path": "input/7.questionnaire_clean_cycle1.csv",
+          "description": "Questionnaire table containing ulcer and chronic-condition fields."
+        },
+        {
+          "name": "8.response_clean_cycle1.csv",
+          "format": "csv",
+          "path": "input/8.response_clean_cycle1.csv",
+          "description": "Response table containing BMI and `LBXHP1` serology values."
+        },
+        {
+          "name": "5.medications_clean_cycle1.csv",
+          "format": "csv",
+          "path": "input/5.medications_clean_cycle1.csv",
+          "description": "Medication exposure table with free-text `RXDDRUG` entries."
+        },
+        {
+          "name": "runtime_env",
+          "format": "uv Python environment",
+          "path": "input/runtime_env",
+          "description": "Pinned optional Python runtime manifest for pandas/numpy/scipy/statsmodels."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "hpyl_nsaid_subset.csv",
+          "format": "csv",
+          "path": "output/hpyl_nsaid_subset.csv",
+          "description": "Required participant-level analytic subset with exact column order."
+        },
+        {
+          "name": "sensitivity_summary.csv",
+          "format": "csv",
+          "path": "output/sensitivity_summary.csv",
+          "description": "Required three-row logistic-regression summary with exact formulas and metadata fields."
+        }
+      ],
+      "agent_must_do_count": 4,
+      "llm_reasoning_level": "high",
+      "image_understanding_level": "none",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "clinical_statistics",
+        "python",
+        "tabular_data"
+      ],
+      "taskops_stress": [
+        "cohort_construction",
+        "sensitivity_analysis"
+      ]
+    },
+    {
+      "task_path": "legal/agora_governance_classify_instance_1",
+      "task_id": "legal/agora_governance_classify_instance_1",
+      "title": "AGORA AI Governance Document Classification",
+      "summary": "Classify three cached AI governance documents across legislative status, technical scope, and AI lifecycle stages with verbatim evidence and a gap analysis.",
+      "category": "legal",
+      "official_ale_unlicensed": true,
+      "split": "recommended_core",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Python 3.14.3"
+      ],
+      "input_extensions": [
+        "json",
+        "md"
+      ],
+      "reference_extensions": [
+        "json"
+      ],
+      "input_files": [
+        {
+          "name": "task_spec.md",
+          "format": "Markdown",
+          "path": "input/task_spec.md",
+          "description": "Agent-visible task instructions and required output schema."
+        },
+        {
+          "name": "taxonomy_and_instructions.md",
+          "format": "Markdown",
+          "path": "input/taxonomy_and_instructions.md",
+          "description": "Sanitized taxonomy definitions and public task instructions."
+        },
+        {
+          "name": "document_index.json",
+          "format": "JSON",
+          "path": "input/document_index.json",
+          "description": "Cached document titles, source URLs, and local text filenames."
+        },
+        {
+          "name": "documents",
+          "format": "Text directory",
+          "path": "input/documents",
+          "description": "Cached public document text for AGORA IDs 768, 1293, and 2047."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "agent_output.json",
+          "format": "JSON",
+          "path": "output/agent_output.json",
+          "description": "Required deliverable containing document classifications, evidence quotes, cross-document matrix, and gap analysis."
+        }
+      ],
+      "agent_must_do_count": 4,
+      "llm_reasoning_level": "high",
+      "image_understanding_level": "none",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "llm_reading",
+        "legal_classification",
+        "governance"
+      ],
+      "taskops_stress": [
+        "rubric_following",
+        "source_grounding"
+      ]
+    },
+    {
+      "task_path": "life_sciences/gene_expression_differential_analysis_functional_enrichment_analysis_1",
+      "task_id": "life_sciences/gene_expression_differential_analysis_functional_enrichment_analysis_1",
+      "title": "BRCA Differential Expression And KEGG Enrichment Analysis",
+      "summary": "Analyze a staged BRCA count matrix and metadata on Ubuntu, run pydeseq2 differential expression for tumor versus normal, and generate paired KEGG enrichment outputs.",
+      "category": "life_sciences",
+      "official_ale_unlicensed": true,
+      "split": "recommended_core",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Python",
+        "pydeseq2",
+        "gseapy"
+      ],
+      "input_extensions": [
+        "json",
+        "toml",
+        "tsv",
+        "txt"
+      ],
+      "reference_extensions": [
+        "tsv"
+      ],
+      "input_files": [
+        {
+          "name": "BRCA_selected_samples_counts.tsv",
+          "format": "TSV",
+          "path": "input/BRCA_selected_samples_counts.tsv",
+          "description": "BRCA count matrix with leading `gene_id` column."
+        },
+        {
+          "name": "BRCA_selected_samples_metadata.tsv",
+          "format": "TSV",
+          "path": "input/BRCA_selected_samples_metadata.tsv",
+          "description": "Sample metadata with leading `sample_id` column and `condition` labels."
+        },
+        {
+          "name": "analysis_spec.json",
+          "format": "JSON",
+          "path": "input/analysis_spec.json",
+          "description": "Visible analysis contract for contrast and significance rule."
+        },
+        {
+          "name": "output_contract.json",
+          "format": "JSON",
+          "path": "input/output_contract.json",
+          "description": "Visible output schema for the DEG and KEGG enrichment tables."
+        },
+        {
+          "name": "task_description.txt",
+          "format": "TXT",
+          "path": "input/task_description.txt",
+          "description": "Staged task brief aligned with the benchmark prompt."
+        },
+        {
+          "name": "gene_id_gene_symbol_map.tsv",
+          "format": "TSV",
+          "path": "input/gene_id_gene_symbol_map.tsv",
+          "description": "Visible gene-id to gene-symbol mapping in the public count-matrix order."
+        },
+        {
+          "name": "enrichment_config.json",
+          "format": "JSON",
+          "path": "input/enrichment_config.json",
+          "description": "Visible enrichment target configuration for `KEGG_2021_Human` on `Human`."
+        },
+        {
+          "name": "runtime_env/pyproject.toml",
+          "format": "TOML",
+          "path": "input/runtime_env/pyproject.toml",
+          "description": "Pinned runtime dependency manifest for the agent's own environment."
+        },
+        {
+          "name": "requirements.txt",
+          "format": "TXT",
+          "path": "input/requirements.txt",
+          "description": "Convenience requirements mirror of the staged runtime manifest."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "BRCA_deseq2_results.tsv",
+          "format": "TSV",
+          "path": "output/BRCA_deseq2_results.tsv",
+          "description": "Per-gene DESeq2 results with the required numeric columns plus `gene` and `significant`."
+        },
+        {
+          "name": "BRCA_upregulated_genes_kegg_enrichment.tsv",
+          "format": "TSV",
+          "path": "output/BRCA_upregulated_genes_kegg_enrichment.tsv",
+          "description": "KEGG enrichment results for the upregulated gene set."
+        },
+        {
+          "name": "BRCA_downregulated_genes_kegg_enrichment.tsv",
+          "format": "TSV",
+          "path": "output/BRCA_downregulated_genes_kegg_enrichment.tsv",
+          "description": "KEGG enrichment results for the downregulated gene set."
+        }
+      ],
+      "agent_must_do_count": 7,
+      "llm_reasoning_level": "medium",
+      "image_understanding_level": "none",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "bioinformatics",
+        "python",
+        "statistics"
+      ],
+      "taskops_stress": [
+        "pipeline_execution",
+        "multi_artifact"
+      ]
+    },
+    {
+      "task_path": "life_sciences/genomic_interval_processing_1",
+      "task_id": "life_sciences/genomic_interval_processing_1",
+      "title": "ENCODE CTCF Union Peak Intervals",
+      "summary": "Process three ENCODE CTCF narrowPeak BED files into the requested non-overlapping union peak set, with a reproducible command log and summary counts.",
+      "category": "life_sciences",
+      "official_ale_unlicensed": true,
+      "split": "recommended_core",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "BEDTools",
+        "GNU sort",
+        "Python"
+      ],
+      "input_extensions": [
+        "bed",
+        "txt"
+      ],
+      "reference_extensions": [
+        "bed",
+        "json",
+        "sh"
+      ],
+      "input_files": [
+        {
+          "name": "ENCFF483KVM.bed",
+          "format": "BED/narrowPeak",
+          "path": "input/ENCFF483KVM.bed",
+          "description": "ENCODE CTCF narrowPeak-style interval file."
+        },
+        {
+          "name": "ENCFF511NNV.bed",
+          "format": "BED/narrowPeak",
+          "path": "input/ENCFF511NNV.bed",
+          "description": "ENCODE CTCF narrowPeak-style interval file."
+        },
+        {
+          "name": "ENCFF758CQW.bed",
+          "format": "BED/narrowPeak",
+          "path": "input/ENCFF758CQW.bed",
+          "description": "ENCODE CTCF narrowPeak-style interval file."
+        },
+        {
+          "name": "operation_specification.txt",
+          "format": "txt",
+          "path": "input/operation_specification.txt",
+          "description": "Concise interval-operation specification supplied with the task."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "union_peaks.bed",
+          "format": "BED",
+          "path": "output/union_peaks.bed",
+          "description": "Agent-produced final 3-column union peak BED."
+        },
+        {
+          "name": "commands.sh",
+          "format": "sh",
+          "path": "output/commands.sh",
+          "description": "Agent-produced command log or script for reproducing the interval operation."
+        },
+        {
+          "name": "summary.json",
+          "format": "json",
+          "path": "output/summary.json",
+          "description": "Agent-produced input/output interval count summary."
+        }
+      ],
+      "agent_must_do_count": 4,
+      "llm_reasoning_level": "medium",
+      "image_understanding_level": "none",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "bioinformatics",
+        "bedtools",
+        "python"
+      ],
+      "taskops_stress": [
+        "cli_pipeline",
+        "deterministic_output"
+      ]
+    },
+    {
+      "task_path": "life_sciences/tcga_brca_deg_analysis",
+      "task_id": "life_sciences/tcga_brca_deg_analysis",
+      "title": "TCGA BRCA Differential Expression Analysis",
+      "summary": "Analyze TCGA Breast Cancer expression and clinical matrices to identify genes differentially expressed between primary tumor and solid tissue normal samples.",
+      "category": "life_sciences",
+      "official_ale_unlicensed": true,
+      "split": "recommended_core",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Python",
+        "pandas",
+        "scipy",
+        "statsmodels",
+        "matplotlib",
+        "scikit-learn"
+      ],
+      "input_extensions": [
+        "csv",
+        "gz",
+        "json",
+        "toml",
+        "tsv",
+        "txt"
+      ],
+      "reference_extensions": [
+        "csv",
+        "json",
+        "png",
+        "txt"
+      ],
+      "input_files": [
+        {
+          "name": "expression_matrix.tsv.gz",
+          "format": "TSV.GZ",
+          "path": "input/expression_matrix.tsv.gz",
+          "description": "Gene-by-sample TCGA BRCA expression matrix."
+        },
+        {
+          "name": "clinical_matrix.tsv",
+          "format": "TSV",
+          "path": "input/clinical_matrix.tsv",
+          "description": "Clinical sample annotations including the `sample_type` field used for tumor-normal grouping."
+        },
+        {
+          "name": "truth_breast_degs.csv",
+          "format": "CSV",
+          "path": "input/truth_breast_degs.csv",
+          "description": "Benchmark gene list used by the task workflow."
+        },
+        {
+          "name": "runtime_env/pyproject.toml",
+          "format": "TOML",
+          "path": "input/runtime_env/pyproject.toml",
+          "description": "Python dependency manifest for the analysis environment."
+        },
+        {
+          "name": "run_manifest_template.json",
+          "format": "JSON",
+          "path": "input/run_manifest_template.json",
+          "description": "Template for the required output manifest."
+        },
+        {
+          "name": "output_requirements.txt",
+          "format": "TXT",
+          "path": "input/output_requirements.txt",
+          "description": "Lists the required output artifact names and content expectations."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "sample_summary.txt",
+          "format": "TXT",
+          "path": "output/sample_summary.txt",
+          "description": "Summary of matched tumor and normal samples."
+        },
+        {
+          "name": "pca_plot.png",
+          "format": "PNG",
+          "path": "output/pca_plot.png",
+          "description": "PCA visualization of the matched expression data."
+        },
+        {
+          "name": "deg_results_all.csv",
+          "format": "CSV",
+          "path": "output/deg_results_all.csv",
+          "description": "Complete per-gene differential expression results."
+        },
+        {
+          "name": "deg_results_significant.csv",
+          "format": "CSV",
+          "path": "output/deg_results_significant.csv",
+          "description": "Significant DEGs satisfying the required fold-change and adjusted-p-value thresholds."
+        },
+        {
+          "name": "volcano_plot.png",
+          "format": "PNG",
+          "path": "output/volcano_plot.png",
+          "description": "Volcano plot for the differential expression run."
+        },
+        {
+          "name": "benchmark_summary.csv",
+          "format": "CSV",
+          "path": "output/benchmark_summary.csv",
+          "description": "Precision, recall, and F1 benchmark summary."
+        },
+        {
+          "name": "run_manifest.json",
+          "format": "JSON",
+          "path": "output/run_manifest.json",
+          "description": "Run metadata including dataset, comparison, thresholds, sample counts, and completion status."
+        }
+      ],
+      "agent_must_do_count": 9,
+      "llm_reasoning_level": "medium",
+      "image_understanding_level": "none",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "bioinformatics",
+        "python",
+        "statistics"
+      ],
+      "taskops_stress": [
+        "analysis_report",
+        "structured_outputs"
+      ]
+    },
+    {
+      "task_path": "physical_sciences/exact_diag_heisenberg_j1j2",
+      "task_id": "physical_sciences/exact_diag_heisenberg_j1j2",
+      "title": "Exact Diagonalization of the J1-J2 Heisenberg Model",
+      "summary": "Implement an exact-diagonalization workflow for a frustrated 4x4 spin-1/2 J1-J2 Heisenberg antiferromagnet and produce ground-state, correlation, and dynamical-structure-factor outputs.",
+      "category": "physical_sciences",
+      "official_ale_unlicensed": true,
+      "split": "recommended_core",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Python 3.10",
+        "NumPy",
+        "SciPy"
+      ],
+      "input_extensions": [
+        "md"
+      ],
+      "reference_extensions": [
+        "json",
+        "npz"
+      ],
+      "input_files": [
+        {
+          "name": "Problem specification",
+          "format": "Markdown",
+          "path": "input/problem_spec.md",
+          "description": "Visible task statement, output contract, and scientific constraints for the 4x4 J1-J2 exact-diagonalization benchmark."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "ground_state.npz",
+          "format": "NumPy archive",
+          "path": "output/ground_state.npz",
+          "description": "Tier 1 energies, spin gap, and normalized ground-state vector."
+        },
+        {
+          "name": "correlations.npz",
+          "format": "NumPy archive",
+          "path": "output/correlations.npz",
+          "description": "Tier 2 correlation matrix, q-points, and static structure factor."
+        },
+        {
+          "name": "dynamical_sf.npz",
+          "format": "NumPy archive",
+          "path": "output/dynamical_sf.npz",
+          "description": "Tier 3 dynamical structure factor plus accepted Lanczos reproducibility coefficients."
+        },
+        {
+          "name": "results.json",
+          "format": "JSON",
+          "path": "output/results.json",
+          "description": "Structured scalar summary for all three benchmark tiers."
+        }
+      ],
+      "agent_must_do_count": 5,
+      "llm_reasoning_level": "high",
+      "image_understanding_level": "none",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "physics",
+        "python",
+        "numerical_linear_algebra"
+      ],
+      "taskops_stress": [
+        "scientific_computation",
+        "validation_loop"
+      ]
+    },
+    {
+      "task_path": "social_sciences/atwood_2022_measles_vaccine_reproduction",
+      "task_id": "social_sciences/atwood_2022_measles_vaccine_reproduction",
+      "title": "Atwood 2022 Measles Vaccine Coefficient Reproduction",
+      "summary": "Reproduce the six Table 2 vaccination-effect coefficient estimates from Atwood (2022) using the published paper, appendix, and archived replication package.",
+      "category": "social_sciences",
+      "official_ale_unlicensed": true,
+      "split": "recommended_core",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Python",
+        "PDF tools",
+        "unzip"
+      ],
+      "input_extensions": [
+        "md",
+        "pdf",
+        "zip"
+      ],
+      "reference_extensions": [
+        "csv",
+        "json",
+        "txt"
+      ],
+      "input_files": [
+        {
+          "name": "TASK_PROMPT.md",
+          "format": "md",
+          "path": "input/TASK_PROMPT.md",
+          "description": "Detailed solve-time instructions and output contract."
+        },
+        {
+          "name": "paper.pdf",
+          "format": "pdf",
+          "path": "input/paper.pdf",
+          "description": "Published Atwood (2022) paper."
+        },
+        {
+          "name": "paper-online-appendix.pdf",
+          "format": "pdf",
+          "path": "input/paper-online-appendix.pdf",
+          "description": "Online appendix for the paper."
+        },
+        {
+          "name": "replication_package.zip",
+          "format": "zip",
+          "path": "input/replication_package.zip",
+          "description": "Archived author replication package."
+        },
+        {
+          "name": "output_schemas",
+          "format": "json/csv",
+          "path": "input/output_schemas/",
+          "description": "Schemas and sanitized examples for required deliverables."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "execution_log.txt",
+          "format": "txt",
+          "path": "output/execution_log.txt",
+          "description": "Execution or inspection log."
+        },
+        {
+          "name": "repair_log.json",
+          "format": "json",
+          "path": "output/repair_log.json",
+          "description": "Non-substantive repair log."
+        },
+        {
+          "name": "paper_coefficients.json",
+          "format": "json",
+          "path": "output/paper_coefficients.json",
+          "description": "Extracted paper estimates."
+        },
+        {
+          "name": "code_coefficients.json",
+          "format": "json",
+          "path": "output/code_coefficients.json",
+          "description": "Code-generated or package-derived estimates."
+        },
+        {
+          "name": "coefficient_matches.csv",
+          "format": "csv",
+          "path": "output/coefficient_matches.csv",
+          "description": "Per-outcome rounded comparison."
+        },
+        {
+          "name": "verdict.json",
+          "format": "json",
+          "path": "output/verdict.json",
+          "description": "Matched count, rate, and verdict label."
+        }
+      ],
+      "agent_must_do_count": 4,
+      "llm_reasoning_level": "high",
+      "image_understanding_level": "none",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "paper_reproduction",
+        "pdf_reading",
+        "python"
+      ],
+      "taskops_stress": [
+        "source_grounding",
+        "reproduction"
+      ]
+    },
+    {
+      "task_path": "transport_safety/abm_hangzhou_metro",
+      "task_id": "transport_safety/abm_hangzhou_metro",
+      "title": "Hangzhou Metro Passenger Simulation",
+      "summary": "Simulate one operating day of Hangzhou metro passenger trips from staged AFC demand, GIS, and network configuration inputs.",
+      "category": "transport_safety",
+      "official_ale_unlicensed": true,
+      "split": "recommended_core",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Python",
+        "uv",
+        "geopandas",
+        "matplotlib",
+        "networkx",
+        "numpy",
+        "pandas"
+      ],
+      "input_extensions": [
+        "csv",
+        "json"
+      ],
+      "reference_extensions": [
+        "csv",
+        "txt"
+      ],
+      "input_files": [
+        {
+          "name": "afc_hangzhou.csv",
+          "format": "CSV",
+          "path": "input/data/afc_hangzhou.csv",
+          "description": "Visible AFC trip records for one operating day."
+        },
+        {
+          "name": "hangzhou_lines.json",
+          "format": "GeoJSON",
+          "path": "input/gis/hangzhou_lines.json",
+          "description": "Hangzhou metro line geometry features."
+        },
+        {
+          "name": "hangzhou_stations.json",
+          "format": "GeoJSON",
+          "path": "input/gis/hangzhou_stations.json",
+          "description": "Hangzhou metro station features."
+        },
+        {
+          "name": "station_sequence.csv",
+          "format": "CSV",
+          "path": "input/network_config/station_sequence.csv",
+          "description": "Ordered station sequences by line and direction."
+        },
+        {
+          "name": "operation_parameters.json",
+          "format": "JSON",
+          "path": "input/network_config/operation_parameters.json",
+          "description": "Simulation and routing parameters for the metro task."
+        },
+        {
+          "name": "runtime_env/",
+          "format": "uv Python environment manifest",
+          "path": "input/runtime_env/",
+          "description": "Agent-installable dependency manifest for optional Python tooling."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "passenger_records.csv",
+          "format": "CSV",
+          "path": "output/passenger_records.csv",
+          "description": "Required passenger-trip simulation output."
+        },
+        {
+          "name": "validation_report.txt",
+          "format": "text",
+          "path": "output/validation_report.txt",
+          "description": "Required summary-metric report derived from the candidate CSV."
+        }
+      ],
+      "agent_must_do_count": 4,
+      "llm_reasoning_level": "medium",
+      "image_understanding_level": "basic_geospatial",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "geospatial",
+        "simulation",
+        "python"
+      ],
+      "taskops_stress": [
+        "simulation_pipeline",
+        "multi_artifact"
+      ]
+    },
+    {
+      "task_path": "transport_safety/capacitated_vehicle_routing_problems",
+      "task_id": "transport_safety/capacitated_vehicle_routing_problems",
+      "title": "Capacitated Vehicle Routing Problems",
+      "summary": "Generate VRPLIB-format near-best-known CVRP solutions for three selected benchmark instances.",
+      "category": "transport_safety",
+      "official_ale_unlicensed": true,
+      "split": "recommended_core",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Python",
+        "uv",
+        "PyVRP",
+        "VRPLIB"
+      ],
+      "input_extensions": [
+        "md",
+        "sh"
+      ],
+      "reference_extensions": [],
+      "input_files": [
+        {
+          "name": "Problem specification",
+          "format": "Markdown",
+          "path": "input/problem_spec.md",
+          "description": "Public benchmark instructions and output contract."
+        },
+        {
+          "name": "Selected CVRP instances",
+          "format": "VRPLIB",
+          "path": "input/instances/",
+          "description": "Three benchmark instances that must all be solved."
+        },
+        {
+          "name": "Runtime manifest",
+          "format": "pyproject.toml + uv.lock",
+          "path": "input/runtime_env/",
+          "description": "Pinned Python runtime manifest for task-local solving."
+        },
+        {
+          "name": "Python wrapper",
+          "format": "shell script",
+          "path": "software/python_cvrp_env.sh",
+          "description": "Runs Python with the staged runtime and keeps the resolved environment under output."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "Solution outputs",
+          "format": "VRPLIB .sol",
+          "path": "output/solutions/",
+          "description": "Exactly three required route files, one per selected instance."
+        }
+      ],
+      "agent_must_do_count": 3,
+      "llm_reasoning_level": "medium",
+      "image_understanding_level": "none",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "optimization",
+        "python",
+        "routing"
+      ],
+      "taskops_stress": [
+        "optimization_loop",
+        "structured_submission"
+      ]
+    },
+    {
+      "task_path": "health_medicine/scene3_skullstrip_qc",
+      "task_id": "health_medicine/scene3_skullstrip_qc",
+      "title": "Scene3 Skullstrip QC",
+      "summary": "Review skull-stripping results for the staged brain MRI case and record the required QC decision.",
+      "category": "health_medicine",
+      "official_ale_unlicensed": true,
+      "split": "visual_free_extension",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Python"
+      ],
+      "input_extensions": [
+        "gz",
+        "json"
+      ],
+      "reference_extensions": [
+        "json"
+      ],
+      "input_files": [
+        {
+          "name": "T1w.nii.gz",
+          "format": "NIfTI volume",
+          "path": "input/T1w.nii.gz",
+          "description": "Anatomical image used for skull-strip QC."
+        },
+        {
+          "name": "cand1_loose_mask.nii.gz",
+          "format": "NIfTI mask",
+          "path": "input/cand1_loose_mask.nii.gz",
+          "description": "Deliberately loose candidate."
+        },
+        {
+          "name": "cand2_mid_mask.nii.gz",
+          "format": "NIfTI mask",
+          "path": "input/cand2_mid_mask.nii.gz",
+          "description": "Mid-volume candidate; this is the hidden correct choice."
+        },
+        {
+          "name": "cand3_strict_mask.nii.gz",
+          "format": "NIfTI mask",
+          "path": "input/cand3_strict_mask.nii.gz",
+          "description": "Deliberately strict candidate."
+        },
+        {
+          "name": "cand1_loose_brain.nii.gz / cand2_mid_brain.nii.gz / cand3_strict_brain.nii.gz",
+          "format": "NIfTI volume",
+          "path": "input/*.nii.gz",
+          "description": "Auxiliary extracted-brain views for faster qualitative comparison."
+        },
+        {
+          "name": "candidates.json",
+          "format": "JSON",
+          "path": "input/candidates.json",
+          "description": "Candidate manifest copied from the raw bundle."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "qc_result.json",
+          "format": "JSON",
+          "path": "output/qc_result.json",
+          "description": "Must include chosen_mask, verdict, and a non-empty rationale."
+        }
+      ],
+      "agent_must_do_count": 4,
+      "llm_reasoning_level": "medium",
+      "image_understanding_level": "domain_image",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "medical_image_qc",
+        "python",
+        "nifti"
+      ],
+      "taskops_stress": [
+        "visual_qc",
+        "honest_decision"
+      ]
+    },
+    {
+      "task_path": "health_medicine/wsi_tumor_localization_1",
+      "task_id": "health_medicine/wsi_tumor_localization_1",
+      "title": "Whole-Slide Tumor Localization",
+      "summary": "Navigate a CAMELYON16 whole-slide pathology image with provided OpenSlide helper tools and output a structured tumor localization result.",
+      "category": "health_medicine",
+      "official_ale_unlicensed": true,
+      "split": "visual_free_extension",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Python",
+        "OpenSlide",
+        "NumPy",
+        "Pillow",
+        "Shapely"
+      ],
+      "input_extensions": [
+        "py",
+        "tif",
+        "toml"
+      ],
+      "reference_extensions": [
+        "json"
+      ],
+      "input_files": [
+        {
+          "name": "tumor_001.tif",
+          "format": "BigTIFF whole-slide image",
+          "path": "input/tumor_001.tif",
+          "description": "CAMELYON16 sentinel lymph node whole-slide image."
+        },
+        {
+          "name": "wsi_tools.py",
+          "format": "Python module",
+          "path": "input/wsi_tools.py",
+          "description": "OpenSlide-based helper class for slide metadata, thumbnails, region reads, and tissue masks."
+        },
+        {
+          "name": "pyproject.toml",
+          "format": "Python project manifest",
+          "path": "input/runtime_env/pyproject.toml",
+          "description": "Optional agent-runtime dependency manifest."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "prediction.json",
+          "format": "JSON",
+          "path": "output/prediction.json",
+          "description": "Variant-specific tumor localization output."
+        }
+      ],
+      "agent_must_do_count": 5,
+      "llm_reasoning_level": "medium",
+      "image_understanding_level": "domain_image",
+      "tool_installability": "moderate",
+      "capability_tags": [
+        "pathology_image",
+        "python",
+        "openslide"
+      ],
+      "taskops_stress": [
+        "large_image_navigation",
+        "structured_output"
+      ]
+    },
+    {
+      "task_path": "life_sciences/cell_tracking_instance_1",
+      "task_id": "life_sciences/cell_tracking_instance_1",
+      "title": "Cell Tracking Instance 1",
+      "summary": "Segment and track cells across a 30-frame fluorescence microscopy sequence and export Cell Tracking Challenge style masks and lineage metadata.",
+      "category": "life_sciences",
+      "official_ale_unlicensed": true,
+      "split": "visual_free_extension",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Python",
+        "NumPy",
+        "Pillow",
+        "tifffile"
+      ],
+      "input_extensions": [
+        "lock",
+        "toml"
+      ],
+      "reference_extensions": [
+        "txt"
+      ],
+      "input_files": [
+        {
+          "name": "t000.tif ... t029.tif",
+          "format": "TIFF image sequence",
+          "path": "input/01/",
+          "description": "Thirty grayscale 1024 by 1024 fluorescence microscopy frames."
+        },
+        {
+          "name": "pyproject.toml",
+          "format": "Python project manifest",
+          "path": "input/runtime_env/pyproject.toml",
+          "description": "Optional agent-runtime dependency manifest for common image-processing libraries."
+        },
+        {
+          "name": "uv.lock",
+          "format": "uv lockfile",
+          "path": "input/runtime_env/uv.lock",
+          "description": "Optional lockfile for reproducible agent-runtime dependency installation."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "mask000.tif ... mask029.tif",
+          "format": "labeled TIFF masks",
+          "path": "output/",
+          "description": "Required tracking mask sequence."
+        },
+        {
+          "name": "res_track.txt",
+          "format": "Cell Tracking Challenge lineage text",
+          "path": "output/res_track.txt",
+          "description": "Required track lineage table."
+        }
+      ],
+      "agent_must_do_count": 5,
+      "llm_reasoning_level": "medium",
+      "image_understanding_level": "domain_image",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "microscopy",
+        "segmentation",
+        "tracking",
+        "python"
+      ],
+      "taskops_stress": [
+        "image_pipeline",
+        "sequence_artifacts"
+      ]
+    },
+    {
+      "task_path": "life_sciences/merfish_image_decoding_segmentation_1",
+      "task_id": "life_sciences/merfish_image_decoding_segmentation_1",
+      "title": "Single-FOV MERFISH Image Decoding And Cell Segmentation",
+      "summary": "Run the full MERFISH image-analysis pipeline on one field of view of U2OS cells: decode transcripts against a 130-gene MHD4 codebook, segment nuclei from the DAPI tile, assign transcripts to cells, and emit a cell-by-gene count matrix plus quality metrics.",
+      "category": "life_sciences",
+      "official_ale_unlicensed": true,
+      "split": "visual_free_extension",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Python",
+        "uv",
+        "starfish",
+        "Cellpose",
+        "PyTorch"
+      ],
+      "input_extensions": [
+        "json",
+        "lock",
+        "sh",
+        "tiff",
+        "toml",
+        "txt"
+      ],
+      "reference_extensions": [
+        "csv",
+        "json",
+        "tiff"
+      ],
+      "input_files": [
+        {
+          "name": "Starfish experiment manifest",
+          "format": "json",
+          "path": "input/experiment.json",
+          "description": "Top-level starfish Experiment v5.0.0 manifest with per-(round, channel) `scale_factors`."
+        },
+        {
+          "name": "MHD4 codebook",
+          "format": "json",
+          "path": "input/codebook.json",
+          "description": "140 targets (130 real genes + 10 `Blank-*` controls) with 16-bit MHD4 codewords."
+        },
+        {
+          "name": "Primary images manifest",
+          "format": "json",
+          "path": "input/primary_images.json",
+          "description": "Starfish top-level primary-images manifest trimmed to `fov_000` only."
+        },
+        {
+          "name": "Nuclei images manifest",
+          "format": "json",
+          "path": "input/nuclei.json",
+          "description": "Starfish top-level nuclei manifest trimmed to `fov_000` only."
+        },
+        {
+          "name": "Primary FOV tile manifest",
+          "format": "json",
+          "path": "input/primary_images-fov_000.json",
+          "description": "Per-FOV manifest enumerating 16 primary tiles for (round 0-7, channel 0-1)."
+        },
+        {
+          "name": "Nuclei FOV tile manifest",
+          "format": "json",
+          "path": "input/nuclei-fov_000.json",
+          "description": "Per-FOV manifest for the single DAPI tile."
+        },
+        {
+          "name": "Primary fluorescence tiles",
+          "format": "tiff",
+          "path": "input/primary_images-fov_000-Z0-H<h>-C<c>.tiff",
+          "description": "16 pre-registered 2048x2048 tiles (h in 0..7, c in 0..1) to decode against the codebook."
+        },
+        {
+          "name": "DAPI nuclear stain tile",
+          "format": "tiff",
+          "path": "input/nuclei-fov_000-Z0-H0-C0.tiff",
+          "description": "Single 2048x2048 DAPI image used to segment nuclei."
+        },
+        {
+          "name": "Task brief",
+          "format": "txt",
+          "path": "input/task_description.txt",
+          "description": "Evaluator-safe solve-time brief (no thresholds, no gold reference)."
+        },
+        {
+          "name": "Output contract",
+          "format": "json",
+          "path": "input/output_contract.json",
+          "description": "Required output paths, columns, and dtypes; no per-gene expected counts."
+        },
+        {
+          "name": "Runtime dependency manifest",
+          "format": "toml",
+          "path": "input/runtime_env/pyproject.toml",
+          "description": "Pinned dependencies (`starfish==0.3.4`, `cellpose==3.1.1`, `torch`, NumPy/SciPy/pandas/scikit-image) for `uv sync --frozen`."
+        },
+        {
+          "name": "Runtime dependency lockfile",
+          "format": "toml",
+          "path": "input/runtime_env/uv.lock",
+          "description": "Resolved uv lockfile (87 packages against Python 3.11) consumed by `uv sync --frozen` and the `software/merfish_runtime.sh` wrapper."
+        },
+        {
+          "name": "Python version pin",
+          "format": "text",
+          "path": "input/runtime_env/python-version",
+          "description": "Python version pin (`3.11`) consumed by `uv`."
+        },
+        {
+          "name": "Canonical Python entry point",
+          "format": "bash",
+          "path": "software/merfish_runtime.sh",
+          "description": "Wrapper that behaves like a Python interpreter; forwards args to `uv run --frozen --project input/runtime_env/pyproject.toml python \"$@\"` with the agent-scoped uv env under `output/.agent_runtime_env/`."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "Decoded transcripts",
+          "format": "csv",
+          "path": "output/decoded_transcripts.csv",
+          "description": "Columns `gene, x, y, is_exact, total_magnitude`; one row per threshold-filtered decoded spot in pixel coordinates."
+        },
+        {
+          "name": "Cell segmentation mask",
+          "format": "tiff",
+          "path": "output/segmentation.tiff",
+          "description": "2048x2048 `uint16` labeled mask with background=0 and contiguous positive cell labels."
+        },
+        {
+          "name": "Cell-by-gene count matrix",
+          "format": "csv",
+          "path": "output/cell_by_gene.csv",
+          "description": "Leading `cell_id` column followed by the 130 real genes in codebook order; integer counts."
+        },
+        {
+          "name": "Quality metrics",
+          "format": "json",
+          "path": "output/quality_metrics.json",
+          "description": "Scalar keys `total_decoded_transcripts`, `blank_rate`, `exact_match_fraction`, `n_cells`, `assigned_fraction`, `mean_transcripts_per_cell`."
+        }
+      ],
+      "agent_must_do_count": 7,
+      "llm_reasoning_level": "high",
+      "image_understanding_level": "domain_image",
+      "tool_installability": "moderate",
+      "capability_tags": [
+        "microscopy",
+        "segmentation",
+        "bioimage_pipeline",
+        "python"
+      ],
+      "taskops_stress": [
+        "pipeline_execution",
+        "multi_artifact",
+        "quality_metrics"
+      ]
+    },
+    {
+      "task_path": "life_sciences/yeast_colony_detection",
+      "task_id": "life_sciences/yeast_colony_detection",
+      "title": "Yeast Colony Detection",
+      "summary": "Detect red yeast colonies in a masked agar-plate image and export a colony count plus centroid measurement table.",
+      "category": "life_sciences",
+      "official_ale_unlicensed": true,
+      "split": "visual_free_extension",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "CellProfiler 4.2.8",
+        "Python",
+        "NumPy"
+      ],
+      "input_extensions": [
+        "jpg",
+        "png"
+      ],
+      "reference_extensions": [
+        "csv",
+        "json"
+      ],
+      "input_files": [
+        {
+          "name": "6-1.jpg",
+          "format": "JPEG",
+          "path": "input/6-1.jpg",
+          "description": "Yeast agar plate image."
+        },
+        {
+          "name": "PlateTemplate.png",
+          "format": "PNG",
+          "path": "input/PlateTemplate.png",
+          "description": "Aligned plate-region mask."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "answer.json",
+          "format": "JSON",
+          "path": "output/answer.json",
+          "description": "Machine-readable colony count."
+        },
+        {
+          "name": "RedColonies.csv",
+          "format": "CSV",
+          "path": "output/measurements/RedColonies.csv",
+          "description": "Detected red-colony measurement table with centroid columns."
+        }
+      ],
+      "agent_must_do_count": 5,
+      "llm_reasoning_level": "low",
+      "image_understanding_level": "basic_image",
+      "tool_installability": "moderate",
+      "capability_tags": [
+        "image_counting",
+        "cellprofiler",
+        "python"
+      ],
+      "taskops_stress": [
+        "image_pipeline",
+        "measurement_table"
+      ]
+    },
+    {
+      "task_path": "physical_sciences/hst_acs_wfc_visit_reduction",
+      "task_id": "physical_sciences/hst_acs_wfc_visit_reduction",
+      "title": "HST ACS/WFC Visit Reduction",
+      "summary": "Implement a reproducible Python reduction workflow for synthetic HST ACS/WFC imaging visits, including masking, alignment, drizzling, source photometry, astrometry, and QC reporting.",
+      "category": "physical_sciences",
+      "official_ale_unlicensed": true,
+      "split": "visual_free_extension",
+      "vm_snapshot": "cpu-free-ubuntu",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Python",
+        "NumPy",
+        "Astropy",
+        "Photutils"
+      ],
+      "input_extensions": [
+        "md",
+        "py",
+        "toml"
+      ],
+      "reference_extensions": [
+        "csv",
+        "json",
+        "md",
+        "py"
+      ],
+      "input_files": [
+        {
+          "name": "Task prompt",
+          "format": "`.md`",
+          "path": "input/TASK_PROMPT.md",
+          "description": "Sanitized agent-facing instructions and required output contract."
+        },
+        {
+          "name": "Starter reducer",
+          "format": "`.py`",
+          "path": "input/starter_project/reduce_visit.py",
+          "description": "Incomplete baseline implementation that parses the CLI and writes placeholder outputs."
+        },
+        {
+          "name": "Visible ACS/WFC visit",
+          "format": "FITS, CSV, JSON",
+          "path": "input/acs_visit_f606w_lockman/",
+          "description": "Visible synthetic visit with exposure images, DQ masks, association table, calibration context, and Gaia-like astrometric anchors."
+        },
+        {
+          "name": "Runtime manifest",
+          "format": "`.toml`",
+          "path": "input/runtime_env/pyproject.toml",
+          "description": "Declares the Python packages available through the task runtime helper."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "Reducer source",
+          "format": "`.py`",
+          "path": "output/reduce_visit.py",
+          "description": "Reusable command-line reduction implementation."
+        },
+        {
+          "name": "Drizzled mosaic",
+          "format": "`.csv`",
+          "path": "output/<visit_id>/drizzled_image.csv",
+          "description": "Required 72x72 count-rate mosaic for each evaluated visit."
+        },
+        {
+          "name": "Source catalog",
+          "format": "`.csv`",
+          "path": "output/<visit_id>/source_catalog.csv",
+          "description": "Required source table with the exact task schema."
+        },
+        {
+          "name": "Alignment solution",
+          "format": "`.csv`",
+          "path": "output/<visit_id>/alignment_solution.csv",
+          "description": "Required per-exposure shift and alignment-quality table."
+        },
+        {
+          "name": "Photometry QC",
+          "format": "`.json`",
+          "path": "output/<visit_id>/photometry_qc.json",
+          "description": "Required visit-level quality-control metrics."
+        },
+        {
+          "name": "Reduction report",
+          "format": "`.md`",
+          "path": "output/<visit_id>/reduction_report.md",
+          "description": "Required concise methods report."
+        }
+      ],
+      "agent_must_do_count": 5,
+      "llm_reasoning_level": "high",
+      "image_understanding_level": "domain_image",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "astronomy_image",
+        "python",
+        "astropy"
+      ],
+      "taskops_stress": [
+        "scientific_pipeline",
+        "qc_report"
+      ]
+    },
+    {
+      "task_path": "visual_media/inkscape_cultural_poster_design",
+      "task_id": "visual_media/inkscape_cultural_poster_design",
+      "title": "Inkscape Cultural Poster Design",
+      "summary": "Create a single-page cultural exhibition poster in Inkscape on Windows using a staged design brief, a source photo, and a structured instance specification, then save the final poster as an SVG.",
+      "category": "visual_media",
+      "official_ale_unlicensed": true,
+      "split": "visual_free_extension",
+      "vm_snapshot": "cpu-free",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "Inkscape"
+      ],
+      "input_extensions": [
+        "jpg",
+        "txt"
+      ],
+      "reference_extensions": [
+        "svg"
+      ],
+      "input_files": [
+        {
+          "name": "design_brief.txt",
+          "format": "text",
+          "path": "input/design_brief.txt",
+          "description": "Natural-language poster brief describing the exhibition theme and design direction."
+        },
+        {
+          "name": "instance_spec.txt",
+          "format": "text",
+          "path": "input/instance_spec.txt",
+          "description": "Structured instance specification defining canvas size, orientation, title, subtitle, and required phrase constraints."
+        },
+        {
+          "name": "installation_photo_01.jpg",
+          "format": "JPEG image",
+          "path": "input/installation_photo_01.jpg",
+          "description": "Source installation photo that must be incorporated into the poster design."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "poster.svg",
+          "format": "SVG",
+          "path": "output/poster.svg",
+          "description": "Final poster deliverable authored in Inkscape."
+        }
+      ],
+      "agent_must_do_count": 4,
+      "llm_reasoning_level": "medium",
+      "image_understanding_level": "basic_image",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "visual_design",
+        "svg",
+        "image_layout"
+      ],
+      "taskops_stress": [
+        "creative_artifact",
+        "spec_following"
+      ]
+    },
+    {
+      "task_path": "visual_media/video_storyboard_001",
+      "task_id": "visual_media/video_storyboard_001",
+      "title": "Pre-Restoration Shot Log: Vintage Animation Remaster",
+      "summary": "Produce a temporal per-shot continuity log (DOCX) for a public-domain 1931 Yasuji Murata animation as the archival-documentation pass that precedes a restoration / remaster pipeline. The log must preserve the factual visual record the downstream QC team's fact-check brief depends on, without the archivist answering or editorializing.",
+      "category": "visual_media",
+      "official_ale_unlicensed": true,
+      "split": "visual_free_extension",
+      "vm_snapshot": "cpu-free",
+      "machine_type": "c4-standard-4",
+      "timeout_seconds": 7200,
+      "software": [
+        "VLC",
+        "Word processor (any DOCX-capable editor)",
+        "Python"
+      ],
+      "input_extensions": [
+        "docx",
+        "ogv"
+      ],
+      "reference_extensions": [
+        "docx"
+      ],
+      "input_files": [
+        {
+          "name": "Yasuji_Murata-_A_Wolf_is_a_Wolf_(1931).ogv",
+          "format": "ogv",
+          "path": "input/Yasuji_Murata-_A_Wolf_is_a_Wolf_(1931).ogv",
+          "description": "Input short video to inspect."
+        },
+        {
+          "name": "video_storyboard_qa_set.docx",
+          "format": "docx",
+          "path": "input/video_storyboard_qa_set.docx",
+          "description": "Question set that defines which factual details the storyboard must preserve."
+        }
+      ],
+      "reference_files": [
+        {
+          "name": "storyboard.docx",
+          "format": "docx",
+          "path": "output/storyboard.docx",
+          "description": "Required storyboard document."
+        }
+      ],
+      "agent_must_do_count": 4,
+      "llm_reasoning_level": "high",
+      "image_understanding_level": "video_understanding",
+      "tool_installability": "easy",
+      "capability_tags": [
+        "video_understanding",
+        "docx",
+        "archival_logging"
+      ],
+      "taskops_stress": [
+        "temporal_review",
+        "structured_report"
+      ]
+    }
+  ]
+}

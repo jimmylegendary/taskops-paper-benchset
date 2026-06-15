@@ -63,9 +63,17 @@ or an equivalent OpenAI-compatible endpoint.
    - Expected result: lift may appear more in restartability, reporting, and
      false-completion reduction than in raw final score.
 
+7. ALE-FreeEasy-35
+   - Role: broad real-work hidden-reference oracle without licensed-tool
+     confounds.
+   - Expected result: medium-to-high lift on tasks with many artifacts, source
+     grounding, visual/domain-image interpretation, and structured output
+     contracts.
+
 ## Extension Suite
 
-- Agents' Last Exam: broad real-work hidden-reference oracle.
+- Agents' Last Exam full set: broad real-work hidden-reference oracle after
+  environment and cost issues are solved.
 - TheAgentCompany: workplace and multi-app coordination.
 - Vending-Bench: long-term coherence over many simulated business turns.
 - SWE-bench Multilingual: cross-language issue repair after harness pinning.
@@ -118,6 +126,7 @@ SWE-bench Pro: 20 tasks
 Terminal-Bench 2.0: 15 tasks
 SkillsBench: 15 tasks
 NL2Repo: 10 tasks
+ALE-FreeEasy-35: 12 tasks
 HCAST public / RE-Bench: 3-5 long tasks
 ```
 
@@ -145,4 +154,3 @@ This campaign should be scored by:
 - native benchmark results for the task nodes
 - TaskOps orchestration metrics for the campaign
 - whether a final answer is delivered only after all required evidence exists
-

@@ -56,6 +56,14 @@
       "paper_role": "Primary time-horizon benchmark",
       "expected_taskops_lift": "medium_to_high",
       "hypothesis": "TaskOps should primarily improve completion honesty, restartability, and progress reporting on 1h to 8h+ tasks."
+    },
+    {
+      "type_id": "broad_real_work_free_easy_oracle",
+      "label": "Broad real-work tasks with free/easy tools",
+      "benchmark_ids": ["agents_last_exam_free_easy_subset"],
+      "paper_role": "Primary broad real-work oracle after basic adapters are ready",
+      "expected_taskops_lift": "medium_to_high",
+      "hypothesis": "TaskOps should improve broad ALE-style work when tasks require source reading, structured artifacts, multi-step pipelines, and visual/domain-image interpretation, without confounding results with licensed tool availability."
     }
   ],
   "extension_suite": [
@@ -125,4 +133,3 @@
     }
   ]
 }
-

@@ -56,6 +56,13 @@
       "primary_readout": "Does TaskOps improve time-horizon honesty and restartability?"
     },
     {
+      "benchmark_id": "agents_last_exam_free_easy_subset",
+      "target_task_count": 12,
+      "difficulty_policy": "sample from recommended_core first, then add 2-3 visual_free_extension tasks for image-understanding coverage",
+      "budget_tier": "medium",
+      "primary_readout": "Does TaskOps improve ALE-style broad real-work tasks without licensed-tool or GPU-license confounds?"
+    },
+    {
       "benchmark_id": "re_bench",
       "target_task_count": 2,
       "difficulty_policy": "choose the most affordable 8-hour-class environments first",
@@ -71,9 +78,9 @@
       "terminal_bench_2": 10,
       "skillsbench": 10,
       "nl2repo": 5,
+      "agents_last_exam_free_easy_subset": 5,
       "hcast_public_or_re_bench": 5
     },
     "note": "Use this if budget blocks the full pilot."
   }
 }
-

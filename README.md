@@ -39,6 +39,7 @@ whether the work was managed honestly and recoverably.
 | Repo-from-scratch generation | NL2Repo | Tests architecture, multi-file implementation, packaging, and installability. |
 | Human-calibrated autonomy | HCAST public subset | Calibrated by human time horizons; useful for 1h to 8h+ claims. |
 | AI R&D long work | RE-Bench | 8-hour expert-attempt ML research engineering tasks. |
+| Broad real-work, free/easy tools | ALE free/easy subset | ALE tasks filtered to avoid licensed commercial tools and emphasize LLM/data/code/image work. |
 | Broad real-work oracle | Agents' Last Exam | Diverse economically valuable tasks with hidden-reference grading. |
 | Workplace/multi-app tasks | TheAgentCompany | Simulated software-company workflows across apps and communication. |
 | Long-term coherence | Vending-Bench | Multi-turn business operation over long horizons. |
@@ -49,6 +50,7 @@ whether the work was managed honestly and recoverably.
 - `data/qwen3_6_27b_reported_results.json` - reported Qwen3.6-27B benchmark scores.
 - `data/taskops_paper_suite.json` - selected paper suite, hypotheses, and metrics.
 - `data/pilot_plan.json` - cost-controlled first experiment plan.
+- `data/ale_free_easy_subset.json` - curated Agents' Last Exam subset metadata.
 - `docs/experimental-design.md` - paper-facing experiment plan.
 - `docs/research-notes.md` - source notes and caveats.
 - `scripts/validate.py` - manifest validation.

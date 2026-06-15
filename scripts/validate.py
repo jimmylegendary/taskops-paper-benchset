@@ -34,6 +34,7 @@ def main() -> int:
     qwen_doc = load_json(DATA / "qwen3_6_27b_reported_results.json")
     suite_doc = load_json(DATA / "taskops_paper_suite.json")
     pilot_doc = load_json(DATA / "pilot_plan.json")
+    ale_subset_doc = load_json(DATA / "ale_free_easy_subset.json")
 
     sources = sources_doc.get("sources", [])
     require(isinstance(sources, list) and sources, "benchmark_sources.json has no sources")
@@ -78,9 +79,27 @@ def main() -> int:
         require(benchmark_id in source_id_set, f"pilot references unknown benchmark {benchmark_id}")
         require(item.get("target_task_count", 0) > 0, f"pilot {benchmark_id} has invalid target count")
 
+    ale_tasks = ale_subset_doc.get("tasks", [])
+    require(isinstance(ale_tasks, list) and ale_tasks, "ALE subset has no tasks")
+    ale_task_paths = [task.get("task_path") for task in ale_tasks]
+    require(len(ale_task_paths) == len(set(ale_task_paths)), "ALE subset has duplicate task paths")
+    allowed_splits = {"recommended_core", "visual_free_extension"}
+    allowed_installability = {"easy", "moderate"}
+    for task in ale_tasks:
+        task_path = task.get("task_path")
+        require(task_path, "ALE subset task missing task_path")
+        require(task.get("official_ale_unlicensed") is True, f"{task_path} is not marked official unlicensed")
+        require(task.get("split") in allowed_splits, f"{task_path} has invalid split")
+        require(task.get("tool_installability") in allowed_installability, f"{task_path} has invalid installability")
+        require(task.get("vm_snapshot") in {"cpu-free-ubuntu", "cpu-free"}, f"{task_path} uses disallowed VM snapshot")
+        require(task.get("software"), f"{task_path} missing software")
+        require(task.get("capability_tags"), f"{task_path} missing capability tags")
+        require(task.get("taskops_stress"), f"{task_path} missing TaskOps stress tags")
+
     print("ok: benchmark manifests are valid")
     print(f"ok: {len(source_ids)} benchmark sources")
     print(f"ok: {len(qwen_results)} Qwen3.6-27B reported result rows")
+    print(f"ok: {len(ale_tasks)} ALE free/easy subset tasks")
     return 0
 
 

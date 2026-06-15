@@ -129,6 +129,20 @@
       "reproducibility_note": "Infra-heavy: VM images, GCP setup, Windows/licensed/GPU tasks. Start with selected Linux deterministic tasks."
     },
     {
+      "id": "agents_last_exam_free_easy_subset",
+      "name": "Agents' Last Exam free/easy TaskOps subset",
+      "url": "https://github.com/rdi-berkeley/agents-last-exam",
+      "source_type": "curated_subset",
+      "taskops_type": "broad_real_work_free_easy_oracle",
+      "public_harness": true,
+      "public_tasks": "curated_from_public_unlicensed_subset",
+      "primary_metric": "task_specific_hidden_reference_score_plus_taskops_orchestration_score",
+      "representativeness": "Curated from ALE's official unlicensed overall selection to focus on LLM reading/reasoning, data/code work, and free-tool image-understanding tasks that are practical for a cost-controlled TaskOps paper experiment.",
+      "qwen3_6_27b_report_status": "not_found_for_subset",
+      "qwen3_6_27b_reported_score": null,
+      "reproducibility_note": "See data/ale_free_easy_subset.json. The subset excludes licensed commercial tools, GPU-license snapshots, and heavy professional GUI workflows."
+    },
+    {
       "id": "the_agent_company",
       "name": "TheAgentCompany",
       "url": "https://github.com/TheAgentCompany/TheAgentCompany",
@@ -186,4 +200,3 @@
     }
   ]
 }
-
